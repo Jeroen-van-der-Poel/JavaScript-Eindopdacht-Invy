@@ -1,0 +1,39 @@
+:root {
+    --grid-cols: 1;
+    --grid-rows: 1;
+}
+
+#grid {
+    display: grid;
+    grid-gap: 0em;
+    grid-template-rows: repeat(var(--grid-rows), 1fr);
+    grid-template-columns: repeat(var(--grid-cols), 1fr);
+}
+
+.grid-item {
+    padding: 1em;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#col1{
+    border: 1px solid black;
+    padding: 0;
+}
+
+
+.container p{
+    padding-left: 10px;
+}
+
+.container h3{
+    padding-left: 10px;
+}
+
+.titleHead{
+    padding-left: 25px;
+}
+
+#Header{
+    text-align: center;
+}
