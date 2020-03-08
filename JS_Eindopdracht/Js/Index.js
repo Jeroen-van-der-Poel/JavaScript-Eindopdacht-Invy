@@ -56,79 +56,52 @@ const tierlantinProducts = [{
 
 
 // =========== render products ============= //
-const $productList = document.getElementById('products')
+const productdiv = document.getElementById('HiddenProducts');
+let Dropcount = 0;
 
-function renderClothesListModule() {
-    const clothes = productController.getClothingProducts();
-
-    $productList.innerHTML = '';
-
-    for (let i = 0; i < clothes.length; i++){
-        let option = document.createElement('option');
-        option.setAttribute('draggable', 'true');
-        option.text = option.value = `${clothes[i]['name']}`;
-        $productList.add(option, 0);
-    }
-}
-
-function renderTierlantinListModule() {
-    const tierlantin = productController.getTierlantinProducts();
-
-    $productList.innerHTML = '';
-
-    for (let i = 0; i < tierlantin.length; i++){
-        let option = document.createElement('option');
-        option.text = option.value = `${tierlantin[i]['name']}`;
-        $productList.add(option, 0);
-    }
-}
-
-function renderDecorationListModule() {
-    const decoration = productController.getDecorationProducts();
-
-    $productList.innerHTML = '';
-
-    for (let i = 0; i < decoration.length; i++){
-        let option = document.createElement('div');
-        option.text = option.value = `${decoration[i]['name']}`;
-        $productList.add(option, 0);
-    }
-}
 
 // =========== Page changes ============= //
+let products = null;
 const header = document.getElementById("Header");
 const clothing = document.getElementById('Clothing');
 const tierlantin = document.getElementById('Tierlantin');
 const decoration = document.getElementById('Decoration');
 
 function switchClothes() {
+    products = clothesProducts;
     header.innerHTML = "Kleding";
     grid.innerHTML = '';
     makeRows(15, 15);
     clothing.style.color = "green";
     tierlantin.style.color = "black";
     decoration.style.color = "black";
-    renderClothesListModule()
+    productdiv.innerHTML = "";
+    Dropcount = 0;
 }
 
 function switchDecoration() {
+    products = decorationProducts;
     header.innerHTML = "Decoratie";
     grid.innerHTML = '';
     makeRows(15, 15);
     clothing.style.color = "black";
     tierlantin.style.color = "black";
     decoration.style.color = "green";
-    renderDecorationListModule();
+    productdiv.innerHTML = "";
+    Dropcount = 0;
 }
 
 function switchTierlantin() {
+    productdiv.innerHTML = "";
+    products = tierlantinProducts;
     header.innerHTML = "Tierlantijn";
     grid.innerHTML = '';
     clothing.style.color = "black";
     tierlantin.style.color = "green";
     decoration.style.color = "black";
     makeRows(15, 15);
-    renderTierlantinListModule();
+    productdiv.innerHTML = "";
+    Dropcount = 0;
 }
 
 // =========== Product view ============= //
@@ -147,14 +120,25 @@ class ProductController {
         this.productsView.init();
     }
 
-    getClothingProducts(){
-        return clothesProducts;
+}
+
+// =========== show products ============= //
+function ShowProducts() {
+    productdiv.innerHTML = "";
+    if(Dropcount == 0){
+        for(let i = 0; i < products.length; i++){
+            let divi = document.createElement('div');
+            divi.setAttribute('draggable', 'true');
+            divi.text = divi.value = `${products[i]['name']}`;
+            divi.innerHTML = `${products[i]['name']}`;
+            divi.style.border= "1px solid black";
+            productdiv.appendChild(divi).className = "draggable-product";
+            Dropcount = 1;
+        }
     }
-    getDecorationProducts(){
-        return decorationProducts;
-    }
-    getTierlantinProducts(){
-        return tierlantinProducts;
+    else{
+        productdiv.innerHTML = "";
+        Dropcount = 0;
     }
 }
 
@@ -162,48 +146,4 @@ class ProductController {
 const productsView = new ProductsView();
 const productController = new ProductController(productsView);
 productController.init();
-
-// =========== drag and drop ============= //
-const empties = document.querySelectorAll('.empty');
-const draggable = document.querySelector('option');
-
-draggable.addEventListener('dragstart', dragStart);
-draggable.addEventListener('dragend', dragEnd);
-
-// drag
-function dragStart() {
-    this.className += ' hold';
-    draggable.style.position = 'absolute';
-    setTimeout(() => (this.className = 'invisible'), 0);
-}
-
-function dragEnd() {
-    this.className = 'fill'
-}
-
-//empties
-for(const empty of empties){
-    empty.addEventListener('dragover', dragOver);
-    empty.addEventListener('dragenter', dragEnter);
-    empty.addEventListener('dragleave', dragLeave);
-    empty.addEventListener('drop', dragDrop);
-}
-
-function dragOver(e) {
-    e.preventDefault();
-}
-
-function dragEnter(e) {
-    e.preventDefault();
-    this.className += ' hovered';
-}
-
-function dragLeave() {
-    this.className = 'empty';
-}
-
-function dragDrop() {
-    this.className = 'empty';
-    this.append(draggable);
-}
 
