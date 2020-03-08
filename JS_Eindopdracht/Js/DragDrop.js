@@ -13,7 +13,7 @@ function dragStart() {
 }
 
 function dragEnd() {
-    this.className = 'fill'
+    this.className = 'grid-item fill'
 }
 
 //empties
@@ -34,10 +34,13 @@ function dragEnter(e) {
 }
 
 function dragLeave() {
-    this.className = 'empty';
+    this.className = 'grid-item empty';
 }
 
 function dragDrop() {
-    this.className = 'empty';
+    let html = document.querySelector('.draggable-product').innerHTML;
+    this.className = 'grid-item empty';
     this.append(draggable);
+    this.innerHTML = html;
+    console.log(html);
 }
