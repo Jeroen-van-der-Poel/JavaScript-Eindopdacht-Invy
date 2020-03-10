@@ -38,9 +38,10 @@ function dragLeave() {
 }
 
 function dragDrop() {
-    let html = document.querySelector('.draggable-product').innerHTML;
-    this.className = 'grid-item empty';
-    this.append(draggable);
-    this.innerHTML = html;
-    console.log(html);
+    if(this.className == 'grid-item empty' || this.className == 'grid-item empty hovered'){
+        let html = document.querySelector('.draggable-product').innerHTML;
+        this.className = 'grid-item fill';
+        this.append(draggable);
+        this.innerHTML = html;
+    }
 }

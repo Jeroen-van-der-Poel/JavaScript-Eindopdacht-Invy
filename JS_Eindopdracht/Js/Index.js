@@ -8,6 +8,8 @@ function makeRows(rows, cols) {
         let cell = document.createElement("div");
         cell.innerText = (c + 1);
         grid.appendChild(cell).className = "grid-item empty";
+        grid.appendChild(cell).id = c+1;
+
     }
 }
 
