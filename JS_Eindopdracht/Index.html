@@ -38,13 +38,13 @@
                     <div class="form">
                         <button type="button"  class="btn btn-default btn-lg" >Form</button>
                     </div>
-                    <br>
+                    <hr>
                     <div class="Weather_div">
-                        <div class="app-title"><p>Weer</p></div>
                         <div class="input">
-                            <input type="text" class="inputValue" placeholder="enter a city">
-                            <input type="submit" value="Submit" class="weatherbutton">
+                            <input id="input1" type="text" class="inputValue" placeholder="enter a city">
+                            <input id="button1" type="submit" value="Submit" class="weatherbutton">
                         </div>
+                        <div class="app-title"><p>Weer</p></div>
                         <div class="notification"></div>
                         <div class="weather-container">
 
@@ -62,17 +62,18 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    <label><h3>Producten: </h3></label>
+                    <button id="sidebutton" type="button" onclick="ShowProducts()">Producten \/</button>
+                    <div id="HiddenProducts"></div>
+                    <div draggable="true" class="draggable-product"></div>
+                    <br>
                 </div>
 
                 <div class="col-md-10" id="col2">
                     <h2 class="page-header" id="Header"></h2>
                     <hr>
 
-                    <label><h3>Producten: </h3></label>
-                    <button type="button" onclick="ShowProducts()">Producten \/</button>
-                    <div id="HiddenProducts"></div>
-                        <div draggable="true" class="draggable-product"></div>
-                    <br>
                     <div id="grid"> </div>
                     <br>
                 </div>

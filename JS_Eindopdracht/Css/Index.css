@@ -21,6 +21,17 @@
     padding: 0;
 }
 
+#button1{
+    width: 100%;
+}
+
+#input1{
+    width: 100%;
+}
+
+#sidebutton{
+    width: 100%;
+}
 
 .container p{
     padding-left: 10px;
