@@ -19,8 +19,8 @@ button.addEventListener('click', function () {
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=`+inputValue.value+`&appid=${KEY}`)
         .then(response => response.json())
         .then(data => {
-            var longValue = data['coord']['lon']
-            var latValue = data['coord']['lat']
+            var longValue = data['coord']['lon'];
+            var latValue = data['coord']['lat'];
 
             getWeather(latValue, longValue);
         })

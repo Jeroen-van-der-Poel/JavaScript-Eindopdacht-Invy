@@ -107,6 +107,7 @@ function LoadProducts() {
         divi.setAttribute('draggable', 'true');
         divi.text = divi.value = `${products[i]['name']}`;
         divi.innerHTML = `${products[i]['name']}`;
+        divi.regio = `${products[i]['regio']}`;
         divi.style.border= "1px solid black";
         productdiv.appendChild(divi).className = "draggable-product";
         productdiv.appendChild(divi).id = i;
@@ -114,12 +115,11 @@ function LoadProducts() {
 }
 
 const items = document.getElementsByClassName('draggable-product');
+LoadProducts();
 
-function ShowRightProducts(){
-    LoadProducts();
+function ShowRightProducts(regio){
         for(let i = 0; i < items.length; i++){
-            console.log(items.length.valueOf().regio);
-            if(items[i].valueOf().regio === 'clothes'){
+            if(items[i].valueOf().regio === regio){
                 items[i].style.visibility = 'visible'
             }
             else{
@@ -135,7 +135,7 @@ function switchClothes() {
     clothing.style.color = "green";
     tierlantin.style.color = "black";
     decoration.style.color = "black";
-    ShowRightProducts();
+    ShowRightProducts('clothes');
 }
 
 function switchDecoration() {
@@ -145,7 +145,7 @@ function switchDecoration() {
     clothing.style.color = "black";
     tierlantin.style.color = "black";
     decoration.style.color = "green";
-    LoadProducts();
+    ShowRightProducts('decoration');
 }
 
 function switchTierlantin() {
@@ -155,7 +155,7 @@ function switchTierlantin() {
     tierlantin.style.color = "green";
     decoration.style.color = "black";
     makeRows(15, 15);
-    LoadProducts();
+    ShowRightProducts('tierlantin');
 }
 
 // =========== Product initialize ============= //
