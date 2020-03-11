@@ -37,15 +37,3 @@
 #Header{
     text-align: center;
 }
-
-/* drag and drop */
-.hold{
-    border: solid lightblue 4px;
-}
-.hovered{
-    background: orange;
-    border-style: dashed;
-}
-.invisible{
-    display: none;
-}

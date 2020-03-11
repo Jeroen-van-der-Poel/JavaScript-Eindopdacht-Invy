@@ -57,10 +57,48 @@ const tierlantinProducts = [{
 }];
 
 
+// =========== Product view ============= //
+class ProductsView {
+    init(){
+        switchClothes();
+    }
+}
+
+// =========== Product controller ============= //
+class ProductController {
+    constructor(productsView) {
+        this.productsView = productsView;
+    }
+    init(){
+        this.productsView.init();
+    }
+
+}
+
 // =========== render products ============= //
 const productdiv = document.getElementById('HiddenProducts');
 let Dropcount = 0;
 
+// =========== show products ============= //
+function ShowProducts() {
+    productdiv.innerHTML = "";
+    if(Dropcount == 0){
+        for(let i = 0; i < products.length; i++){
+            let divi = document.createElement('div');
+            divi.setAttribute('draggable', 'true');
+            divi.text = divi.value = `${products[i]['name']}`;
+            divi.innerHTML = `${products[i]['name']}`;
+            divi.style.border= "1px solid black";
+            productdiv.appendChild(divi).className = "draggable-product";
+            productdiv.appendChild(divi).id = i;
+            Dropcount = 1;
+        }
+    }
+    else{
+        productdiv.innerHTML = "";
+        Dropcount = 0;
+    }
+}
 
 // =========== Page changes ============= //
 let products = null;
@@ -104,44 +142,6 @@ function switchTierlantin() {
     makeRows(15, 15);
     productdiv.innerHTML = "";
     Dropcount = 0;
-}
-
-// =========== Product view ============= //
-class ProductsView {
-    init(){
-        switchClothes();
-    }
-}
-
-// =========== Product controller ============= //
-class ProductController {
-    constructor(productsView) {
-        this.productsView = productsView;
-    }
-    init(){
-        this.productsView.init();
-    }
-
-}
-
-// =========== show products ============= //
-function ShowProducts() {
-    productdiv.innerHTML = "";
-    if(Dropcount == 0){
-        for(let i = 0; i < products.length; i++){
-            let divi = document.createElement('div');
-            divi.setAttribute('draggable', 'true');
-            divi.text = divi.value = `${products[i]['name']}`;
-            divi.innerHTML = `${products[i]['name']}`;
-            divi.style.border= "1px solid black";
-            productdiv.appendChild(divi).className = "draggable-product";
-            Dropcount = 1;
-        }
-    }
-    else{
-        productdiv.innerHTML = "";
-        Dropcount = 0;
-    }
 }
 
 // =========== Product initialize ============= //

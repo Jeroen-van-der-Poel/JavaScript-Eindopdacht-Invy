@@ -2,6 +2,8 @@
 const empties = document.querySelectorAll('.empty');
 const draggable = document.querySelector('.draggable-product');
 
+let el = null;
+
 draggable.addEventListener('dragstart', dragStart);
 draggable.addEventListener('dragend', dragEnd);
 
@@ -29,19 +31,21 @@ function dragOver(e) {
 }
 
 function dragEnter(e) {
-    e.preventDefault();
-    this.className += ' hovered';
+    if(e.target.classList.contains('empty')){
+        e.target.style = 'background-color: green';
+    }
 }
 
-function dragLeave() {
-    this.className = 'grid-item empty';
+function dragLeave(e) {
+    e.target.style = 'background-color: white';
 }
 
-function dragDrop() {
-    if(this.className == 'grid-item empty' || this.className == 'grid-item empty hovered'){
-        let html = document.querySelector('.draggable-product').innerHTML;
+function dragDrop(e) {
+    if(this.className === 'grid-item empty'){
+        let html = document.querySelector('.draggable-product').id;
         this.className = 'grid-item fill';
         this.append(draggable);
         this.innerHTML = html;
+        e.target.style = 'background-color: gray';
     }
 }
