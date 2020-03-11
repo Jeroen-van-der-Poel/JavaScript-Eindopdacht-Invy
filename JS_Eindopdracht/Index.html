@@ -142,30 +142,36 @@
                                             </option>
                                         </select>
                                     </label>
+                                    <div class="form-group" id="fieldGroupDivClothing">
                                     <label for='clothing_colour'>
                                         Kleur
-                                        <input type='text' name='clothing_colour' id='clothing_colour' placeholder='25.00'/>
+                                        <input type='text' name='clothing_colour' id='clothing_colour' placeholder='Wit'/>
                                     </label>
                                     <label for='size'>
                                         Maat
-                                        <input type='text' name='size' id='size' placeholder='25.00'/>
+                                        <input type='text' name='size' id='size' placeholder='M'/>
                                     </label>
+                                    </div>
+                                    <div class="form-group" id="fieldGroupDivTierlantijn">
                                     <label for='weight'>
-                                        Gewicht
-                                        <input type='text' name='weight' id='weight' placeholder='25.00'/>
+                                        Gewicht in KG
+                                        <input type='text' name='weight' id='weight' placeholder='5'/>
                                     </label>
+                                    </div>
+                                    <div class="form-group" id="fieldGroupDivDecoration">
                                     <label for='size_in_cm'>
                                         Grootte in CM
-                                        <input type='text' name='size_in_cm' id='size_in_cm' placeholder='25.00'/>
+                                        <input type='text' name='size_in_cm' id='size_in_cm' placeholder='80'/>
                                     </label>
                                     <label for='decoration_colour'>
                                         Kleur
-                                        <input type='text' name='decoration_colour' id='decoration_colour' placeholder='25.00'/>
+                                        <input type='text' name='decoration_colour' id='decoration_colour' placeholder='Blauw'/>
                                     </label>
                                     <label for='amount_in_package'>
                                         Hoeveelheid in verpakking
-                                        <input type='text' name='amount_in_package' id='amount_in_package' placeholder='25.00'/>
+                                        <input type='text' name='amount_in_package' id='amount_in_package' placeholder='10'/>
                                     </label>
+                                    </div>
                                 </div>
                             </div>
                             <div class='step-by-step-stepper'>
@@ -238,26 +244,56 @@
 
                     return []; // ugly hack
                 };
-
-                let regionField = document.getElementById("product_region");
-                let clothingColourInput = document.getElementById("clothing_colour");
-                let clothingSizeInput = document.getElementById("size");
-
-                regionField.addEventListener("change", function(){
-                    //Update this to your logic...
-                    if(regionField.value === "Kleding"){
-                        clothingColourInput.disabled = true;
-                        clothingSizeInput.disabled = true;
+                $('#fieldGroupDivDecoration').hide();
+                $('#fieldGroupDivTierlantijn').hide();
+                $("#product_region").change(function() {
+                    if ($(this).val() == "Kleding") {
+                        $('#fieldGroupDivClothing').show();
+                        $('#fieldGroupDivDecoration').hide();
+                        $('#fieldGroupDivTierlantijn').hide();
+                        $('#clothing_colour').attr('required', '');
+                        $('#clothing_colour').attr('data-error', 'This field is required.');
+                        $('#size').attr('required', '');
+                        $('#size').attr('data-error', 'This field is required.');
+                    } else {
+                        $('#fieldDivClothing').hide();
+                        $('#clothing_colour').removeAttr('required');
+                        $('#clothing_colour').removeAttr('data-error');
+                        $('#size').removeAttr('required');
+                        $('#size').removeAttr('data-error');
                     }
-                    if(regionField.value === "Tierlantijn"){
-                        clothingColourInput.disabled = true;
-                        clothingSizeInput.disabled = true;
+                    if ($(this).val() == "Tierlantijn") {
+                        $('#fieldGroupDivTierlantijn').show();
+                        $('#fieldGroupDivClothing').hide();
+                        $('#fieldGroupDivDecoration').hide();
+                        $('#weight').attr('required', '');
+                        $('#weight').attr('data-error', 'This field is required.');
+                    } else {
+                        $('#fieldDivClothing').hide();
+                        $('#weight').removeAttr('required');
+                        $('#weight').removeAttr('data-error');
                     }
-                    if(regionField.value === "Decoraties"){
-                        clothingColourInput.disabled = true;
-                        clothingSizeInput.disabled = true;
+                    if ($(this).val() == "Decoratie") {
+                        $('#fieldGroupDivDecoration').show();
+                        $('#fieldGroupDivClothing').hide();
+                        $('#fieldGroupDivTierlantijn').hide();
+                        $('#size_in_cm').attr('required', '');
+                        $('#size_in_cm').attr('data-error', 'This field is required.');
+                        $('#decoration_colour').attr('required', '');
+                        $('#decoration_colour').attr('data-error', 'This field is required.');
+                        $('#amount_in_package').attr('required', '');
+                        $('#amount_in_package').attr('data-error', 'This field is required.');
+                    } else {
+                        $('#fieldDivClothing').hide();
+                        $('#size_in_cm').removeAttr('required');
+                        $('#size_in_cm').removeAttr('data-error');
+                        $('#decoration_colour').removeAttr('required');
+                        $('#decoration_colour').removeAttr('data-error');
+                        $('#amount_in_package').removeAttr('required');
+                        $('#amount_in_package').removeAttr('data-error');
                     }
                 });
+                $("#seeAnotherFieldGroup").trigger("change");
 
                 stepzation.handle_error = function(error) {
                     backdrop_error(error);
