@@ -12,7 +12,6 @@
         <!-- CSS -->
         <link rel="stylesheet" href="Css/Index.css">
         <link rel="stylesheet" href="Css/Weather.css">
-        <link rel="stylesheet" href="Css/Wizardform.css">
         <link rel='stylesheet' type='text/css' href='Css/animate.css'>
         <link rel='stylesheet' type='text/css' href='Css/style.css'>
 
@@ -85,8 +84,8 @@
                         <!-- 0 -->
                         <div class='step-by-step-step split-h'>
                             <div class='default-content push-down centered-content maximize-height'>
-                                <h3>Hi!</h3>
-                                <p>Welcome to the setup</p>
+                                <h3>Hallo!</h3>
+                                <p>Welkom bij de producten wizard</p>
                             </div>
                             <div class='step-by-step-stepper'>
                                 <button class='button button-small button-small-primary material-icons animated pulse infinite' data-type='next'>-></button>
@@ -109,7 +108,7 @@
                                     </label>
                                     <label for='product_description'>
                                         Beschrijving
-                                        <input type='text' name='product_description' id='product_description' placeholder='Wit, XL'/>
+                                        <input type='text' name='product_description' id='product_description' placeholder='uitleg over product'/>
                                     </label>
                                 </div>
                             </div>
@@ -124,18 +123,48 @@
                             <div class='default-content push-down centered-content maximize-height'>
                                 <h3>Product</h3>
                                 <p>
-                                    Information<br>
+                                    Regio<br>
                                 </p>
                             </div>
                             <div class='default-content'>
                                 <div class='form'>
                                     <label for='product_region'>
                                         Regio
-                                        <input type='text' name='product_region' id='product_region' placeholder='10.00'/>
+                                        <select name="product_region" id="product_region">
+                                            <option value="Kleding">
+                                                Kleding
+                                            </option>
+                                            <option value="Tierlantijn">
+                                                Tierlantijn
+                                            </option>
+                                            <option value="Decoratie">
+                                                Decoratie
+                                            </option>
+                                        </select>
                                     </label>
-                                    <label for='product_sell_price'>
-                                        Product Verkoopprijs excl btw
-                                        <input type='text' name='product_sell_price' id='product_sell_price' placeholder='25.00'/>
+                                    <label for='clothing_colour'>
+                                        Kleur
+                                        <input type='text' name='clothing_colour' id='clothing_colour' placeholder='25.00'/>
+                                    </label>
+                                    <label for='size'>
+                                        Maat
+                                        <input type='text' name='size' id='size' placeholder='25.00'/>
+                                    </label>
+                                    <label for='weight'>
+                                        Gewicht
+                                        <input type='text' name='weight' id='weight' placeholder='25.00'/>
+                                    </label>
+                                    <label for='size_in_cm'>
+                                        Grootte in CM
+                                        <input type='text' name='size_in_cm' id='size_in_cm' placeholder='25.00'/>
+                                    </label>
+                                    <label for='decoration_colour'>
+                                        Kleur
+                                        <input type='text' name='decoration_colour' id='decoration_colour' placeholder='25.00'/>
+                                    </label>
+                                    <label for='amount_in_package'>
+                                        Hoeveelheid in verpakking
+                                        <input type='text' name='amount_in_package' id='amount_in_package' placeholder='25.00'/>
                                     </label>
                                 </div>
                             </div>
@@ -150,7 +179,7 @@
                             <div class='default-content push-down centered-content maximize-height'>
                                 <h3>Product</h3>
                                 <p>
-                                    Information<br>
+                                    Informatie<br>
                                 </p>
                             </div>
                             <div class='default-content'>
@@ -162,6 +191,10 @@
                                     <label for='product_sell_price'>
                                         Product Verkoopprijs excl btw
                                         <input type='text' name='product_sell_price' id='product_sell_price' placeholder='25.00'/>
+                                    </label>
+                                    <label for='product_minimal_storage'>
+                                        Minimale voorraad
+                                        <input type='text' name='product_minimal_storage' id='product_minimal_storage' placeholder='50'/>
                                     </label>
                                 </div>
                             </div>
@@ -205,6 +238,26 @@
 
                     return []; // ugly hack
                 };
+
+                let regionField = document.getElementById("product_region");
+                let clothingColourInput = document.getElementById("clothing_colour");
+                let clothingSizeInput = document.getElementById("size");
+
+                regionField.addEventListener("change", function(){
+                    //Update this to your logic...
+                    if(regionField.value === "Kleding"){
+                        clothingColourInput.disabled = true;
+                        clothingSizeInput.disabled = true;
+                    }
+                    if(regionField.value === "Tierlantijn"){
+                        clothingColourInput.disabled = true;
+                        clothingSizeInput.disabled = true;
+                    }
+                    if(regionField.value === "Decoraties"){
+                        clothingColourInput.disabled = true;
+                        clothingSizeInput.disabled = true;
+                    }
+                });
 
                 stepzation.handle_error = function(error) {
                     backdrop_error(error);
