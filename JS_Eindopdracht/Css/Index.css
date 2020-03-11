@@ -21,6 +21,9 @@
     padding: 0;
 }
 
+#label1{
+    width: 100%;
+}
 
 .container p{
     padding-left: 10px;

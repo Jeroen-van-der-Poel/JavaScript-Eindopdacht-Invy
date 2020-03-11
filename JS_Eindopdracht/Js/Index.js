@@ -14,46 +14,51 @@ function makeRows(rows, cols) {
 }
 
 // =========== Product model ============= //
-const clothesProducts = [{
+const products = [{
     'name': 'T-shirt',
     'color': 'red',
-    'fit': 'small'
+    'fit': 'small',
+    'regio': 'clothes'
 }, {
     'name': 'sweather',
     'color': 'white',
-    'fit': 'medium'
+    'fit': 'medium',
+    'regio': 'clothes'
 },{
     'name': 'jeans',
     'color': 'blue',
-    'fit': 'large'
-}];
-
-const decorationProducts = [{
+    'fit': 'large',
+    'regio': 'clothes'
+},{
     'name': 'confetti',
     'size': '10',
     'color': 'yellow',
-    'amount': '4'
+    'amount': '4',
+    'regio': 'decoration'
 }, {
     'name': 'embleem',
     'size': '6',
     'color': 'red',
-    'amount': '1'
+    'amount': '1',
+    'regio': 'decoration'
 },{
     'name': 'slingers',
     'size': '40',
     'color': 'red',
-    'amount': '1'
-}];
-
-const tierlantinProducts = [{
+    'amount': '1',
+    'regio': 'decoration'
+},{
     'name': 'iets',
-    'weight': '20'
+    'weight': '20',
+    'regio': 'tierlantin'
 }, {
     'name': 'niets',
-    'weight': '30'
+    'weight': '30',
+    'regio': 'tierlantin'
 },{
     'name': 'niks',
-    'weight': '15'
+    'weight': '15',
+    'regio': 'tierlantin'
 }];
 
 
@@ -90,7 +95,6 @@ function ShowProducts() {
 }
 
 // =========== Page changes ============= //
-let products = null;
 const header = document.getElementById("Header");
 const clothing = document.getElementById('Clothing');
 const tierlantin = document.getElementById('Tierlantin');
@@ -109,40 +113,48 @@ function LoadProducts() {
     }
 }
 
+const items = document.getElementsByClassName('draggable-product');
+
+function ShowRightProducts(){
+    LoadProducts();
+        for(let i = 0; i < items.length; i++){
+            console.log(items.length.valueOf().regio);
+            if(items[i].valueOf().regio === 'clothes'){
+                items[i].style.visibility = 'visible'
+            }
+            else{
+                items[i].style.visibility = 'hidden'
+            }
+        }
+}
+
 function switchClothes() {
-    products = clothesProducts;
     header.innerHTML = "Kleding";
     grid.innerHTML = '';
     makeRows(15, 15);
     clothing.style.color = "green";
     tierlantin.style.color = "black";
     decoration.style.color = "black";
-    Dropcount = 0;
-    LoadProducts();
+    ShowRightProducts();
 }
 
 function switchDecoration() {
-    products = decorationProducts;
     header.innerHTML = "Decoratie";
     grid.innerHTML = '';
     makeRows(15, 15);
     clothing.style.color = "black";
     tierlantin.style.color = "black";
     decoration.style.color = "green";
-    Dropcount = 0;
     LoadProducts();
 }
 
 function switchTierlantin() {
-    productdiv.innerHTML = "";
-    products = tierlantinProducts;
     header.innerHTML = "Tierlantijn";
     grid.innerHTML = '';
     clothing.style.color = "black";
     tierlantin.style.color = "green";
     decoration.style.color = "black";
     makeRows(15, 15);
-    Dropcount = 0;
     LoadProducts();
 }
 
