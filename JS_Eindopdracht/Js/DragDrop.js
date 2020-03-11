@@ -9,9 +9,9 @@ draggable.addEventListener('dragend', dragEnd);
 
 // drag
 function dragStart() {
-    this.className += ' hold';
-    draggable.style.position = 'absolute';
-    setTimeout(() => (this.className = 'invisible'), 0);
+    draggable
+        .dataTransfer
+        .setData('text/plain', draggable.target.id);
 }
 
 function dragEnd() {
@@ -37,7 +37,9 @@ function dragEnter(e) {
 }
 
 function dragLeave(e) {
-    e.target.style = 'background-color: white';
+    if(e.target.classList.contains('empty')) {
+        e.target.style.removeProperty('background-color');
+    }
 }
 
 function dragDrop(e) {
