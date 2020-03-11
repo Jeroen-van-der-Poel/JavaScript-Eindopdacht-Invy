@@ -77,26 +77,15 @@ class ProductController {
 
 // =========== render products ============= //
 const productdiv = document.getElementById('HiddenProducts');
-let Dropcount = 0;
+productdiv.style.visibility = "hidden";
 
 // =========== show products ============= //
 function ShowProducts() {
-    productdiv.innerHTML = "";
-    if(Dropcount == 0){
-        for(let i = 0; i < products.length; i++){
-            let divi = document.createElement('div');
-            divi.setAttribute('draggable', 'true');
-            divi.text = divi.value = `${products[i]['name']}`;
-            divi.innerHTML = `${products[i]['name']}`;
-            divi.style.border= "1px solid black";
-            productdiv.appendChild(divi).className = "draggable-product";
-            productdiv.appendChild(divi).id = i;
-            Dropcount = 1;
-        }
+    if (productdiv.style.visibility === "hidden"){
+        productdiv.style.visibility = "visible"
     }
     else{
-        productdiv.innerHTML = "";
-        Dropcount = 0;
+        productdiv.style.visibility = "hidden";
     }
 }
 
@@ -107,6 +96,19 @@ const clothing = document.getElementById('Clothing');
 const tierlantin = document.getElementById('Tierlantin');
 const decoration = document.getElementById('Decoration');
 
+// =========== load products ============= //
+function LoadProducts() {
+    for(let i = 0; i < products.length; i++){
+        let divi = document.createElement('div');
+        divi.setAttribute('draggable', 'true');
+        divi.text = divi.value = `${products[i]['name']}`;
+        divi.innerHTML = `${products[i]['name']}`;
+        divi.style.border= "1px solid black";
+        productdiv.appendChild(divi).className = "draggable-product";
+        productdiv.appendChild(divi).id = i;
+    }
+}
+
 function switchClothes() {
     products = clothesProducts;
     header.innerHTML = "Kleding";
@@ -115,8 +117,8 @@ function switchClothes() {
     clothing.style.color = "green";
     tierlantin.style.color = "black";
     decoration.style.color = "black";
-    productdiv.innerHTML = "";
     Dropcount = 0;
+    LoadProducts();
 }
 
 function switchDecoration() {
@@ -127,8 +129,8 @@ function switchDecoration() {
     clothing.style.color = "black";
     tierlantin.style.color = "black";
     decoration.style.color = "green";
-    productdiv.innerHTML = "";
     Dropcount = 0;
+    LoadProducts();
 }
 
 function switchTierlantin() {
@@ -140,8 +142,8 @@ function switchTierlantin() {
     tierlantin.style.color = "green";
     decoration.style.color = "black";
     makeRows(15, 15);
-    productdiv.innerHTML = "";
     Dropcount = 0;
+    LoadProducts();
 }
 
 // =========== Product initialize ============= //

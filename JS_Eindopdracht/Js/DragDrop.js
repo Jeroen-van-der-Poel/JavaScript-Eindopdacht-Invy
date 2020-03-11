@@ -37,7 +37,9 @@ function dragEnter(e) {
 }
 
 function dragLeave(e) {
-    e.target.style = 'background-color: white';
+    if(e.target.classList.contains('empty')) {
+        e.target.style.removeProperty('background-color');
+    }
 }
 
 function dragDrop(e) {
