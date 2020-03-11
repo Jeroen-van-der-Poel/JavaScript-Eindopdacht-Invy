@@ -28,6 +28,13 @@ button.addEventListener('click', function () {
         .catch(err => alert("Wrong city name"))
 })
 
+if('geolocation' in navigator){
+    navigator.geolocation.getCurrentPosition(setPosition, showError);
+}else{
+    NotificationElement.style.display = "block";
+    NotificationElement.innerHTML = "<p>Browser does not support geolocation</p>";
+}
+
 function setPosition(position) {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
