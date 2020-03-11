@@ -82,17 +82,8 @@ class ProductController {
 
 // =========== render products ============= //
 const productdiv = document.getElementById('HiddenProducts');
+const items = document.getElementsByClassName('draggable-product');
 productdiv.style.visibility = "hidden";
-
-// =========== show products ============= //
-function ShowProducts() {
-    if (productdiv.style.visibility === "hidden"){
-        productdiv.style.visibility = "visible"
-    }
-    else{
-        productdiv.style.visibility = "hidden";
-    }
-}
 
 // =========== Page changes ============= //
 const header = document.getElementById("Header");
@@ -114,13 +105,29 @@ function LoadProducts() {
     }
 }
 
-const items = document.getElementsByClassName('draggable-product');
+// =========== show products ============= //
+function ShowProducts() {
+    let clothes = [];
+    for(let i = 0; i < items.length; i++){
+        if(items[i].valueOf().regio === 'clothes'){
+            clothes.push(items[i]);
+        }
+    }
+/*        if (clothes.style.visibility === "hidden"){
+            clothes.style.visibility = "visible"
+        }
+        else{
+            clothes.style.visibility = "hidden";
+        }*/
+}
+
 LoadProducts();
 
 function ShowRightProducts(regio){
         for(let i = 0; i < items.length; i++){
             if(items[i].valueOf().regio === regio){
-                items[i].style.visibility = 'visible'
+                items[i].style.visibility = 'visible';
+                productdiv.style
             }
             else{
                 items[i].style.visibility = 'hidden'
