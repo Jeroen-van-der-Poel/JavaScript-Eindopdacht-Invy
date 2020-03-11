@@ -44,7 +44,7 @@ function dragLeave(e) {
 
 function dragDrop(e) {
     if(this.className === 'grid-item empty'){
-        let html = document.querySelector('.draggable-product').id;
+        let html = document.querySelector('.draggable-product').innerHTML;
         this.className = 'grid-item fill';
         this.append(draggable);
         this.innerHTML = html;
