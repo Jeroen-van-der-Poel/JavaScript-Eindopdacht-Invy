@@ -128,10 +128,10 @@ function ShowRightProducts(regio){
         }
 }
 
+makeRows(15, 15);
+
 function switchClothes() {
     header.innerHTML = "Kleding";
-    grid.innerHTML = '';
-    makeRows(15, 15);
     clothing.style.color = "green";
     tierlantin.style.color = "black";
     decoration.style.color = "black";
@@ -140,8 +140,6 @@ function switchClothes() {
 
 function switchDecoration() {
     header.innerHTML = "Decoratie";
-    grid.innerHTML = '';
-    makeRows(15, 15);
     clothing.style.color = "black";
     tierlantin.style.color = "black";
     decoration.style.color = "green";
@@ -150,11 +148,9 @@ function switchDecoration() {
 
 function switchTierlantin() {
     header.innerHTML = "Tierlantijn";
-    grid.innerHTML = '';
     clothing.style.color = "black";
     tierlantin.style.color = "green";
     decoration.style.color = "black";
-    makeRows(15, 15);
     ShowRightProducts('tierlantin');
 }
 
