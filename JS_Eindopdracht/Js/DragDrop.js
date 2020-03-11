@@ -49,5 +49,10 @@ function dragDrop(e) {
         this.append(draggable);
         this.innerHTML = html;
         e.target.style = 'background-color: gray';
+        e.target.style.color  = 'white';
+        e.target.style.maxWidth = '62px';
+        e.target.style.maxHeight = '62px';
+        e.target.style.fontSize  = '10px';
+        e.target.style.textAlign = 'center';
     }
 }
