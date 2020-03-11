@@ -3,6 +3,8 @@ const tempElement = document.querySelector(".temperature-value p");
 const descElement = document.querySelector(".temperature-description p");
 const LocationElement = document.querySelector(".location p");
 const NotificationElement = document.querySelector(".notification");
+let button = document.querySelector('.weatherbutton');
+let inputValue = document.querySelector('.inputValue')
 
 const weather = {};
 
@@ -13,12 +15,18 @@ weather.temperature = {
 const KELVIN = 273;
 const KEY = "62f7ba282a6bdc30f5c263bf084aefa5";
 
-if('geolocation' in navigator){
-    navigator.geolocation.getCurrentPosition(setPosition, showError);
-}else{
-    NotificationElement.style.display = "block";
-    NotificationElement.innerHTML = "<p>Browser does not support geolocation</p>";
-}
+button.addEventListener('click', function () {
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=`+inputValue.value+`&appid=${KEY}`)
+        .then(response => response.json())
+        .then(data => {
+            var longValue = data['coord']['lon']
+            var latValue = data['coord']['lat']
+
+            getWeather(latValue, longValue);
+        })
+
+        .catch(err => alert("Wrong city name"))
+})
 
 function setPosition(position) {
     let latitude = position.coords.latitude;
