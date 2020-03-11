@@ -13,6 +13,8 @@
         <link rel="stylesheet" href="Css/Index.css">
         <link rel="stylesheet" href="Css/Weather.css">
         <link rel="stylesheet" href="Css/Wizardform.css">
+        <link rel='stylesheet' type='text/css' href='Css/animate.css'>
+        <link rel='stylesheet' type='text/css' href='Css/style.css'>
 
         <title>D'n Oetel</title>
     </head>
@@ -77,15 +79,149 @@
                     <br>
                 </div>
 
+                <div class='paste-styled'>
+                    <div class='step-by-step' id='setup'>
+
+                        <!-- 0 -->
+                        <div class='step-by-step-step split-h'>
+                            <div class='default-content push-down centered-content maximize-height'>
+                                <h3>Hi!</h3>
+                                <p>Welcome to the setup</p>
+                            </div>
+                            <div class='step-by-step-stepper'>
+                                <button class='button button-small button-small-primary material-icons animated pulse infinite' data-type='next'>-></button>
+                            </div>
+                        </div>
+
+                        <!-- 1 -->
+                        <div class='step-by-step-step split-h' data-name='admin_form'>
+                            <div class='default-content push-down centered-content maximize-height'>
+                                <h3>Product</h3>
+                                <p>
+                                    Details
+                                </p>
+                            </div>
+                            <div class='default-content'>
+                                <div class='form'>
+                                    <label for='product_name'>
+                                        Product Naam
+                                        <input type='text' name='product_name' id='product_name' placeholder='t-shirt'/>
+                                    </label>
+                                    <label for='product_description'>
+                                        Beschrijving
+                                        <input type='text' name='product_description' id='product_description' placeholder='Wit, XL'/>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class='step-by-step-stepper'>
+                                <button class='button button-small button-small material-icons' data-type='prev'><-</button>
+                                <button class='button button-small button-small-primary material-icons animated pulse infinite' data-type='next'>-></button>
+                            </div>
+                        </div>
+
+                        <!-- 2 -->
+                        <div class='step-by-step-step split-h'>
+                            <div class='default-content push-down centered-content maximize-height'>
+                                <h3>Product</h3>
+                                <p>
+                                    Information<br>
+                                </p>
+                            </div>
+                            <div class='default-content'>
+                                <div class='form'>
+                                    <label for='product_region'>
+                                        Regio
+                                        <input type='text' name='product_region' id='product_region' placeholder='10.00'/>
+                                    </label>
+                                    <label for='product_sell_price'>
+                                        Product Verkoopprijs excl btw
+                                        <input type='text' name='product_sell_price' id='product_sell_price' placeholder='25.00'/>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class='step-by-step-stepper'>
+                                <button class='button button-small button-small material-icons' data-type='prev'><-</button>
+                                <button class='button button-small button-small-primary material-icons animated pulse infinite' data-type='next'>-></button>
+                            </div>
+                        </div>
+
+                        <!-- 3 -->
+                        <div class='step-by-step-step split-h'>
+                            <div class='default-content push-down centered-content maximize-height'>
+                                <h3>Product</h3>
+                                <p>
+                                    Information<br>
+                                </p>
+                            </div>
+                            <div class='default-content'>
+                                <div class='form'>
+                                    <label for='product_buy_price'>
+                                        Product Inkoopprijs
+                                        <input type='text' name='product_buy_price' id='product_buy_price' placeholder='10.00'/>
+                                    </label>
+                                    <label for='product_sell_price'>
+                                        Product Verkoopprijs excl btw
+                                        <input type='text' name='product_sell_price' id='product_sell_price' placeholder='25.00'/>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class='step-by-step-stepper'>
+                                <button class='button button-small button-small material-icons' data-type='prev'><-</button>
+                                <button class='button button-small button-small-primary material-icons animated pulse infinite' data-type='next'>-></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
 
         <!-- JavaScript -->
+        <script type='text/javascript'>
+            document.addEventListener('DOMContentLoaded', function(e) {
+                window.stepzation = new Stepzation(document.getElementById('setup'));
+
+                stepzation.next_step_action = function(step) {
+                    if (step.getAttribute('data-name') == 'admin_form') {
+                        stepzation.db['admin'] = {};
+
+                        var productname = step.querySelector('#product_name');
+                        var productdescription = step.querySelector('#product_description');
+
+/*                        stepzation.db['product']['name'] = productname.value;
+                        stepzation.db['product']['description'] = productdescription.value;*/
+
+                        /* You could send a request here for example */
+                        /*(wpost('/api/install', JSON.stringify(stepzation.db), function(data) {
+                            data = JSON.parse(data);
+
+                            if ('error' in data) {
+                                stepzation.previous_step();
+                                stepzation.handle_error(data['error']);
+                            }
+                        })*/
+                    }
+
+                    return []; // ugly hack
+                };
+
+                stepzation.handle_error = function(error) {
+                    backdrop_error(error);
+                };
+
+                stepzation.handle_finish = function(step) {
+                    alert('all steps done');
+                };
+
+                stepzation.start();
+            });
+        </script>
         <script src="Js/Index.js"></script>
         <script src="Js/Api_Wheater.js"></script>
         <script src="Js/DragDrop.js"></script>
-        <script src="Js/Wizardform.js"></script>
+        <script src="Js/stepzation.js"></script>
+        <script type='text/javascript' src='Js/stepzation.js'></script>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
