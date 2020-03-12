@@ -38,7 +38,7 @@ function dragEnter(e) {
 
 function dragLeave(e) {
     if(e.target.classList.contains('empty')) {
-        e.target.style.removeProperty('background-color');
+        e.target.style = 'background-color: lightgray';
     }
 }
 
@@ -48,10 +48,8 @@ function dragDrop(e) {
         this.className = 'grid-item fill';
         this.append(draggable);
         this.innerHTML = html;
-        e.target.style = 'background-color: gray';
+        e.target.style = 'background-color: blue';
         e.target.style.color  = 'white';
-        e.target.style.maxWidth = '62px';
-        e.target.style.maxHeight = '62px';
         e.target.style.fontSize  = '10px';
         e.target.style.textAlign = 'center';
     }
