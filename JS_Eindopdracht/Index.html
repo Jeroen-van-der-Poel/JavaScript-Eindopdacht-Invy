@@ -37,7 +37,7 @@
                     </div>
                     <hr>
                     <div class="form">
-                        <button type="button"  class="btn btn-default btn-lg" >Form</button>
+                        <button type="button"  class="btn btn-default btn-lg" onclick="startForm()" id="StartForm">Form</button>
                     </div>
                     <br>
                     <div class="Weather_div">
@@ -78,7 +78,7 @@
                     <br>
                 </div>
 
-                <div class='paste-styled'>
+                <div class='paste-styled col-md-10'>
                     <div class='step-by-step' id='setup'>
 
                         <!-- 0 -->
@@ -130,8 +130,8 @@
                                 <div class='form'>
                                     <label for='product_region'>
                                         Regio
-                                        <select name="product_region" id="product_region">
-                                            <option value="Kleding">
+                                        <select name="product_region" id="product_region" onchange="showDiv(this)">
+                                            <option  value="Kleding">
                                                 Kleding
                                             </option>
                                             <option value="Tierlantijn">
@@ -217,100 +217,10 @@
         </div>
 
         <!-- JavaScript -->
-        <script type='text/javascript'>
-            document.addEventListener('DOMContentLoaded', function(e) {
-                window.stepzation = new Stepzation(document.getElementById('setup'));
-
-                stepzation.next_step_action = function(step) {
-                    if (step.getAttribute('data-name') == 'admin_form') {
-                        stepzation.db['admin'] = {};
-
-                        var productname = step.querySelector('#product_name');
-                        var productdescription = step.querySelector('#product_description');
-
-/*                        stepzation.db['product']['name'] = productname.value;
-                        stepzation.db['product']['description'] = productdescription.value;*/
-
-                        /* You could send a request here for example */
-                        /*(wpost('/api/install', JSON.stringify(stepzation.db), function(data) {
-                            data = JSON.parse(data);
-
-                            if ('error' in data) {
-                                stepzation.previous_step();
-                                stepzation.handle_error(data['error']);
-                            }
-                        })*/
-                    }
-
-                    return []; // ugly hack
-                };
-                $('#fieldGroupDivDecoration').hide();
-                $('#fieldGroupDivTierlantijn').hide();
-                $("#product_region").change(function() {
-                    if ($(this).val() == "Kleding") {
-                        $('#fieldGroupDivClothing').show();
-                        $('#fieldGroupDivDecoration').hide();
-                        $('#fieldGroupDivTierlantijn').hide();
-                        $('#clothing_colour').attr('required', '');
-                        $('#clothing_colour').attr('data-error', 'This field is required.');
-                        $('#size').attr('required', '');
-                        $('#size').attr('data-error', 'This field is required.');
-                    } else {
-                        $('#fieldDivClothing').hide();
-                        $('#clothing_colour').removeAttr('required');
-                        $('#clothing_colour').removeAttr('data-error');
-                        $('#size').removeAttr('required');
-                        $('#size').removeAttr('data-error');
-                    }
-                    if ($(this).val() == "Tierlantijn") {
-                        $('#fieldGroupDivTierlantijn').show();
-                        $('#fieldGroupDivClothing').hide();
-                        $('#fieldGroupDivDecoration').hide();
-                        $('#weight').attr('required', '');
-                        $('#weight').attr('data-error', 'This field is required.');
-                    } else {
-                        $('#fieldDivClothing').hide();
-                        $('#weight').removeAttr('required');
-                        $('#weight').removeAttr('data-error');
-                    }
-                    if ($(this).val() == "Decoratie") {
-                        $('#fieldGroupDivDecoration').show();
-                        $('#fieldGroupDivClothing').hide();
-                        $('#fieldGroupDivTierlantijn').hide();
-                        $('#size_in_cm').attr('required', '');
-                        $('#size_in_cm').attr('data-error', 'This field is required.');
-                        $('#decoration_colour').attr('required', '');
-                        $('#decoration_colour').attr('data-error', 'This field is required.');
-                        $('#amount_in_package').attr('required', '');
-                        $('#amount_in_package').attr('data-error', 'This field is required.');
-                    } else {
-                        $('#fieldDivClothing').hide();
-                        $('#size_in_cm').removeAttr('required');
-                        $('#size_in_cm').removeAttr('data-error');
-                        $('#decoration_colour').removeAttr('required');
-                        $('#decoration_colour').removeAttr('data-error');
-                        $('#amount_in_package').removeAttr('required');
-                        $('#amount_in_package').removeAttr('data-error');
-                    }
-                });
-                $("#seeAnotherFieldGroup").trigger("change");
-
-                stepzation.handle_error = function(error) {
-                    backdrop_error(error);
-                };
-
-                stepzation.handle_finish = function(step) {
-                    alert('all steps done');
-                };
-
-                stepzation.start();
-            });
-        </script>
         <script src="Js/Index.js"></script>
         <script src="Js/Api_Wheater.js"></script>
         <script src="Js/DragDrop.js"></script>
         <script src="Js/stepzation.js"></script>
-        <script type='text/javascript' src='Js/stepzation.js'></script>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

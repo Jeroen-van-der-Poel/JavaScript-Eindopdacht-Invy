@@ -1,12 +1,92 @@
 /* animations are from:
  * https://daneden.github.io/animate.css/
  */
-var __fade_in = ' animated fadeIn';
-var __fade_out = ' animated fadeOut';
+let __fade_in = ' animated fadeIn';
+let __fade_out = ' animated fadeOut';
+let count = 0;
 
+document.addEventListener('DOMContentLoaded', function(e) {
+    window.stepzation = new Stepzation(document.getElementById('setup'));
 
-var Stepzation = function(elem) {
-    var _this = this;
+    stepzation.next_step_action = function(step) {
+        if (step.getAttribute('data-name') == 'admin_form') {
+            stepzation.db['admin'] = {};
+
+            let productname = step.querySelector('#product_name');
+            let productdescription = step.querySelector('#product_description');
+
+            /*                        stepzation.db['product']['name'] = productname.value;
+                                    stepzation.db['product']['description'] = productdescription.value;*/
+
+            /* You could send a request here for example */
+            /*(wpost('/api/install', JSON.stringify(stepzation.db), function(data) {
+                data = JSON.parse(data);
+
+                if ('error' in data) {
+                    stepzation.previous_step();
+                    stepzation.handle_error(data['error']);
+                }
+            })*/
+        }
+
+        return []; // ugly hack
+    };
+
+    stepzation.handle_error = function(error) {
+        backdrop_error(error);
+    };
+
+    stepzation.handle_finish = function(step) {
+        alert('all steps done');
+        document.getElementById('col2').style.display = "block";
+        count -= 1;
+    };
+
+});
+
+function startForm() {
+    document.getElementById('fieldGroupDivDecoration').style.display = "none";
+    document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
+    if(count == 0)
+    {
+        document.getElementById('col2').style.display = "none";
+        document.getElementById('setup').style.display = "block";
+        stepzation.start();
+        count += 1;
+    }
+    else{
+        document.getElementById('col2').style.display = "block";
+        document.getElementById('setup').style.display = "none";
+        count -= 1;
+    }
+}
+
+function showDiv(select){
+    if(select.value=="Kleding"){
+        document.getElementById('fieldGroupDivClothing').style.display = "block";
+        document.getElementById('fieldGroupDivDecoration').style.display = "none";
+        document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
+    } else{
+        document.getElementById('fieldGroupDivClothing').style.display = "none";
+    }
+    if(select.value=="Tierlantijn"){
+        document.getElementById('fieldGroupDivClothing').style.display = "none";
+        document.getElementById('fieldGroupDivDecoration').style.display = "none";
+        document.getElementById('fieldGroupDivTierlantijn').style.display = "block";
+    } else{
+        document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
+    }
+    if(select.value=="Decoratie"){
+        document.getElementById('fieldGroupDivClothing').style.display = "none";
+        document.getElementById('fieldGroupDivDecoration').style.display = "block";
+        document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
+    } else{
+        document.getElementById('fieldGroupDivDecoration').style.display = "none";
+    }
+}
+
+let Stepzation = function(elem) {
+    let _this = this;
 
     _this.db = {};
 
@@ -19,10 +99,10 @@ var Stepzation = function(elem) {
      * Runs at instantiation.
      */
     _this.init = function () {
-        for (var i = 0; i < _this.steps.length; i++) {
-            var step = _this.steps[i];
-            var step_prev_btn = step.querySelector('[data-type="prev"]');
-            var step_next_btn = step.querySelector('[data-type="next"]');
+        for (let i = 0; i < _this.steps.length; i++) {
+            let step = _this.steps[i];
+            let step_prev_btn = step.querySelector('[data-type="prev"]');
+            let step_next_btn = step.querySelector('[data-type="next"]');
 
             if (step_prev_btn != null)
                 step_prev_btn.addEventListener('click', function(e) { _this.previous_step(); });
@@ -48,8 +128,8 @@ var Stepzation = function(elem) {
      * @return Int | null
      */
     _this.get_current_step_id = function () {
-        for (var i = 0; i < _this.steps.length; i++) {
-            var step = _this.steps[i];
+        for (let i = 0; i < _this.steps.length; i++) {
+            let step = _this.steps[i];
 
             if (step.getAttribute('data-active') == '1')
                 return parseInt(step.getAttribute('data-step-id'));
@@ -62,12 +142,12 @@ var Stepzation = function(elem) {
      * Make the setup go to the next step.
      */
     _this.next_step = function () {
-        var current_id = _this.get_current_step_id();
+        let current_id = _this.get_current_step_id();
 
         if (current_id == null)
             return;
 
-        var errors = [];
+        let errors = [];
 
         if (typeof _this.next_step_action != 'undefined') {
             if (_this.next_step_action != null && _this.next_step_action) {
@@ -79,7 +159,7 @@ var Stepzation = function(elem) {
             errors = [];
 
         if (errors.length > 0) {
-            for (var i = 0; i < errors.length; i++) {
+            for (let i = 0; i < errors.length; i++) {
                 /* Making the error handler none-proprietary by
                  * making it possible for other developers to create a custom
                  * error handler.
@@ -94,7 +174,7 @@ var Stepzation = function(elem) {
             return;
         }
 
-        var next_id = current_id + 1;
+        let next_id = current_id + 1;
 
         if (next_id >= _this.steps.length) {
             /* Making the finish action none-proprietary by
@@ -116,12 +196,12 @@ var Stepzation = function(elem) {
      * Make the setup go to the previous step.
      */
     _this.previous_step = function () {
-        var current_id = _this.get_current_step_id();
+        let current_id = _this.get_current_step_id();
 
         if (current_id == null)
             return;
 
-        var prev_id = current_id - 1;
+        let prev_id = current_id - 1;
         _this.activate_step(_this.steps[prev_id]);
     };
 
@@ -130,8 +210,8 @@ var Stepzation = function(elem) {
      * will deactivate all other steps.
      */
     _this.activate_step = function(step) {
-        for (var i = 0; i < _this.steps.length; i++) {
-            var _step = _this.steps[i];
+        for (let i = 0; i < _this.steps.length; i++) {
+            let _step = _this.steps[i];
 
             if (_step == step)
                 continue;
