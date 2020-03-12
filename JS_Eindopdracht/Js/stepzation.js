@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     stepzation.handle_finish = function(step) {
         alert('all steps done');
-        document.getElementById('col2').style.display = "block";
+        document.getElementById('thegrid').style.display = "block";
         count -= 1;
     };
 
@@ -49,13 +49,13 @@ function startForm() {
     document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
     if(count == 0)
     {
-        document.getElementById('col2').style.display = "none";
+        document.getElementById('thegrid').style.display = "none";
         document.getElementById('setup').style.display = "block";
         stepzation.start();
         count += 1;
     }
     else{
-        document.getElementById('col2').style.display = "block";
+        document.getElementById('thegrid').style.display = "block";
         document.getElementById('setup').style.display = "none";
         count -= 1;
     }
