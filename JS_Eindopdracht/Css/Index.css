@@ -20,6 +20,7 @@
 #col1{
     border: 1px solid black;
     padding: 0;
+    max-height: 1000px;
 }
 
 
