@@ -1,15 +1,99 @@
 // =========== Create Grid ============= //
 const grid = document.getElementById("grid");
 
-function makeRows(rows, cols) {
-    grid.style.setProperty('--grid-rows', rows);
-    grid.style.setProperty('--grid-cols', cols);
-    for (c = 0; c < (rows * cols); c++) {
-        let cell = document.createElement("div");
-        cell.innerText = (c + 1);
-        grid.appendChild(cell).className = "grid-item empty";
-        grid.appendChild(cell).id = c+1;
+clothesgrid =
+    [
+        ['-', '-', '-','-', '-', '-','|', '|', '-','-', '-', '-','-', '-', '-'],
+        ['-', '@', '@','-', '-', '-','|', '|', '-','-', '-', '-','@', '@', '-'],
+        ['-', '@', '@','-', '-', '-','|', '|', '-','-', '-', '-','@', '@', '-'],
+        ['-', '-', '-','-', '-', '-','|', '|', '|','|', '|', '|','|', '|', '|'],
+        ['-', '-', '-','-', '-', '-','|', '|', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','-', '-', '-','|', '|', '-','-', '-', '-','-', '-', '-'],
+        ['|', '|', '|','|', '|', '|','|', '|', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','-', '-', '@','|', '|', '-','-', '-', '-','-', '-', '-'],
+        ['|', '|', '|','|', '|', '|','|', '|', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','-', '-', '-','|', '|', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','-', '-', '-','|', '|', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','-', '-', '-','|', '|', '-','-', '-', '-','-', '-', '-'],
+        ['-', '@', '@','-', '-', '-','|', '|', '-','-', '-', '-','@', '@', '-'],
+        ['-', '@', '@','-', '-', '-','|', '|', '-','-', '-', '-','@', '@', '-'],
+        ['-', '-', '-','-', '-', '-','|', '|', '-','-', '-', '-','-', '-', '-'],
+    ];
+decorationgrid =
+    [
+        ['-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','@', '@', '-','-', '-', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '|','|', '|', '|'],
+        ['-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '|','-', '-', '-'],
+        ['-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '|','-', '-', '-'],
+        ['-', '-', '-','-', '-', '-','-', '|', '|','|', '|', '|','-', '-', '-'],
+        ['-', '-', '-','-', '-', '-','-', '|', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','-', '-', '-','@', '|', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','-', '-', '@','@', '|', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '|','|', '|', '|','|', '|', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '|','-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '|','-', '-', '-','-', '-', '-','-', '@', '-','-', '-', '-'],
+        ['-', '-', '|','-', '-', '-','-', '-', '-','-', '@', '-','-', '-', '-'],
+        ['-', '-', '|','-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '|','-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-'],
+    ];
+tierlantingrid =
+    [
+        ['-', '-', '-','|', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','|', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','|', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','|', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','|', '@', '-','-', '-', '-','-', '@', '-','-', '-', '-'],
+        ['-', '-', '-','|', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-'],
+        ['-', '-', '-','|', '|', '|','|', '|', '|','|', '|', '|','|', '-', '-'],
+        ['-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-','|', '-', '-'],
+        ['-', '-', '-','-', '@', '-','-', '-', '-','-', '@', '-','|', '-', '-'],
+        ['-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-','|', '-', '-'],
+        ['-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-','|', '-', '-'],
+        ['-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-','|', '-', '-'],
+        ['-', '@', '@','-', '-', '-','-', '-', '-','-', '-', '-','|', '-', '-'],
+        ['-', '@', '@','-', '-', '-','-', '-', '-','-', '-', '-','|', '-', '-'],
+        ['-', '-', '-','-', '-', '-','-', '-', '-','-', '-', '-','|', '-', '-'],
+    ];
 
+// =========== grid class ============= //
+class GridClass{
+
+    createGrid(array){
+        let rows = 0;
+        let cols = 0;
+        for(let i = 0; i < array.length; i++){
+            rows += (1);
+            for(let j =0; j < array[i].length; j++){
+                cols += (1);
+            }
+        }
+        grid.style.setProperty('--grid-rows', cols);
+        grid.style.setProperty('--grid-cols', rows);
+        let count = 0;
+        for (let c = 0; c < rows; c++) {
+            for(let d = 0; d < cols/15; d++){
+                let cell = document.createElement("div");
+                if(array[c][d].valueOf() === "-"){
+                    grid.appendChild(cell).className = "grid-item empty";
+                    grid.appendChild(cell).style.backgroundColor = "lightgray";
+                }
+                if(array[c][d].valueOf() === "@"){
+                    grid.appendChild(cell).className = "grid-item wall";
+                    grid.appendChild(cell).style.backgroundColor = "black";
+                }
+                if(array[c][d].valueOf() === "|"){
+                    grid.appendChild(cell).className = "grid-item floor";
+                    grid.appendChild(cell).style.backgroundColor = "darkgray";
+                }
+                grid.appendChild(cell).id = (c + "-" + d);
+                grid.appendChild(cell).style.minWidth = '61.2px';
+                grid.appendChild(cell).style.minHeight = '56px';
+                grid.appendChild(cell).style.maxWidth = '61.2px';
+                grid.appendChild(cell).style.maxHeight = '56px';
+                count++;
+            }
+        }
     }
 }
 
@@ -56,13 +140,16 @@ const tierlantinProducts = [{
     'weight': '15'
 }];
 
-
 // =========== Product view ============= //
 class ProductsView {
     init(){
         switchClothes();
     }
 }
+
+// =========== render products ============= //
+const productdiv = document.getElementById('HiddenProducts');
+let Dropcount = 0;
 
 // =========== Product controller ============= //
 class ProductController {
@@ -74,10 +161,6 @@ class ProductController {
     }
 
 }
-
-// =========== render products ============= //
-const productdiv = document.getElementById('HiddenProducts');
-let Dropcount = 0;
 
 // =========== show products ============= //
 function ShowProducts() {
@@ -102,6 +185,7 @@ function ShowProducts() {
 
 // =========== Page changes ============= //
 let products = null;
+const gridClass = new GridClass();
 const header = document.getElementById("Header");
 const clothing = document.getElementById('Clothing');
 const tierlantin = document.getElementById('Tierlantin');
@@ -111,7 +195,7 @@ function switchClothes() {
     products = clothesProducts;
     header.innerHTML = "Kleding";
     grid.innerHTML = '';
-    makeRows(15, 15);
+    gridClass.createGrid(clothesgrid);
     clothing.style.color = "green";
     tierlantin.style.color = "black";
     decoration.style.color = "black";
@@ -123,7 +207,7 @@ function switchDecoration() {
     products = decorationProducts;
     header.innerHTML = "Decoratie";
     grid.innerHTML = '';
-    makeRows(15, 15);
+    gridClass.createGrid(decorationgrid);
     clothing.style.color = "black";
     tierlantin.style.color = "black";
     decoration.style.color = "green";
@@ -139,7 +223,7 @@ function switchTierlantin() {
     clothing.style.color = "black";
     tierlantin.style.color = "green";
     decoration.style.color = "black";
-    makeRows(15, 15);
+    gridClass.createGrid(tierlantingrid);
     productdiv.innerHTML = "";
     Dropcount = 0;
 }
