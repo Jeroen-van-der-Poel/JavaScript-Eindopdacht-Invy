@@ -162,7 +162,7 @@ class ProductController {
 
 }
 
-// =========== show products ============= //
+// =========== show products ============= /\/
 function ShowProducts() {
     productdiv.innerHTML = "";
     if(Dropcount == 0){

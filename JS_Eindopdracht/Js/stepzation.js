@@ -8,10 +8,12 @@ let count = 0;
 let productitems = [];
 
 const addProduct = (ev) =>{
+    let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
     let product = {
         id: Date.now(),
         name: document.getElementById('product_name').value,
         description: document.getElementById('product_description').value,
+        region: document.getElementById("product_region").options.item(selectboxvalue).text,
         colour: document.getElementById('clothing_colour').value,
         size: document.getElementById('size').value,
         weight: document.getElementById('weight').value,
