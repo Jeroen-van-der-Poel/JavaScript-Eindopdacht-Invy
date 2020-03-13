@@ -3,7 +3,7 @@ export const Products = [{
     'color': 'red',
     'fit': 'small',
     'regio': 'clothes'
-}, {
+},{
     'name': 'sweather',
     'color': 'white',
     'fit': 'medium',
@@ -19,7 +19,7 @@ export const Products = [{
     'color': 'yellow',
     'amount': '4',
     'regio': 'decoration'
-}, {
+},{
     'name': 'embleem',
     'size': '6',
     'color': 'red',
@@ -35,10 +35,10 @@ export const Products = [{
     'name': 'iets',
     'weight': '20',
     'regio': 'tierlantin'
-}, {
+},{
     'name': 'niets',
     'weight': '30',
-    'regio': 'tierlanitn'
+    'regio': 'tierlantin'
 },{
     'name': 'niks',
     'weight': '15',

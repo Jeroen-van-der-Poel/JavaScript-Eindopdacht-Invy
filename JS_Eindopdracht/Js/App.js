@@ -1,7 +1,8 @@
 import { Products } from "./Products/Products";
-import { clothesgrid, tierlantingrid, decorationgrid} from "./Grid/GridLayout"
+import { clothesgrid, tierlantingrid, decorationgrid} from "./Grid/GridLayout";
 import { grid, createGrid } from "./Grid/CreateGrid";
-import { ShowWeather } from "./Weather/Api_Weather"
+import { ShowWeather } from "./Weather/Api_Weather";
+import { productdiv, Dropcount, ShowProducts } from "./Products/ShowPrducts";
 
 const clothingbutton = document.getElementById("Clothing");
 const tierlantinbutton = document.getElementById("Tierlantin");
@@ -13,6 +14,8 @@ decorationbutton.addEventListener('click', decorationClick);
 
 const header = document.getElementById("Header");
 
+let currentProducts = [];
+
 // =========== Page changes ============= //
 function clothesClick() {
     header.innerHTML = "Kleding";
@@ -21,6 +24,7 @@ function clothesClick() {
     clothingbutton.style.color = "green";
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "black";
+    getProducts("clothes");
 }
 
 function tierlantinClick() {
@@ -30,6 +34,7 @@ function tierlantinClick() {
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "green";
     decorationbutton.style.color = "black";
+    getProducts("tierlantin");
 }
 
 function decorationClick() {
@@ -39,6 +44,7 @@ function decorationClick() {
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "green";
+    getProducts("decoration");
 }
 
 // =========== initialize first page ============= //
@@ -53,5 +59,20 @@ function WeatherFunction() {
     ShowWeather();
 }
 
+// =========== get products ============= //
+function getProducts(regio){
+    currentProducts = [];
+    for(let i = 0; i < Products.length; i++){
+        if(Products[i].regio === regio){
+            currentProducts.push(Products[i])
+        }
+    }
+}
+
 // =========== show products ============= //
-sidebutton
+let productButton = document.getElementById("sidebutton");
+productButton.addEventListener('click', productClick);
+
+function productClick() {
+    ShowProducts(currentProducts);
+}

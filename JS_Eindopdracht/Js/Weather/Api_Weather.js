@@ -3,7 +3,6 @@ const tempElement = document.querySelector(".temperature-value p");
 const descElement = document.querySelector(".temperature-description p");
 const LocationElement = document.querySelector(".location p");
 const NotificationElement = document.querySelector(".notification");
-let button = document.querySelector('.weatherbutton');
 let inputValue = document.querySelector('.inputValue');
 
 const weather = {};
@@ -72,23 +71,3 @@ function displayWeather() {
     LocationElement.innerHTML = `${weather.city}, ${weather.country}`;
 }
 
-/*
-function celsiusToFahr(temperature) {
-    return (temperature * 9/5) + 32;
-}
-
-tempElement.addEventListener("click", function () {
-    if(weather.temperature.value === undefined) return;
-
-    if(weather.temperature.unit == "celsius"){
-        let fahr = celsiusToFahr(weather.temperature.value);
-        fahr = Math.floor(fahr);
-
-        tempElement.innerHTML = `${fahr}°<span>F</span>`;
-        weather.temperature.unit = "fahrenheit";
-    }
-    else{
-        tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
-        weather.temperature.unit = "celsius"
-    }
-});*/
