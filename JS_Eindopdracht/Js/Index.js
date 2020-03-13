@@ -6,10 +6,6 @@ class ProductsView {
 
 }
 
-// =========== render products ============= //
-const productdiv = document.getElementById('HiddenProducts');
-let Dropcount = 0;
-
 // =========== Product controller ============= //
 class ProductController {
     constructor(productsView) {
@@ -21,31 +17,9 @@ class ProductController {
 
 }
 
-// =========== show products ============= //
-function ShowProducts() {
-    productdiv.innerHTML = "";
-    if(Dropcount == 0){
-        for(let i = 0; i < products.length; i++){
-            let divi = document.createElement('div');
-            divi.setAttribute('draggable', 'true');
-            divi.text = divi.value = `${products[i]['name']}`;
-            divi.innerHTML = `${products[i]['name']}`;
-            divi.style.border= "1px solid black";
-            productdiv.appendChild(divi).className = "draggable-product";
-            productdiv.appendChild(divi).id = i;
-            Dropcount = 1;
-        }
-    }
-    else{
-        productdiv.innerHTML = "";
-        Dropcount = 0;
-    }
-}
-
 // =========== Page changes ============= //
 let products = null;
 const gridClass = new GridClass();
-const header = document.getElementById("Header");
 const clothing = document.getElementById('Clothing');
 const tierlantin = document.getElementById('Tierlantin');
 const decoration = document.getElementById('Decoration');

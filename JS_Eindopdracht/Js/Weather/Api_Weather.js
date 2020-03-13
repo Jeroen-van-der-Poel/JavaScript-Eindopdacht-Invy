@@ -15,7 +15,7 @@ weather.temperature = {
 const KELVIN = 273;
 const KEY = "62f7ba282a6bdc30f5c263bf084aefa5";
 
-button.addEventListener('click', function () {
+export function ShowWeather() {
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=`+inputValue.value+`&appid=${KEY}`)
         .then(response => response.json())
         .then(data => {
@@ -26,7 +26,7 @@ button.addEventListener('click', function () {
         })
 
         .catch(err => alert("Wrong city name"))
-})
+}
 
 if('geolocation' in navigator){
     navigator.geolocation.getCurrentPosition(setPosition, showError);
@@ -72,6 +72,7 @@ function displayWeather() {
     LocationElement.innerHTML = `${weather.city}, ${weather.country}`;
 }
 
+/*
 function celsiusToFahr(temperature) {
     return (temperature * 9/5) + 32;
 }
@@ -90,4 +91,4 @@ tempElement.addEventListener("click", function () {
         tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
         weather.temperature.unit = "celsius"
     }
-});
+});*/
