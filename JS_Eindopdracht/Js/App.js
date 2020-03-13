@@ -89,3 +89,12 @@ function WizardFunction() {
 }
 
 // =========== initialize ============= //
+const thegrid = document.getElementById("thegrid");
+
+function Start() {
+    header.innerHTML = "Welkom";
+    thegrid.innerHTML = "Kies een regio";
+    thegrid.style.textAlign = "center";
+}
+
+Start();
