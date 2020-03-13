@@ -4,7 +4,7 @@ const descElement = document.querySelector(".temperature-description p");
 const LocationElement = document.querySelector(".location p");
 const NotificationElement = document.querySelector(".notification");
 let button = document.querySelector('.weatherbutton');
-let inputValue = document.querySelector('.inputValue')
+let inputValue = document.querySelector('.inputValue');
 
 const weather = {};
 
@@ -19,8 +19,8 @@ button.addEventListener('click', function () {
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=`+inputValue.value+`&appid=${KEY}`)
         .then(response => response.json())
         .then(data => {
-            var longValue = data['coord']['lon']
-            var latValue = data['coord']['lat']
+            var longValue = data['coord']['lon'];
+            var latValue = data['coord']['lat'];
 
             getWeather(latValue, longValue);
         })
