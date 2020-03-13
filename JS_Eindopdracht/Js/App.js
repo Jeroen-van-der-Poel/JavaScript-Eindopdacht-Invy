@@ -8,6 +8,7 @@ import { startForm } from "./Wizard/stepzation";
 const clothingbutton = document.getElementById("Clothing");
 const tierlantinbutton = document.getElementById("Tierlantin");
 const decorationbutton = document.getElementById("Decoration");
+let formStart = document.getElementById("StartForm");
 
 clothingbutton.addEventListener('click', clothesClick);
 tierlantinbutton.addEventListener('click', tierlantinClick);
@@ -24,6 +25,7 @@ function clothesClick() {
     clothingbutton.style.color = "green";
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "black";
+    formStart.style.color = "black";
     getProducts("clothes");
 }
 
@@ -34,6 +36,7 @@ function tierlantinClick() {
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "green";
     decorationbutton.style.color = "black";
+    formStart.style.color = "black";
     getProducts("tierlantin");
 }
 
@@ -44,6 +47,7 @@ function decorationClick() {
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "green";
+    formStart.style.color = "black";
     getProducts("decoration");
 }
 
@@ -75,8 +79,6 @@ function productClick() {
 }
 
 // =========== Wizard ============= //
-let formStart = document.getElementById("StartForm");
-
 formStart.addEventListener('click', WizardFunction);
 
 function WizardFunction() {
