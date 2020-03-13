@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
 });
 
-function startForm() {
+export function startForm() {
     document.getElementById('fieldGroupDivDecoration').style.display = "none";
     document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
     if(count == 0)

@@ -3,6 +3,7 @@ import { clothesgrid, tierlantingrid, decorationgrid} from "./Grid/GridLayout";
 import { grid, createGrid } from "./Grid/CreateGrid";
 import { ShowWeather } from "./Weather/Api_Weather";
 import { productdiv, Dropcount, ShowProducts } from "./Products/ShowPrducts";
+import { startForm } from "./Wizard/stepzation";
 
 const clothingbutton = document.getElementById("Clothing");
 const tierlantinbutton = document.getElementById("Tierlantin");
@@ -13,7 +14,6 @@ tierlantinbutton.addEventListener('click', tierlantinClick);
 decorationbutton.addEventListener('click', decorationClick);
 
 const header = document.getElementById("Header");
-
 let currentProducts = [];
 
 // =========== Page changes ============= //
@@ -47,9 +47,6 @@ function decorationClick() {
     getProducts("decoration");
 }
 
-// =========== initialize first page ============= //
-clothesClick();
-
 // =========== weather ============= //
 let weatherButton = document.querySelector('.weatherbutton');
 
@@ -76,3 +73,19 @@ productButton.addEventListener('click', productClick);
 function productClick() {
     ShowProducts(currentProducts);
 }
+
+// =========== Wizard ============= //
+let formStart = document.getElementById("StartForm");
+
+formStart.addEventListener('click', WizardFunction);
+
+function WizardFunction() {
+    startForm();
+    currentProducts = [];
+    clothingbutton.style.color = "black";
+    tierlantinbutton.style.color = "black";
+    decorationbutton.style.color = "black";
+    formStart.style.color = "green";
+}
+
+// =========== initialize ============= //
