@@ -89,7 +89,6 @@ function WizardFunction() {
 }
 
 // =========== initialize ============= //
-
 function Start() {
     header.innerHTML = "Welkom";
     grid.innerHTML = "Kies een regio";
