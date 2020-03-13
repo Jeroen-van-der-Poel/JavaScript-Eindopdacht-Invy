@@ -5,32 +5,46 @@ let __fade_in = ' animated fadeIn';
 let __fade_out = ' animated fadeOut';
 let count = 0;
 
+let productitems = [];
+
+const addProduct = (ev) =>{
+    let product = {
+        id: Date.now(),
+        name: document.getElementById('product_name').value,
+        description: document.getElementById('product_description').value,
+        colour: document.getElementById('clothing_colour').value,
+        size: document.getElementById('size').value,
+        weight: document.getElementById('weight').value,
+        size_in_cm: document.getElementById('size_in_cm').value,
+        decoration_colour: document.getElementById('decoration_colour').value,
+        amount_in_package: document.getElementById('amount_in_package').value,
+        buy_price: document.getElementById('product_buy_price').value,
+        sell_price_no_btw: document.getElementById('product_sell_price').value,
+        product_minimal_storage: document.getElementById('product_minimal_storage').value
+    }
+    productitems.push(product);
+    document.getElementById('product_name').value = "";
+    document.getElementById('product_description').value = "";
+    document.getElementById('clothing_colour').value = "";
+    document.getElementById('size').value = "";
+    document.getElementById('weight').value = "";
+    document.getElementById('size_in_cm').value = "";
+    document.getElementById('decoration_colour').value = "";
+    document.getElementById('amount_in_package').value = "";
+    document.getElementById('product_buy_price').value = "";
+    document.getElementById('product_sell_price').value = "";
+    document.getElementById('product_minimal_storage').value = "";
+
+    console.warn('added', {productitems} );
+
+    localStorage.setItem('ProductsList', JSON.stringify(productitems))
+}
+document.addEventListener('DOMContentLoaded', ()=> {
+    document.getElementById('btn').addEventListener('click', addProduct)
+})
+
 document.addEventListener('DOMContentLoaded', function(e) {
     window.stepzation = new Stepzation(document.getElementById('setup'));
-
-    stepzation.next_step_action = function(step) {
-        if (step.getAttribute('data-name') == 'admin_form') {
-            stepzation.db['admin'] = {};
-
-            let productname = step.querySelector('#product_name');
-            let productdescription = step.querySelector('#product_description');
-
-            /*                        stepzation.db['product']['name'] = productname.value;
-                                    stepzation.db['product']['description'] = productdescription.value;*/
-
-            /* You could send a request here for example */
-            /*(wpost('/api/install', JSON.stringify(stepzation.db), function(data) {
-                data = JSON.parse(data);
-
-                if ('error' in data) {
-                    stepzation.previous_step();
-                    stepzation.handle_error(data['error']);
-                }
-            })*/
-        }
-
-        return []; // ugly hack
-    };
 
     stepzation.handle_error = function(error) {
         backdrop_error(error);
@@ -64,24 +78,24 @@ function startForm() {
 function showDiv(select){
     if(select.value=="Kleding"){
         document.getElementById('fieldGroupDivClothing').style.display = "block";
-        document.getElementById('fieldGroupDivDecoration').style.display = "none";
-        document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
     } else{
         document.getElementById('fieldGroupDivClothing').style.display = "none";
+        document.getElementById('clothing_colour').value = "";
+        document.getElementById('size').value = "";
     }
     if(select.value=="Tierlantijn"){
-        document.getElementById('fieldGroupDivClothing').style.display = "none";
-        document.getElementById('fieldGroupDivDecoration').style.display = "none";
         document.getElementById('fieldGroupDivTierlantijn').style.display = "block";
     } else{
         document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
+        document.getElementById('weight').value = "";
     }
     if(select.value=="Decoratie"){
-        document.getElementById('fieldGroupDivClothing').style.display = "none";
         document.getElementById('fieldGroupDivDecoration').style.display = "block";
-        document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
     } else{
         document.getElementById('fieldGroupDivDecoration').style.display = "none";
+        document.getElementById('size_in_cm').value = "";
+        document.getElementById('decoration_colour').value = "";
+        document.getElementById('amount_in_package').value = "";
     }
 }
 
@@ -195,7 +209,7 @@ let Stepzation = function(elem) {
     /**
      * Make the setup go to the previous step.
      */
-    _this.previous_step = function () {
+/*    _this.previous_step = function () {
         let current_id = _this.get_current_step_id();
 
         if (current_id == null)
@@ -203,7 +217,7 @@ let Stepzation = function(elem) {
 
         let prev_id = current_id - 1;
         _this.activate_step(_this.steps[prev_id]);
-    };
+    };*/
 
     /**
      * Activate a single step,
