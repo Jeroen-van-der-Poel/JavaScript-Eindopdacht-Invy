@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     stepzation.handle_finish = function(step) {
         alert('Alle stappen voltooid.');
-        document.getElementById('thegrid').style.display = "block";
         Start();
         count -= 1;
     };

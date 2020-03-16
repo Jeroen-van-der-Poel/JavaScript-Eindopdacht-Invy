@@ -30,9 +30,9 @@ export function createGrid(array){
                 grid.appendChild(cell).style.backgroundColor = "darkgray";
             }
             grid.appendChild(cell).id = (c + "-" + d);
-            grid.appendChild(cell).style.minWidth = '61.2px';
+            grid.appendChild(cell).style.minWidth = '62px';
             grid.appendChild(cell).style.minHeight = '56px';
-            grid.appendChild(cell).style.maxWidth = '61.2px';
+            grid.appendChild(cell).style.maxWidth = '62px';
             grid.appendChild(cell).style.maxHeight = '56px';
             count++;
         }

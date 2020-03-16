@@ -97,10 +97,15 @@ function WizardFunction() {
 
 // =========== initialize ============= //
 export function Start() {
+    currentRegio = null;
     header.innerHTML = "Welkom";
     grid.innerHTML = "Kies een regio";
     grid.style.textAlign = "center";
     grid.style.border = "none";
+    clothingbutton.style.color = "black";
+    tierlantinbutton.style.color = "black";
+    decorationbutton.style.color = "black";
+    formStart.style.color = "black";
 
     window.onload = function () {
         if(localStorage.getItem("regios") === null){
