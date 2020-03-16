@@ -1,14 +1,15 @@
-// =========== drag and drop ============= //
 import {Regios} from "../Regios/Initialize";
+import {currentRegio} from "../App";
 
-const dropzones = document.querySelector('.grid');
+// =========== drag and drop ============= //
+const dropzones = document.getElementById('grid');
 
 let el = null;
 let currentItem;
 let currentClassList;
 let currentProduct;
 
-export let test = document.querySelector('.draggable-items').addEventListener('dragstart', e => {
+document.querySelector('.draggable-items').addEventListener('dragstart', e => {
     // console.log(e)
     e.dataTransfer.dropEffect = 'move';
     el = e.target.cloneNode(true);
@@ -52,7 +53,6 @@ dropzones.addEventListener('dragenter', (e) => {
         if (currentRegio.grid[row][col] == currentProduct)
         {
             e.target.style.backgroundColor = "lightgrey";
-            currentRegio.grid[row][col] = "null";
             Regios.updateRegio(currentRegio);
             e.target.classList.add('empty');
             e.target.classList.remove(currentProduct);
@@ -61,7 +61,7 @@ dropzones.addEventListener('dragenter', (e) => {
     }
 
     if (e.target.classList.contains('empty')) {
-        e.target.style.backgroundColor = "black";
+        e.target.style.backgroundColor = "green";
     }
     // currentItem = null;
 });
@@ -71,6 +71,7 @@ dropzones.addEventListener('drop', (e) => {
     {
         e.preventDefault();
         e.target.style.backgroundColor = "yellow";
+        e.target.innerhtml = currentItem.name;
         e.target.setAttribute('draggable', true);
         e.target.classList.remove('empty');
         el = null;
@@ -79,7 +80,7 @@ dropzones.addEventListener('drop', (e) => {
         let row = position.split("-")[0];
         let col = position.split("-")[1];
 
-        currentRegio.map[row][col] = currentProduct;
+        currentRegio.grid[row][col] = currentProduct;
         Regios.updateRegio(currentRegio);
         document.getElementById(position).classList.add(currentProduct);
     } else
@@ -90,3 +91,16 @@ dropzones.addEventListener('drop', (e) => {
     }
     currentItem = null;
 });
+
+dropzones.addEventListener('dragleave', (e) => {
+    if (e.target.classList.contains('empty')) {
+        e.target.style.backgroundColor = "lightgrey";
+    }
+});
+
+const events = [
+    'dragenter',
+    'dragleave',
+    'dragover', // to allow drop
+    'drop'
+];

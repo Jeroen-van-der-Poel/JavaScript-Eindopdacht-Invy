@@ -6,7 +6,6 @@
 #grid {
     display: grid;
     grid-gap: 0em;
-    border: 1px solid black;
     max-height: 842px;
     grid-template-rows: repeat(var(--grid-rows), 1fr);
     grid-template-columns: repeat(var(--grid-cols), 1fr);

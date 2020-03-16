@@ -1,7 +1,7 @@
 import { clothesgrid, tierlantingrid, decorationgrid} from "./Grid/GridLayout";
 import { grid, createGrid } from "./Grid/CreateGrid";
 import { ShowWeather } from "./Weather/Api_Weather";
-import { ShowProducts, LoadProducts } from "./Products/ShowPrducts";
+import { ShowProducts, LoadProducts } from "./Products/ShowProducts";
 import { showDiv, startForm, changeFormRegion } from "./Wizard/stepzation";
 import { Warehouse, Regios } from "./Regios/Initialize"
 
@@ -17,7 +17,7 @@ decorationbutton.addEventListener('click', decorationClick);
 
 const header = document.getElementById("Header");
 
-let currentRegio = null;
+export let currentRegio = null;
 
 // =========== Page changes ============= //
 function clothesClick() {
