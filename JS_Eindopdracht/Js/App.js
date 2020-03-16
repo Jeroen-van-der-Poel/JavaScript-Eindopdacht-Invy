@@ -133,12 +133,13 @@ Start();
 
 // =========== drag and drop ============= //
 const dropzones = document.getElementById('grid');
-const dragDrop = new DragDrop(el, currentItem, currentClassList, currentProduct);
 
 let el = null;
 let currentItem;
 let currentClassList;
 let currentProduct;
+
+const dragDrop = new DragDrop(el, currentItem, currentClassList, currentProduct);
 
 document.querySelector('.draggable-items').addEventListener('dragstart', e => {
     dragDrop.DragStart(e);

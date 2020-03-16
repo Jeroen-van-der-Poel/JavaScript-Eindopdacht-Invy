@@ -26,18 +26,18 @@ export class DragDrop{
     }
 
      DragEnter(e){
-        if (currentItem == null)
+        if (this.currentItem == null)
         {
             this.currentItem = e.target;
-            this.currentClassList = currentItem.classList;
+            this.currentClassList = this.currentItem.classList;
 
             //removes draggable from product-item
-            for(let index in currentClassList)
+            for(let index in this.currentClassList)
             {
-                if(/[a-z]\d/.test(currentClassList[index]))
+                if(/[a-z]\d/.test(this.currentClassList[index]))
                 {
-                    this.currentProduct = currentClassList[index];
-                    let productItem = document.getElementsByClassName(currentClassList[index])[0];
+                    this.currentProduct = this.currentClassList[index];
+                    let productItem = document.getElementsByClassName(this.currentClassList[index])[0];
                     productItem.removeAttribute('draggable');
                     productItem.style.backgroundColor = "orange";
                     break;
@@ -51,12 +51,12 @@ export class DragDrop{
         if (Number.isInteger(parseInt(row)))
         {
             let temp = currentRegio.grid[row][col];
-            if (currentRegio.grid[row][col] == currentProduct)
+            if (currentRegio.grid[row][col] == this.currentProduct)
             {
                 e.target.style.backgroundColor = "lightgrey";
                 Regios.updateRegio(currentRegio);
                 e.target.classList.add('empty');
-                e.target.classList.remove(currentProduct);
+                e.target.classList.remove(this.currentProduct);
                 document.getElementById(e.target.id).removeAttribute('draggable');
             }
         }
@@ -72,7 +72,7 @@ export class DragDrop{
         {
             e.preventDefault();
             e.target.style.backgroundColor = "yellow";
-            e.target.innerhtml = currentItem.name;
+            e.target.innerhtml = this.currentItem.name;
             e.target.setAttribute('draggable', true);
             e.target.classList.remove('empty');
             this.el = null;
@@ -81,12 +81,12 @@ export class DragDrop{
             let row = position.split("-")[0];
             let col = position.split("-")[1];
 
-            currentRegio.grid[row][col] = currentProduct;
+            currentRegio.grid[row][col] = this.currentProduct;
             Regios.updateRegio(currentRegio);
-            document.getElementById(position).classList.add(currentProduct);
+            document.getElementById(position).classList.add(this.currentProduct);
         } else
         {
-            let productItem = document.getElementsByClassName(currentProduct)[0];
+            let productItem = document.getElementsByClassName(this.currentProduct)[0];
             productItem.setAttribute('draggable',true);
             productItem.style.backgroundColor = "green";
         }
