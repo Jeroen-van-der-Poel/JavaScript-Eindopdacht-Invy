@@ -2,7 +2,7 @@ import { clothesgrid, tierlantingrid, decorationgrid} from "./Grid/GridLayout";
 import { grid, createGrid } from "./Grid/CreateGrid";
 import { ShowWeather } from "./Weather/Api_Weather";
 import { ShowProducts } from "./Products/ShowPrducts";
-import {showDiv, startForm} from "./Wizard/stepzation";
+import { showDiv, startForm, changeFormRegion } from "./Wizard/stepzation";
 import { Warehouse, Regios } from "./Regios/Initialize"
 
 const clothingbutton = document.getElementById("Clothing");
@@ -23,6 +23,7 @@ let currentRegio = null;
 function clothesClick() {
     header.innerHTML = "Kleding";
     grid.innerHTML = '';
+    changeFormRegion();
     createGrid(Regios.getRegio("clothes").grid);
     currentRegio = Regios.getRegio("clothes");
     clothingbutton.style.color = "green";
@@ -34,6 +35,7 @@ function clothesClick() {
 function tierlantinClick() {
     header.innerHTML = "Tierlantijn";
     grid.innerHTML = '';
+    changeFormRegion();
     createGrid(tierlantingrid);
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "green";
@@ -45,6 +47,7 @@ function tierlantinClick() {
 function decorationClick() {
     header.innerHTML = "Decoratie";
     grid.innerHTML = '';
+    changeFormRegion();
     createGrid(decorationgrid);
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "black";
@@ -84,7 +87,7 @@ function changeDiv() {
 
 function WizardFunction() {
     startForm();
-    /*document.getElementById('product_region').addEventListener("change", showDiv(), false);*/
+    header.innerHTML = "Product toevoegen";
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "black";
@@ -92,7 +95,7 @@ function WizardFunction() {
 }
 
 // =========== initialize ============= //
-function Start() {
+export function Start() {
     header.innerHTML = "Welkom";
     grid.innerHTML = "Kies een regio";
     grid.style.textAlign = "center";

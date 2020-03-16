@@ -1,16 +1,10 @@
-/* animations are from:
- * https://daneden.github.io/animate.css/
- */
-import { Warehouse, Regios } from "../Regios/Initialize"
+import { Warehouse, Regios } from "../Regios/Initialize";
+import { Start } from "../App";
 
 let __fade_in = ' animated fadeIn';
 let __fade_out = ' animated fadeOut';
 
 let count = 0;
-
-let productitems = [];
-
-let regions = document.getElementById("product_region");
 
 const addProduct = (ev) =>{
     let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
@@ -69,8 +63,9 @@ document.addEventListener('DOMContentLoaded', function(e) {
     };
 
     stepzation.handle_finish = function(step) {
-        alert('all steps done');
+        alert('Alle stappen voltooid.');
         document.getElementById('thegrid').style.display = "block";
+        Start();
         count -= 1;
     };
 
@@ -91,6 +86,12 @@ export function startForm() {
         document.getElementById('setup').style.display = "none";
         count -= 1;
     }
+}
+
+export function changeFormRegion() {
+    document.getElementById('thegrid').style.display = "block";
+    document.getElementById('setup').style.display = "none";
+    count = 0;
 }
 
 export function showDiv(select){
