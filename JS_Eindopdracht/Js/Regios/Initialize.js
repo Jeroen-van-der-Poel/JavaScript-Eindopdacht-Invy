@@ -31,7 +31,7 @@ export class Regios {
         }
         else{
             let regios = JSON.parse(localStorage.getItem('regios'));
-            for (let index = 0; index < 1; index++)
+            for (let index = 0; index < 3; index++)
             {
                 if (regios[index].name.includes(name))
                 {

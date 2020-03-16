@@ -24,6 +24,7 @@ function clothesClick() {
     header.innerHTML = "Kleding";
     grid.innerHTML = '';
     createGrid(Regios.getRegio("clothes").grid);
+    currentRegio = null;
     currentRegio = Regios.getRegio("clothes");
     clothingbutton.style.color = "green";
     tierlantinbutton.style.color = "black";
@@ -34,23 +35,25 @@ function clothesClick() {
 function tierlantinClick() {
     header.innerHTML = "Tierlantijn";
     grid.innerHTML = '';
-    createGrid(tierlantingrid);
+    createGrid(Regios.getRegio("tierlantin").grid);
+    currentRegio = null;
+    currentRegio = Regios.getRegio("tierlantin");
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "green";
     decorationbutton.style.color = "black";
     formStart.style.color = "black";
-    getProducts("tierlantin");
 }
 
 function decorationClick() {
     header.innerHTML = "Decoratie";
     grid.innerHTML = '';
-    createGrid(decorationgrid);
+    createGrid(Regios.getRegio("decoration").grid);
+    currentRegio = null;
+    currentRegio = Regios.getRegio("decoration");
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "green";
     formStart.style.color = "black";
-    getProducts("decoration");
 }
 
 // =========== weather ============= //
@@ -69,7 +72,6 @@ productButton.addEventListener('click', productClick);
 function productClick() {
     if(currentRegio != null){
         ShowProducts(currentRegio.items);
-        console.log(currentRegio);
     }
 }
 
@@ -103,6 +105,12 @@ function Start() {
             let clothes = new Warehouse("clothes", [], []);
             clothes.grid = clothesgrid;
             Regios.addRegios(clothes);
+            let decoration = new Warehouse("decoration", [], []);
+            decoration.grid = decorationgrid;
+            Regios.addRegios(decoration);
+            let tierlantin = new Warehouse("tierlantin", [], []);
+            tierlantin.grid = tierlantingrid;
+            Regios.addRegios(tierlantin);
         }
         else{
             Regios.getRegios();
