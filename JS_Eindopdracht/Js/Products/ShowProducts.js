@@ -10,8 +10,8 @@ export function LoadProducts(products) {
             divi.innerHTML = products[item].name;
             divi.style.border= "1px solid black";
             divi.style.backgroundColor = "green";
-            divi.classList.add("p" + item);
             divi.classList.add("draggable-product");
+            divi.classList.add("p" + item);
             productdiv.appendChild(divi);
             productdiv.style.visibility = "hidden";
         }

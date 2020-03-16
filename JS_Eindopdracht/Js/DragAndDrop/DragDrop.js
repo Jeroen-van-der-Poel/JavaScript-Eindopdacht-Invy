@@ -101,8 +101,6 @@ export class DragDrop{
 
 }
 
-
-
 /*
 const events = [
     'dragenter',
