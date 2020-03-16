@@ -2,7 +2,6 @@ import {Regios} from "../Regios/Initialize";
 import {currentRegio} from "../App";
 
 export class DragDrop{
-
     constructor(el, currentItem, currentClassList, currentProduct) {
         this.el = el;
         this.currentItem = currentItem;
