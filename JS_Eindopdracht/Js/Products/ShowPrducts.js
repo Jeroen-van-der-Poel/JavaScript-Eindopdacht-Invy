@@ -3,9 +3,8 @@ export const productdiv = document.getElementById('HiddenProducts');
 export let Dropcount = 0;
 
 // =========== show products ============= //
-export function ShowProducts(products) {
+export function LoadProducts(products) {
     productdiv.innerHTML = "";
-    if(Dropcount === 0){
         for(let item in products){
             let divi = document.createElement('div');
             divi.setAttribute('draggable', 'true');
@@ -16,9 +15,14 @@ export function ShowProducts(products) {
             document.getElementById("HiddenProducts").appendChild(divi);
             Dropcount = 1;
         }
+}
+
+export function ShowProducts(){
+    productdiv.visibility = "hidden";
+    if(productdiv.visibility === "hidden"){
+        productdiv.visibility = "visible";
     }
     else{
-        productdiv.innerHTML = "";
-        Dropcount = 0;
+        productdiv.visibility = "hidden";
     }
 }

@@ -1,7 +1,7 @@
 import { clothesgrid, tierlantingrid, decorationgrid} from "./Grid/GridLayout";
 import { grid, createGrid } from "./Grid/CreateGrid";
 import { ShowWeather } from "./Weather/Api_Weather";
-import { ShowProducts } from "./Products/ShowPrducts";
+import { ShowProducts, LoadProducts } from "./Products/ShowPrducts";
 import { showDiv, startForm, changeFormRegion } from "./Wizard/stepzation";
 import { Warehouse, Regios } from "./Regios/Initialize"
 
@@ -27,6 +27,7 @@ function clothesClick() {
     createGrid(Regios.getRegio("clothes").grid);
     currentRegio = null;
     currentRegio = Regios.getRegio("clothes");
+    LoadProducts(currentRegio.items);
     clothingbutton.style.color = "green";
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "black";
@@ -40,6 +41,7 @@ function tierlantinClick() {
     createGrid(Regios.getRegio("tierlantin").grid);
     currentRegio = null;
     currentRegio = Regios.getRegio("tierlantin");
+    LoadProducts(currentRegio.items);
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "green";
     decorationbutton.style.color = "black";
@@ -53,6 +55,7 @@ function decorationClick() {
     createGrid(Regios.getRegio("decoration").grid);
     currentRegio = null;
     currentRegio = Regios.getRegio("decoration");
+    LoadProducts(currentRegio.items);
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "green";
@@ -73,7 +76,7 @@ productButton.addEventListener('click', productClick);
 
 function productClick() {
     if(currentRegio != null){
-        ShowProducts(currentRegio.items);
+        ShowProducts();
     }
 }
 
