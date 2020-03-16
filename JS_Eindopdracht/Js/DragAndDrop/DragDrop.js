@@ -99,11 +99,3 @@ export class DragDrop{
     }
 
 }
-
-/*
-const events = [
-    'dragenter',
-    'dragleave',
-    'dragover', // to allow drop
-    'drop'
-];*/
