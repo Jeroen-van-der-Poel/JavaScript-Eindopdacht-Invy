@@ -4,6 +4,7 @@ import { ShowWeather } from "./Weather/Api_Weather";
 import { ShowProducts, LoadProducts } from "./Products/ShowProducts";
 import { showDiv, startForm, changeFormRegion } from "./Wizard/stepzation";
 import { Warehouse, Regios } from "./Regios/Initialize"
+import {DragDrop} from "./DragAndDrop/DragDrop";
 
 const clothingbutton = document.getElementById("Clothing");
 const tierlantinbutton = document.getElementById("Tierlantin");
@@ -130,3 +131,31 @@ export function Start() {
 
 Start();
 
+// =========== drag and drop ============= //
+const dropzones = document.getElementById('grid');
+const dragDrop = new DragDrop(el, currentItem, currentClassList, currentProduct);
+
+let el = null;
+let currentItem;
+let currentClassList;
+let currentProduct;
+
+document.querySelector('.draggable-items').addEventListener('dragstart', e => {
+    dragDrop.DragStart(e);
+});
+
+dropzones.addEventListener('dragover', (e) => {
+    dragDrop.DragOver(e);
+});
+
+dropzones.addEventListener('dragenter', (e) => {
+    dragDrop.DragEnter(e);
+});
+
+dropzones.addEventListener('drop', (e) => {
+    dragDrop.Drop(e);
+});
+
+dropzones.addEventListener('dragleave', (e) => {
+    dragDrop.DragLeave(e);
+});
