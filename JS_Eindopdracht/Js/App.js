@@ -3,12 +3,13 @@ import { clothesgrid, tierlantingrid, decorationgrid} from "./Grid/GridLayout";
 import { grid, createGrid } from "./Grid/CreateGrid";
 import { ShowWeather } from "./Weather/Api_Weather";
 import { productdiv, Dropcount, ShowProducts } from "./Products/ShowPrducts";
-import { startForm } from "./Wizard/stepzation";
+import {showDiv, startForm} from "./Wizard/stepzation";
 
 const clothingbutton = document.getElementById("Clothing");
 const tierlantinbutton = document.getElementById("Tierlantin");
 const decorationbutton = document.getElementById("Decoration");
 let formStart = document.getElementById("StartForm");
+let formRegion = document.getElementById("product_region");
 
 clothingbutton.addEventListener('click', clothesClick);
 tierlantinbutton.addEventListener('click', tierlantinClick);
@@ -80,9 +81,16 @@ function productClick() {
 
 // =========== Wizard ============= //
 formStart.addEventListener('click', WizardFunction);
+formRegion.addEventListener('change', changeDiv);
+
+function changeDiv() {
+    let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
+    showDiv(selectboxvalue);
+}
 
 function WizardFunction() {
     startForm();
+    /*document.getElementById('product_region').addEventListener("change", showDiv(), false);*/
     currentProducts = [];
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "black";

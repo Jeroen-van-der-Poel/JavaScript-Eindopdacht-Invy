@@ -1,11 +1,11 @@
-/* animations are from:
- * https://daneden.github.io/animate.css/
- */
 let __fade_in = ' animated fadeIn';
 let __fade_out = ' animated fadeOut';
+
 let count = 0;
 
 let productitems = [];
+
+let regions = document.getElementById("product_region");
 
 const addProduct = (ev) =>{
     let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
@@ -77,21 +77,21 @@ export function startForm() {
     }
 }
 
-function showDiv(select){
-    if(select.value=="Kleding"){
+export function showDiv(select){
+    if(select=== 0){
         document.getElementById('fieldGroupDivClothing').style.display = "block";
     } else{
         document.getElementById('fieldGroupDivClothing').style.display = "none";
         document.getElementById('clothing_colour').value = "";
         document.getElementById('size').value = "";
     }
-    if(select.value=="Tierlantijn"){
+    if(select=== 1){
         document.getElementById('fieldGroupDivTierlantijn').style.display = "block";
     } else{
         document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
         document.getElementById('weight').value = "";
     }
-    if(select.value=="Decoratie"){
+    if(select=== 2){
         document.getElementById('fieldGroupDivDecoration').style.display = "block";
     } else{
         document.getElementById('fieldGroupDivDecoration').style.display = "none";
