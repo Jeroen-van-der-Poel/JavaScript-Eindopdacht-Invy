@@ -58,7 +58,6 @@ function decorationClick() {
 
 // =========== weather ============= //
 let weatherButton = document.querySelector('.weatherbutton');
-
 weatherButton.addEventListener('click', WeatherFunction);
 
 function WeatherFunction() {

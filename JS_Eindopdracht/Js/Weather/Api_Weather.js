@@ -15,7 +15,7 @@ const KELVIN = 273;
 const KEY = "62f7ba282a6bdc30f5c263bf084aefa5";
 
 export function ShowWeather() {
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=`+inputValue.value+`&appid=${KEY}`)
+    fetch("http://api.openweathermap.org/data/2.5/weather?q=" + inputValue.value + "&appid=" + KEY)
         .then(response => response.json())
         .then(data => {
             var longValue = data['coord']['lon'];
@@ -43,11 +43,11 @@ function setPosition(position) {
 
 function showError(error) {
     NotificationElement.style.display = "block";
-    NotificationElement.innerHTML = `<p>${error.message}</p>`;
+    NotificationElement.innerHTML = "<p>Geo locatie geblokeerd</p>";
 }
 
 function getWeather(latitude, longitude) {
-    let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${KEY}`;
+    let api = "http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + KEY;
 
     fetch(api)
         .then(function (response) {
@@ -66,8 +66,8 @@ function getWeather(latitude, longitude) {
 
 function displayWeather() {
     iconElement.innerHTML = `<img src="../Icons/${weather.iconId}.png"/>`;
-    tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
+    tempElement.innerHTML = weather.temperature.value + "°<span>C</span>";
     descElement.innerHTML = weather.description;
-    LocationElement.innerHTML = `${weather.city}, ${weather.country}`;
+    LocationElement.innerHTML = weather.city + " " + weather.country;
 }
 
