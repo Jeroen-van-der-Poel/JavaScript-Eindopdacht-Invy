@@ -1,6 +1,5 @@
 // =========== render products ============= //
 export const productdiv = document.getElementById('HiddenProducts');
-export let Dropcount = 0;
 
 // =========== show products ============= //
 export function LoadProducts(products) {
@@ -12,17 +11,16 @@ export function LoadProducts(products) {
             divi.style.border= "1px solid black";
             divi.classList.add("p" + item);
             divi.classList.add("draggable-product");
-            document.getElementById("HiddenProducts").appendChild(divi);
-            Dropcount = 1;
+            productdiv.appendChild(divi);
+            productdiv.style.visibility = "hidden";
         }
 }
 
 export function ShowProducts(){
-    productdiv.visibility = "hidden";
-    if(productdiv.visibility === "hidden"){
-        productdiv.visibility = "visible";
+    if(productdiv.style.visibility === "hidden"){
+        productdiv.style.visibility = "visible";
     }
     else{
-        productdiv.visibility = "hidden";
+        productdiv.style.visibility = "hidden";
     }
 }
