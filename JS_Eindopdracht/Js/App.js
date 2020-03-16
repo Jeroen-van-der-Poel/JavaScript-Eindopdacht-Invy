@@ -2,8 +2,9 @@ import { Products } from "./Products/Products";
 import { clothesgrid, tierlantingrid, decorationgrid} from "./Grid/GridLayout";
 import { grid, createGrid } from "./Grid/CreateGrid";
 import { ShowWeather } from "./Weather/Api_Weather";
-import { productdiv, Dropcount, ShowProducts } from "./Products/ShowPrducts";
+import { ShowProducts } from "./Products/ShowPrducts";
 import { startForm } from "./Wizard/stepzation";
+import { Warehouse, Regios } from "./Regios/Initialize"
 
 const clothingbutton = document.getElementById("Clothing");
 const tierlantinbutton = document.getElementById("Tierlantin");
@@ -15,18 +16,19 @@ tierlantinbutton.addEventListener('click', tierlantinClick);
 decorationbutton.addEventListener('click', decorationClick);
 
 const header = document.getElementById("Header");
-let currentProducts = [];
+
+let currentRegio = null;
 
 // =========== Page changes ============= //
 function clothesClick() {
     header.innerHTML = "Kleding";
     grid.innerHTML = '';
-    createGrid(clothesgrid);
+    createGrid(Regios.getRegio("clothes").grid);
+    currentRegio = Regios.getRegio("clothes");
     clothingbutton.style.color = "green";
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "black";
     formStart.style.color = "black";
-    getProducts("clothes");
 }
 
 function tierlantinClick() {
@@ -60,22 +62,15 @@ function WeatherFunction() {
     ShowWeather();
 }
 
-// =========== get products ============= //
-function getProducts(regio){
-    currentProducts = [];
-    for(let i = 0; i < Products.length; i++){
-        if(Products[i].regio === regio){
-            currentProducts.push(Products[i])
-        }
-    }
-}
-
 // =========== show products ============= //
 let productButton = document.getElementById("sidebutton");
 productButton.addEventListener('click', productClick);
 
 function productClick() {
-    ShowProducts(currentProducts);
+    if(currentRegio != null){
+        ShowProducts(currentRegio.items);
+        console.log(currentRegio);
+    }
 }
 
 // =========== Wizard ============= //
@@ -83,7 +78,6 @@ formStart.addEventListener('click', WizardFunction);
 
 function WizardFunction() {
     startForm();
-    currentProducts = [];
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "black";
@@ -96,6 +90,18 @@ function Start() {
     grid.innerHTML = "Kies een regio";
     grid.style.textAlign = "center";
     grid.style.border = "none";
+
+    window.onload = function () {
+        if(localStorage.getItem("regios") === null){
+            let clothes = new Warehouse("clothes", [], []);
+            clothes.grid = clothesgrid;
+            Regios.addRegios(clothes);
+        }
+        else{
+            Regios.getRegios();
+        }
+    };
 }
 
 Start();
+

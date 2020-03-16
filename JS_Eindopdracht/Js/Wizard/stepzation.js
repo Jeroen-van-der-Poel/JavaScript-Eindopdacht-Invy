@@ -1,6 +1,8 @@
 /* animations are from:
  * https://daneden.github.io/animate.css/
  */
+import { Warehouse, Regios } from "../Regios/Initialize"
+
 let __fade_in = ' animated fadeIn';
 let __fade_out = ' animated fadeOut';
 let count = 0;
@@ -23,8 +25,7 @@ const addProduct = (ev) =>{
         buy_price: document.getElementById('product_buy_price').value,
         sell_price_no_btw: document.getElementById('product_sell_price').value,
         product_minimal_storage: document.getElementById('product_minimal_storage').value
-    }
-    productitems.push(product);
+    };
     document.getElementById('product_name').value = "";
     document.getElementById('product_description').value = "";
     document.getElementById('clothing_colour').value = "";
@@ -37,13 +38,25 @@ const addProduct = (ev) =>{
     document.getElementById('product_sell_price').value = "";
     document.getElementById('product_minimal_storage').value = "";
 
-    console.warn('added', {productitems} );
+    let itemRegio = Regios.getRegio(translate(product.region));
+    itemRegio.items.push(product);
+    Regios.updateRegio(itemRegio);
+};
 
-    localStorage.setItem('ProductsList', JSON.stringify(productitems))
+function translate(word){
+    switch (word.toLowerCase()) {
+        case "kleding":
+            return "clothes";
+        case "decoratie":
+            return "decoration";
+        case "tierlantijn":
+            return "tierlantin";
+    }
 }
+
 document.addEventListener('DOMContentLoaded', ()=> {
     document.getElementById('btn').addEventListener('click', addProduct)
-})
+});
 
 document.addEventListener('DOMContentLoaded', function(e) {
     window.stepzation = new Stepzation(document.getElementById('setup'));

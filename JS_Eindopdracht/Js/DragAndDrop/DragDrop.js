@@ -1,56 +1,92 @@
 // =========== drag and drop ============= //
-const empties = document.querySelectorAll('.empty');
-const draggable = document.querySelector('.draggable-product');
+import {Regios} from "../Regios/Initialize";
+
+const dropzones = document.querySelector('.grid');
 
 let el = null;
+let currentItem;
+let currentClassList;
+let currentProduct;
 
-draggable.addEventListener('dragstart', dragStart);
-draggable.addEventListener('dragend', dragEnd);
+export let test = document.querySelector('.draggable-items').addEventListener('dragstart', e => {
+    // console.log(e)
+    e.dataTransfer.dropEffect = 'move';
+    el = e.target.cloneNode(true);
+    el.removeAttribute('draggable');
+});
 
-// drag
-function dragStart() {
-    draggable
-        .dataTransfer
-        .setData('text/plain', draggable.target.id);
-}
+dropzones.addEventListener('dragover', (e) => {
+    if (e.target.classList.contains('empty'))
+    {
 
-function dragEnd() {
-    this.className = 'grid-item fill'
-}
-
-//empties
-for(const empty of empties){
-    empty.addEventListener('dragover', dragOver);
-    empty.addEventListener('dragenter', dragEnter);
-    empty.addEventListener('dragleave', dragLeave);
-    empty.addEventListener('drop', dragDrop);
-}
-
-function dragOver(e) {
+    }
     e.preventDefault();
-}
+});
 
-function dragEnter(e) {
-    if(e.target.classList.contains('empty')){
-        e.target.style = 'background-color: green';
-    }
-}
+dropzones.addEventListener('dragenter', (e) => {
+    if (currentItem == null)
+    {
+        currentItem = e.target;
+        currentClassList = currentItem.classList;
 
-function dragLeave(e) {
-    if(e.target.classList.contains('empty')) {
-        e.target.style = 'background-color: lightgray';
+        //removes draggable from product-item
+        for(let index in currentClassList)
+        {
+            if(/[a-z]\d/.test(currentClassList[index]))
+            {
+                currentProduct = currentClassList[index];
+                let productItem = document.getElementsByClassName(currentClassList[index])[0];
+                productItem.removeAttribute('draggable');
+                productItem.style.backgroundColor = "orange";
+                break;
+            }
+        }
     }
-}
+    let position = e.target.id;
+    let row = position.split("-")[0];
+    let col = position.split("-")[1];
 
-function dragDrop(e) {
-    if(this.className === 'grid-item empty'){
-        let html = document.querySelector('.draggable-product').innerHTML;
-        this.className = 'grid-item fill';
-        this.append(draggable);
-        this.innerHTML = html;
-        e.target.style = 'background-color: blue';
-        e.target.style.color  = 'white';
-        e.target.style.fontSize  = '10px';
-        e.target.style.textAlign = 'center';
+    if (Number.isInteger(parseInt(row)))
+    {
+        let temp = currentRegio.grid[row][col];
+        if (currentRegio.grid[row][col] == currentProduct)
+        {
+            e.target.style.backgroundColor = "lightgrey";
+            currentRegio.grid[row][col] = "null";
+            Regios.updateRegio(currentRegio);
+            e.target.classList.add('empty');
+            e.target.classList.remove(currentProduct);
+            document.getElementById(e.target.id).removeAttribute('draggable');
+        }
     }
-}
+
+    if (e.target.classList.contains('empty')) {
+        e.target.style.backgroundColor = "black";
+    }
+    // currentItem = null;
+});
+
+dropzones.addEventListener('drop', (e) => {
+    if (e.target.classList.contains('empty'))
+    {
+        e.preventDefault();
+        e.target.style.backgroundColor = "yellow";
+        e.target.setAttribute('draggable', true);
+        e.target.classList.remove('empty');
+        el = null;
+
+        let position = e.target.id;
+        let row = position.split("-")[0];
+        let col = position.split("-")[1];
+
+        currentRegio.map[row][col] = currentProduct;
+        Regios.updateRegio(currentRegio);
+        document.getElementById(position).classList.add(currentProduct);
+    } else
+    {
+        let productItem = document.getElementsByClassName(currentProduct)[0];
+        productItem.setAttribute('draggable',true);
+        productItem.style.backgroundColor = "green";
+    }
+    currentItem = null;
+});

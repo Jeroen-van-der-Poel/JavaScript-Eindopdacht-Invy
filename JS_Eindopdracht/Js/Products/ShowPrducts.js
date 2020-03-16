@@ -6,14 +6,14 @@ export let Dropcount = 0;
 export function ShowProducts(products) {
     productdiv.innerHTML = "";
     if(Dropcount === 0){
-        for(let i = 0; i < products.length; i++){
+        for(let item in products){
             let divi = document.createElement('div');
             divi.setAttribute('draggable', 'true');
-            divi.text = divi.value = `${products[i]['name']}`;
-            divi.innerHTML = `${products[i]['name']}`;
+            divi.innerHTML = products[item].name;
             divi.style.border= "1px solid black";
-            productdiv.appendChild(divi).className = "draggable-product";
-            productdiv.appendChild(divi).id = i;
+            divi.classList.add("p" + item);
+            divi.classList.add("draggable-product");
+            document.getElementById("HiddenProducts").appendChild(divi);
             Dropcount = 1;
         }
     }
