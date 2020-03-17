@@ -1,8 +1,4 @@
 export class Regios {
-    constructor() {
-
-    }
-
     static getRegios()
     {
         let regios;
