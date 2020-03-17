@@ -10,7 +10,6 @@ export class DragDrop{
     }
 
      DragStart(e){
-        // console.log(e)
         e.dataTransfer.dropEffect = 'move';
         this.el = e.target.cloneNode(true);
         this.el.removeAttribute('draggable');

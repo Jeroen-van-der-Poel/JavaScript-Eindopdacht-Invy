@@ -1,7 +1,6 @@
-import { clothesgrid, tierlantingrid, decorationgrid} from "./Grid/GridLayout";
-import { grid, createGrid } from "./Grid/CreateGrid";
+import { Grid, clothesgrid, tierlantingrid, decorationgrid } from "./Grid/Grid";
 import { ShowWeather } from "./Weather/Api_Weather";
-import { ShowProducts, LoadProducts, productdiv } from "./Products/ShowProducts";
+import { Products } from "./Products/Products";
 import { showDiv, startForm, changeFormRegion } from "./Wizard/stepzation";
 import { Warehouse, Regios } from "./Regios/Initialize"
 import {DragDrop} from "./DragAndDrop/DragDrop";
@@ -12,51 +11,54 @@ const decorationbutton = document.getElementById("Decoration");
 let formStart = document.getElementById("StartForm");
 let formRegion = document.getElementById("product_region");
 
-clothingbutton.addEventListener('click', clothesClick);
-tierlantinbutton.addEventListener('click', tierlantinClick);
-decorationbutton.addEventListener('click', decorationClick);
-
 const header = document.getElementById("Header");
+const grid = document.getElementById("grid");
+const gridClass = new Grid(grid);
+const productdiv = document.getElementById('HiddenProducts');
+const productClass = new Products(productdiv);
 
 export let currentRegio = null;
 
 // =========== Page changes ============= //
+clothingbutton.addEventListener('click', clothesClick);
 function clothesClick() {
     header.innerHTML = "Kleding";
     grid.innerHTML = '';
     changeFormRegion();
-    createGrid(Regios.getRegio("clothes").grid);
+    gridClass.createGrid(Regios.getRegio("clothes").grid);
     currentRegio = null;
     currentRegio = Regios.getRegio("clothes");
-    LoadProducts(currentRegio.items);
+    productClass.LoadProducts(currentRegio.items);
     clothingbutton.style.color = "green";
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "black";
     formStart.style.color = "black";
 }
 
+tierlantinbutton.addEventListener('click', tierlantinClick);
 function tierlantinClick() {
     header.innerHTML = "Tierlantijn";
     grid.innerHTML = '';
     changeFormRegion();
-    createGrid(Regios.getRegio("tierlantin").grid);
+    gridClass.createGrid(Regios.getRegio("tierlantin").grid);
     currentRegio = null;
     currentRegio = Regios.getRegio("tierlantin");
-    LoadProducts(currentRegio.items);
+    productClass.LoadProducts(currentRegio.items);
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "green";
     decorationbutton.style.color = "black";
     formStart.style.color = "black";
 }
 
+decorationbutton.addEventListener('click', decorationClick);
 function decorationClick() {
     header.innerHTML = "Decoratie";
     grid.innerHTML = '';
     changeFormRegion();
-    createGrid(Regios.getRegio("decoration").grid);
+    gridClass.createGrid(Regios.getRegio("decoration").grid);
     currentRegio = null;
     currentRegio = Regios.getRegio("decoration");
-    LoadProducts(currentRegio.items);
+    productClass.LoadProducts(currentRegio.items);
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "green";
@@ -66,7 +68,6 @@ function decorationClick() {
 // =========== weather ============= //
 let weatherButton = document.querySelector('.weatherbutton');
 weatherButton.addEventListener('click', WeatherFunction);
-
 function WeatherFunction() {
     ShowWeather();
 }
@@ -74,17 +75,15 @@ function WeatherFunction() {
 // =========== show products ============= //
 let productButton = document.getElementById("sidebutton");
 productButton.addEventListener('click', productClick);
-
 function productClick() {
     if(currentRegio != null){
-        ShowProducts();
+        productClass.ShowProducts();
     }
 }
 
 // =========== Wizard ============= //
 formStart.addEventListener('click', WizardFunction);
 formRegion.addEventListener('change', changeDiv);
-
 function changeDiv() {
     let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
     showDiv(selectboxvalue);
@@ -157,11 +156,11 @@ dropzones.addEventListener('dragenter', (e) => {
 dropzones.addEventListener('drop', (e) => {
     dragDrop.Drop(e);
     productdiv.style.visibility = "visible";
-    LoadProducts(currentRegio.items);
+    productClass.LoadProducts(currentRegio.items);
 });
 
 dropzones.addEventListener('dragleave', (e) => {
     dragDrop.DragLeave(e);
     productdiv.style.visibility = "visible";
-    LoadProducts(currentRegio.items);
+    productClass.LoadProducts(currentRegio.items);
 });
