@@ -14,6 +14,25 @@ export class DragDrop{
         e.dataTransfer.dropEffect = 'move';
         this.el = e.target.cloneNode(true);
         this.el.removeAttribute('draggable');
+
+         if (this.currentItem == null)
+         {
+             this.currentItem = e.target;
+             this.currentClassList = this.currentItem.classList;
+
+             //removes draggable from product-item
+             for(let index in this.currentClassList)
+             {
+                 if(/[a-z]\d/.test(this.currentClassList[index]))
+                 {
+                     this.currentProduct = this.currentClassList[index];
+                     let productItem = document.getElementsByClassName(this.currentClassList[index])[0];
+                     productItem.removeAttribute('draggable');
+                     productItem.style.backgroundColor = "orange";
+                     break;
+                 }
+             }
+         }
     }
 
      DragOver(e){
@@ -25,24 +44,25 @@ export class DragDrop{
     }
 
      DragEnter(e){
-        if (this.currentItem == null)
-        {
-            this.currentItem = e.target;
-            this.currentClassList = this.currentItem.classList;
+         if (this.currentItem == null)
+         {
+             this.currentItem = e.target;
+             this.currentClassList = this.currentItem.classList;
 
-            //removes draggable from product-item
-            for(let index in this.currentClassList)
-            {
-                if(/[a-z]\d/.test(this.currentClassList[index]))
-                {
-                    this.currentProduct = this.currentClassList[index];
-                    let productItem = document.getElementsByClassName(this.currentClassList[index])[0];
-                    productItem.removeAttribute('draggable');
-                    productItem.style.backgroundColor = "orange";
-                    break;
-                }
-            }
-        }
+             //removes draggable from product-item
+             for(let index in this.currentClassList)
+             {
+                 if(/[a-z]\d/.test(this.currentClassList[index]))
+                 {
+                     this.currentProduct = this.currentClassList[index];
+                     let productItem = document.getElementsByClassName(this.currentClassList[index])[0];
+                     productItem.removeAttribute('draggable');
+                     productItem.style.backgroundColor = "orange";
+                     break;
+                 }
+             }
+         }
+
         let position = e.target.id;
         let row = position.split("-")[0];
         let col = position.split("-")[1];
@@ -53,6 +73,7 @@ export class DragDrop{
             if (currentRegio.grid[row][col] == this.currentProduct)
             {
                 e.target.style.backgroundColor = "lightgrey";
+                currentRegio.grid[row][col] = "-";
                 Regios.updateRegio(currentRegio);
                 e.target.classList.add('empty');
                 e.target.classList.remove(this.currentProduct);
@@ -71,7 +92,6 @@ export class DragDrop{
         {
             e.preventDefault();
             e.target.style.backgroundColor = "yellow";
-            e.target.innerhtml = this.currentItem.name;
             e.target.setAttribute('draggable', true);
             e.target.classList.remove('empty');
             this.el = null;

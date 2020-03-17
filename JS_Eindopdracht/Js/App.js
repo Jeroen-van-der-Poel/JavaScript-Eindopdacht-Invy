@@ -1,7 +1,7 @@
 import { clothesgrid, tierlantingrid, decorationgrid} from "./Grid/GridLayout";
 import { grid, createGrid } from "./Grid/CreateGrid";
 import { ShowWeather } from "./Weather/Api_Weather";
-import { ShowProducts, LoadProducts } from "./Products/ShowProducts";
+import { ShowProducts, LoadProducts, productdiv } from "./Products/ShowProducts";
 import { showDiv, startForm, changeFormRegion } from "./Wizard/stepzation";
 import { Warehouse, Regios } from "./Regios/Initialize"
 import {DragDrop} from "./DragAndDrop/DragDrop";
@@ -155,8 +155,12 @@ dropzones.addEventListener('dragenter', (e) => {
 
 dropzones.addEventListener('drop', (e) => {
     dragDrop.Drop(e);
+    productdiv.style.visibility = "visible";
+    LoadProducts(currentRegio.items);
 });
 
 dropzones.addEventListener('dragleave', (e) => {
     dragDrop.DragLeave(e);
+    productdiv.style.visibility = "visible";
+    LoadProducts(currentRegio.items);
 });

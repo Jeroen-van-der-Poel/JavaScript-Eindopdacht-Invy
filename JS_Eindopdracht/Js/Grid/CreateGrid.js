@@ -1,3 +1,5 @@
+import { currentRegio} from "../App";
+
 // =========== Create Grid ============= //
 export const grid = document.getElementById("grid");
 
@@ -29,6 +31,12 @@ export function createGrid(array){
                 grid.appendChild(cell).className = "grid-item floor";
                 grid.appendChild(cell).style.backgroundColor = "darkgray";
             }
+            if(/[p]\d/.test(array[c][d])){
+                grid.appendChild(cell).style.backgroundColor = "yellow";
+                grid.appendChild(cell).setAttribute('draggable', 'true');
+                grid.appendChild(cell).classList.add("grid-item");
+                grid.appendChild(cell).classList.add(array[c][d]);
+            }
             grid.appendChild(cell).id = (c + "-" + d);
             grid.appendChild(cell).style.minWidth = '62px';
             grid.appendChild(cell).style.minHeight = '56px';
@@ -37,4 +45,21 @@ export function createGrid(array){
             count++;
         }
     }
+}
+
+export function isStored(item)
+{
+    let result = false;
+
+    for (let row = 0; row < 15; row++)
+    {
+        for (let col = 0; col < 15; col++)
+        {
+            if (currentRegio.grid[row][col] == item)
+            {
+                result = true;
+            }
+        }
+    }
+    return result;
 }
