@@ -91,7 +91,7 @@ export class DragDrop{
         if (e.target.classList.contains('empty'))
         {
             e.preventDefault();
-            e.target.style.backgroundColor = "yellow";
+            e.target.style.backgroundColor = "blue";
             e.target.classList.remove('empty');
             this.el = null;
 

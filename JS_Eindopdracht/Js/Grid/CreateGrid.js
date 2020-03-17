@@ -32,7 +32,7 @@ export function createGrid(array){
                 grid.appendChild(cell).style.backgroundColor = "darkgray";
             }
             if(/[p]\d/.test(array[c][d])){
-                grid.appendChild(cell).style.backgroundColor = "yellow";
+                grid.appendChild(cell).style.backgroundColor = "blue";
                 grid.appendChild(cell).setAttribute('draggable', 'true');
                 grid.appendChild(cell).classList.add("grid-item");
                 grid.appendChild(cell).classList.add(array[c][d]);
