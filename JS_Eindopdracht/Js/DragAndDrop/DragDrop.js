@@ -92,7 +92,6 @@ export class DragDrop{
         {
             e.preventDefault();
             e.target.style.backgroundColor = "yellow";
-            e.target.setAttribute('draggable', true);
             e.target.classList.remove('empty');
             this.el = null;
 

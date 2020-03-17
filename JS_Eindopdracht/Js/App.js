@@ -97,6 +97,7 @@ function WizardFunction() {
     tierlantinbutton.style.color = "black";
     decorationbutton.style.color = "black";
     formStart.style.color = "green";
+    productdiv.innerHTML = "";
 }
 
 // =========== initialize ============= //
