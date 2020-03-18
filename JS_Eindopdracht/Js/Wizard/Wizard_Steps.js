@@ -1,68 +1,118 @@
 import { Warehouse, Regios } from "../Regios/Initialize";
 import { Start } from "../App";
 
-let __fade_in = ' animated fadeIn';
-let __fade_out = ' animated fadeOut';
+const  __fade_in = ' animated fadeIn';
+const __fade_out = ' animated fadeOut';
 
-let count = 0;
+export let count = 0;
 
-const addProduct = (ev) =>{
-    let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
-    let product = {
-        id: Date.now(),
-        name: document.getElementById('product_name').value,
-        description: document.getElementById('product_description').value,
-        region: document.getElementById("product_region").options.item(selectboxvalue).text,
-        colour: document.getElementById('clothing_colour').value,
-        size: document.getElementById('size').value,
-        weight: document.getElementById('weight').value,
-        size_in_cm: document.getElementById('size_in_cm').value,
-        decoration_colour: document.getElementById('decoration_colour').value,
-        amount_in_package: document.getElementById('amount_in_package').value,
-        buy_price: document.getElementById('product_buy_price').value,
-        sell_price_no_btw: document.getElementById('product_sell_price').value,
-        product_minimal_storage: document.getElementById('product_minimal_storage').value
+export class WizardSteps {
+    constructor(wizard) {
+        this.wizard = wizard;
+    }
+
+    static addProduct = (ev) =>{
+        let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
+        let product = {
+            id: Date.now(),
+            name: document.getElementById('product_name').value,
+            description: document.getElementById('product_description').value,
+            region: document.getElementById("product_region").options.item(selectboxvalue).text,
+            colour: document.getElementById('clothing_colour').value,
+            size: document.getElementById('size').value,
+            weight: document.getElementById('weight').value,
+            size_in_cm: document.getElementById('size_in_cm').value,
+            decoration_colour: document.getElementById('decoration_colour').value,
+            amount_in_package: document.getElementById('amount_in_package').value,
+            buy_price: document.getElementById('product_buy_price').value,
+            sell_price_no_btw: document.getElementById('product_sell_price').value,
+            product_minimal_storage: document.getElementById('product_minimal_storage').value
+        };
+        document.getElementById('product_name').value = "";
+        document.getElementById('product_description').value = "";
+        document.getElementById('clothing_colour').value = "";
+        document.getElementById('size').value = "";
+        document.getElementById('weight').value = "";
+        document.getElementById('size_in_cm').value = "";
+        document.getElementById('decoration_colour').value = "";
+        document.getElementById('amount_in_package').value = "";
+        document.getElementById('product_buy_price').value = "";
+        document.getElementById('product_sell_price').value = "";
+        document.getElementById('product_minimal_storage').value = ""
+
+        function translate(word){
+            switch (word.toLowerCase()) {
+                case "kleding":
+                    return "clothes";
+                case "decoratie":
+                    return "decoration";
+                case "tierlantijn":
+                    return "tierlantin";
+            }
+        }
+
+        let itemRegio = Regios.getRegio(translate(product.region));
+        itemRegio.items.push(product);
+        Regios.updateRegio(itemRegio);
     };
-    document.getElementById('product_name').value = "";
-    document.getElementById('product_description').value = "";
-    document.getElementById('clothing_colour').value = "";
-    document.getElementById('size').value = "";
-    document.getElementById('weight').value = "";
-    document.getElementById('size_in_cm').value = "";
-    document.getElementById('decoration_colour').value = "";
-    document.getElementById('amount_in_package').value = "";
-    document.getElementById('product_buy_price').value = "";
-    document.getElementById('product_sell_price').value = "";
-    document.getElementById('product_minimal_storage').value = "";
 
-    let itemRegio = Regios.getRegio(translate(product.region));
-    itemRegio.items.push(product);
-    Regios.updateRegio(itemRegio);
-};
+    static startForm() {
+        document.getElementById('fieldGroupDivDecoration').style.display = "none";
+        document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
+        if(count == 0)
+        {
+            document.getElementById('thegrid').style.display = "none";
+            document.getElementById('setup').style.display = "block";
+            wizardsteps.start();
+            count += 1;
+        }
+        else{
+            document.getElementById('thegrid').style.display = "block";
+            document.getElementById('setup').style.display = "none";
+            count -= 1;
+        }
+    }
 
-function translate(word){
-    switch (word.toLowerCase()) {
-        case "kleding":
-            return "clothes";
-        case "decoratie":
-            return "decoration";
-        case "tierlantijn":
-            return "tierlantin";
+    changeFormRegion() {
+        document.getElementById('thegrid').style.display = "block";
+        document.getElementById('setup').style.display = "none";
+        count = 0;
+    }
+
+    static showDiv(select){
+        if(select=== 0){
+            document.getElementById('fieldGroupDivClothing').style.display = "block";
+        } else{
+            document.getElementById('fieldGroupDivClothing').style.display = "none";
+            document.getElementById('clothing_colour').value = "";
+            document.getElementById('size').value = "";
+        }
+        if(select=== 1){
+            document.getElementById('fieldGroupDivTierlantijn').style.display = "block";
+        } else{
+            document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
+            document.getElementById('weight').value = "";
+        }
+        if(select=== 2){
+            document.getElementById('fieldGroupDivDecoration').style.display = "block";
+        } else{
+            document.getElementById('fieldGroupDivDecoration').style.display = "none";
+            document.getElementById('size_in_cm').value = "";
+            document.getElementById('decoration_colour').value = "";
+            document.getElementById('amount_in_package').value = "";
+        }
     }
 }
 
-document.addEventListener('DOMContentLoaded', ()=> {
-    document.getElementById('btn').addEventListener('click', addProduct)
-});
 
 document.addEventListener('DOMContentLoaded', function(e) {
-    window.stepzation = new Stepzation(document.getElementById('setup'));
+    window.wizardsteps = new Wizard_Steps(document.getElementById('setup'));
 
-    stepzation.handle_error = function(error) {
+    wizardsteps.handle_error = function(error) {
         backdrop_error(error);
     };
 
-    stepzation.handle_finish = function(step) {
+    wizardsteps.handle_finish = function(step) {
         alert('Alle stappen voltooid.');
         Start();
         count -= 1;
@@ -70,54 +120,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
 });
 
-export function startForm() {
-    document.getElementById('fieldGroupDivDecoration').style.display = "none";
-    document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
-    if(count == 0)
-    {
-        document.getElementById('thegrid').style.display = "none";
-        document.getElementById('setup').style.display = "block";
-        stepzation.start();
-        count += 1;
-    }
-    else{
-        document.getElementById('thegrid').style.display = "block";
-        document.getElementById('setup').style.display = "none";
-        count -= 1;
-    }
-}
-
-export function changeFormRegion() {
-    document.getElementById('thegrid').style.display = "block";
-    document.getElementById('setup').style.display = "none";
-    count = 0;
-}
-
-export function showDiv(select){
-    if(select=== 0){
-        document.getElementById('fieldGroupDivClothing').style.display = "block";
-    } else{
-        document.getElementById('fieldGroupDivClothing').style.display = "none";
-        document.getElementById('clothing_colour').value = "";
-        document.getElementById('size').value = "";
-    }
-    if(select=== 1){
-        document.getElementById('fieldGroupDivTierlantijn').style.display = "block";
-    } else{
-        document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
-        document.getElementById('weight').value = "";
-    }
-    if(select=== 2){
-        document.getElementById('fieldGroupDivDecoration').style.display = "block";
-    } else{
-        document.getElementById('fieldGroupDivDecoration').style.display = "none";
-        document.getElementById('size_in_cm').value = "";
-        document.getElementById('decoration_colour').value = "";
-        document.getElementById('amount_in_package').value = "";
-    }
-}
-
-let Stepzation = function(elem) {
+let Wizard_Steps = function(elem) {
     let _this = this;
 
     _this.db = {};

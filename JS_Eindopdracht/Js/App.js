@@ -1,7 +1,7 @@
 import { Grid, clothesgrid, tierlantingrid, decorationgrid } from "./Grid/Grid";
 import { ShowWeather } from "./Weather/Api_Weather";
 import { Products } from "./Products/Products";
-import { showDiv, startForm, changeFormRegion } from "./Wizard/stepzation";
+import { WizardSteps } from "./Wizard/Wizard_Steps";
 import { Warehouse, Regios } from "./Regios/Initialize"
 import {DragDrop} from "./DragAndDrop/DragDrop";
 
@@ -84,13 +84,30 @@ function productClick() {
 // =========== Wizard ============= //
 formStart.addEventListener('click', WizardFunction);
 formRegion.addEventListener('change', changeDiv);
+document.addEventListener('DOMContentLoaded', ()=> {
+    document.getElementById('btn').addEventListener('click', addProduct)
+});
+document.addEventListener('DOMContentLoaded', function(e) {
+    window.wizardsteps = new Wizard_Steps(document.getElementById('setup'));
+
+    wizardsteps.handle_error = function(error) {
+        backdrop_error(error);
+    };
+
+    wizardsteps.handle_finish = function(step) {
+        alert('Alle stappen voltooid.');
+        Start();
+        WizardSteps.count -= 1;
+    };
+
+});
 function changeDiv() {
     let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
-    showDiv(selectboxvalue);
+    WizardSteps.showDiv(selectboxvalue);
 }
 
 function WizardFunction() {
-    startForm();
+    WizardSteps.startForm();
     header.innerHTML = "Product toevoegen";
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "black";
