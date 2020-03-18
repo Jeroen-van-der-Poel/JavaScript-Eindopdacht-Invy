@@ -39,7 +39,7 @@ export class DragDrop{
         {
             if (/[a-z]\d/.test(e.target.classList[index]))
             {
-                //show info in side bar
+                //show info in alert
                 alert(e.target.classList[index]);
                 return;
             }
