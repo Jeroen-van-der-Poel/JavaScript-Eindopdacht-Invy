@@ -18,7 +18,7 @@ const grid = document.getElementById("grid");
 const gridClass = new Grid(grid);
 const productdiv = document.getElementById('HiddenProducts');
 const productClass = new Product(productdiv);
-const Weather = new Weather();
+const weather = new Weather();
 
 export let currentRegio = null;
 
@@ -72,7 +72,7 @@ function decorationClick() {
 let weatherButton = document.querySelector('.weatherbutton');
 weatherButton.addEventListener('click', WeatherFunction);
 function WeatherFunction() {
-    Weather.ShowWeather();
+    weather.ShowWeather();
 }
 
 // =========== show products ============= //

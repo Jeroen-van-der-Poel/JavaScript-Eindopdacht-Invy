@@ -1,4 +1,4 @@
-import {Regios} from "../Initialize/Initialize";
+import {Regios} from "../Initialize/Regio";
 import {currentRegio} from "../App";
 
 export class DragDrop{
