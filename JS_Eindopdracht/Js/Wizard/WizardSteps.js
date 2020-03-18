@@ -11,7 +11,7 @@ export class WizardSteps {
         this.wizard = wizard;
     }
 
-    static addProduct = (ev) =>{
+    static addProduct(){
         let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
         let product = {
             id: Date.now(),
@@ -50,7 +50,6 @@ export class WizardSteps {
                     return "tierlantin";
             }
         }
-
         let itemRegio = Regios.getRegio(translate(product.region));
         itemRegio.items.push(product);
         Regios.updateRegio(itemRegio);
@@ -73,7 +72,7 @@ export class WizardSteps {
         }
     }
 
-    changeFormRegion() {
+    static changeFormRegion() {
         document.getElementById('thegrid').style.display = "block";
         document.getElementById('setup').style.display = "none";
         count = 0;

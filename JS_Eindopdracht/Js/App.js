@@ -1,7 +1,7 @@
 import { Grid, clothesgrid, tierlantingrid, decorationgrid } from "./Grid/Grid";
 import { ShowWeather } from "./Weather/Api_Weather";
 import { Products } from "./Products/Products";
-import { WizardSteps } from "./Wizard/Wizard_Steps";
+import { WizardSteps } from "./Wizard/WizardSteps";
 import { Warehouse, Regios } from "./Regios/Initialize"
 import {DragDrop} from "./DragAndDrop/DragDrop";
 
@@ -24,7 +24,7 @@ clothingbutton.addEventListener('click', clothesClick);
 function clothesClick() {
     header.innerHTML = "Kleding";
     grid.innerHTML = '';
-    changeFormRegion();
+    WizardSteps.changeFormRegion();
     gridClass.createGrid(Regios.getRegio("clothes").grid);
     currentRegio = null;
     currentRegio = Regios.getRegio("clothes");
@@ -39,7 +39,7 @@ tierlantinbutton.addEventListener('click', tierlantinClick);
 function tierlantinClick() {
     header.innerHTML = "Tierlantijn";
     grid.innerHTML = '';
-    changeFormRegion();
+    WizardSteps.changeFormRegion();
     gridClass.createGrid(Regios.getRegio("tierlantin").grid);
     currentRegio = null;
     currentRegio = Regios.getRegio("tierlantin");
@@ -54,7 +54,7 @@ decorationbutton.addEventListener('click', decorationClick);
 function decorationClick() {
     header.innerHTML = "Decoratie";
     grid.innerHTML = '';
-    changeFormRegion();
+    WizardSteps.changeFormRegion();
     gridClass.createGrid(Regios.getRegio("decoration").grid);
     currentRegio = null;
     currentRegio = Regios.getRegio("decoration");
@@ -85,22 +85,9 @@ function productClick() {
 formStart.addEventListener('click', WizardFunction);
 formRegion.addEventListener('change', changeDiv);
 document.addEventListener('DOMContentLoaded', ()=> {
-    document.getElementById('btn').addEventListener('click', addProduct)
+    document.getElementById('btn').addEventListener('click', WizardSteps.addProduct)
 });
-document.addEventListener('DOMContentLoaded', function(e) {
-    window.wizardsteps = new Wizard_Steps(document.getElementById('setup'));
 
-    wizardsteps.handle_error = function(error) {
-        backdrop_error(error);
-    };
-
-    wizardsteps.handle_finish = function(step) {
-        alert('Alle stappen voltooid.');
-        Start();
-        WizardSteps.count -= 1;
-    };
-
-});
 function changeDiv() {
     let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
     WizardSteps.showDiv(selectboxvalue);
