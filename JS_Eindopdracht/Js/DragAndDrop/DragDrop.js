@@ -9,7 +9,7 @@ export class DragDrop{
         this.currentProduct = currentProduct;
     }
 
-     DragStart(e){
+    DragStart(e){
         e.dataTransfer.dropEffect = 'move';
         this.el = e.target.cloneNode(true);
         this.el.removeAttribute('draggable');
@@ -34,7 +34,19 @@ export class DragDrop{
          }
     }
 
-     DragOver(e){
+    OnClickItem(e){
+        for (let index in e.target.classList)
+        {
+            if (/[a-z]\d/.test(e.target.classList[index]))
+            {
+                //show info in side bar
+                alert(e.target.classList[index]);
+                return;
+            }
+        }
+    }
+
+    DragOver(e){
         if (e.target.classList.contains('empty'))
         {
 
@@ -42,7 +54,7 @@ export class DragDrop{
         e.preventDefault();
     }
 
-     DragEnter(e){
+    DragEnter(e){
          if (this.currentItem == null)
          {
              this.currentItem = e.target;
@@ -86,7 +98,7 @@ export class DragDrop{
         // currentItem = null;
     }
 
-     Drop(e){
+    Drop(e){
         if (e.target.classList.contains('empty'))
         {
             e.preventDefault();
@@ -110,7 +122,7 @@ export class DragDrop{
         this.currentItem = null;
     }
 
-     DragLeave(e){
+    DragLeave(e){
         if (e.target.classList.contains('empty')) {
             e.target.style.backgroundColor = "lightgrey";
         }

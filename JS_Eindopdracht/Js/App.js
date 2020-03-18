@@ -168,3 +168,7 @@ dropzones.addEventListener('dragleave', (e) => {
     productdiv.style.visibility = "visible";
     productClass.LoadProducts(currentRegio.items);
 });
+
+document.getElementById("grid").addEventListener("click", function(e) {
+    dragDrop.OnClickItem(e);
+});
