@@ -1,8 +1,9 @@
 import { Grid, clothesgrid, tierlantingrid, decorationgrid } from "./Grid/Grid";
 import { Weather } from "./Weather/Weather";
-import { Products } from "./Products/Products";
+import { Product } from "./Products/Product";
 import { WizardSteps } from "./Wizard/WizardSteps";
-import { Warehouse, Regios } from "./Regios/Initialize"
+import { Warehouse } from "./Initialize/Warehouse"
+import { Regios } from "./Initialize/Regio"
 import {DragDrop} from "./DragAndDrop/DragDrop";
 
 const clothingbutton = document.getElementById("Clothing");
@@ -10,12 +11,13 @@ const tierlantinbutton = document.getElementById("Tierlantin");
 const decorationbutton = document.getElementById("Decoration");
 let formStart = document.getElementById("StartForm");
 let formRegion = document.getElementById("product_region");
-
 const header = document.getElementById("Header");
+
+// =========== classes ============= //
 const grid = document.getElementById("grid");
 const gridClass = new Grid(grid);
 const productdiv = document.getElementById('HiddenProducts');
-const productClass = new Products(productdiv);
+const productClass = new Product(productdiv);
 const Weather = new Weather();
 
 export let currentRegio = null;
@@ -138,12 +140,10 @@ Start();
 
 // =========== drag and drop ============= //
 const dropzones = document.getElementById('grid');
-
 let el = null;
 let currentItem;
 let currentClassList;
 let currentProduct;
-
 const dragDrop = new DragDrop(el, currentItem, currentClassList, currentProduct);
 
 document.querySelector('.draggable-items').addEventListener('dragstart', e => {

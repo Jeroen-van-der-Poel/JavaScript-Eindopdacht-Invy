@@ -1,4 +1,5 @@
-import { Warehouse, Regios } from "../Regios/Initialize";
+import { Warehouse } from "../Initialize/Warehouse"
+import { Regios } from "../Initialize/Regio"
 import { Start } from "../App";
 
 const  __fade_in = ' animated fadeIn';

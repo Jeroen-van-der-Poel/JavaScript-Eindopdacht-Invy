@@ -3,7 +3,7 @@ import {Grid} from "../Grid/Grid";
 const grid = document.getElementById("grid");
 const gridClass = new Grid(grid);
 
-export class Products{
+export class Product{
     constructor(productdiv) {
         this.productdiv = productdiv;
     }
