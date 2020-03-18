@@ -13,65 +13,60 @@ weather.temperature = {
 const KELVIN = 273;
 const KEY = "62f7ba282a6bdc30f5c263bf084aefa5";
 
-export class Weather{
-     ShowWeather() {
-        fetch("http://api.openweathermap.org/data/2.5/weather?q=" + inputValue.value + "&appid=" + KEY)
-            .then(response => response.json())
-            .then(data => {
-                var longValue = data['coord']['lon'];
-                var latValue = data['coord']['lat'];
+export function ShowWeather() {
+    fetch("http://api.openweathermap.org/data/2.5/weather?q=" + inputValue.value + "&appid=" + KEY)
+        .then(response => response.json())
+        .then(data => {
+            var longValue = data['coord']['lon'];
+            var latValue = data['coord']['lat'];
 
-                this.getWeather(latValue, longValue);
-            })
-            .catch(err => alert("Wrong city name"))
-     }
-
-     setPosition(position) {
-        let latitude = position.coords.latitude;
-        let longitude = position.coords.longitude;
-
-        this.getWeather(latitude, longitude);
-     }
-
-     showError(error) {
-        NotificationElement.style.display = "block";
-        NotificationElement.innerHTML = "<p>Geo locatie geblokeerd</p>";
-     }
-
-     getWeather(latitude, longitude) {
-        let api = "http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + KEY;
-
-        fetch(api)
-            .then(function (response) {
-                let data = response.json();
-                return data;
-            }).then(function (data) {
-            weather.temperature.value = Math.floor(data.main.temp - KELVIN);
-            weather.description = data.weather[0].description;
-            weather.iconId = data.weather[0].icon;
-            weather.city = data.name;
-            weather.country = data.sys.country;
-        }).then(function () {
-            this.displayWeather();
+            getWeather(latValue, longValue);
         })
-    }
 
-    displayWeather() {
-        iconElement.innerHTML = "<img src=../Icons/" + weather.iconId + ".png/>";
-        tempElement.innerHTML = weather.temperature.value + "°<span>C</span>";
-        descElement.innerHTML = weather.description;
-        LocationElement.innerHTML = weather.city + " " + weather.country;
-     }
+        .catch(err => alert("Wrong city name"))
 }
 
-const weatherclass = new Weather();
-
 if('geolocation' in navigator){
-    navigator.geolocation.getCurrentPosition(weatherclass.setPosition, weatherclass.showError);
+    navigator.geolocation.getCurrentPosition(setPosition, showError);
 }else{
     NotificationElement.style.display = "block";
     NotificationElement.innerHTML = "<p>Browser does not support geolocation</p>";
 }
 
+function setPosition(position) {
+    let latitude = position.coords.latitude;
+    let longitude = position.coords.longitude;
 
+    getWeather(latitude, longitude);
+}
+
+function showError(error) {
+    NotificationElement.style.display = "block";
+    NotificationElement.innerHTML = "<p>Geo locatie geblokeerd</p>";
+}
+
+function getWeather(latitude, longitude) {
+    let api = "http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + KEY;
+
+    fetch(api)
+        .then(function (response) {
+            let data = response.json();
+            return data;
+        }).then(function (data) {
+        weather.temperature.value = Math.floor(data.main.temp - KELVIN);
+        weather.description = data.weather[0].description;
+        weather.iconId = data.weather[0].icon;
+        weather.city = data.name;
+        weather.country = data.sys.country;
+    }).then(function () {
+        displayWeather();
+    })
+}
+
+function displayWeather() {
+    iconElement.innerHTML = "<img src=../Icons/" + weather.iconId + ".png/>";
+    tempElement.innerHTML = weather.temperature.value + "°<span>C</span>";
+    descElement.innerHTML = weather.description;
+    LocationElement.innerHTML = weather.city + " " + weather.country;
+}
 

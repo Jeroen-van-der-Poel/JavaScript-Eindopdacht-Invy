@@ -1,5 +1,5 @@
 import { Grid, clothesgrid, tierlantingrid, decorationgrid } from "./Grid/Grid";
-import { Weather } from "./Weather/Weather";
+import { ShowWeather } from "./Weather/Weather";
 import { Product } from "./Products/Product";
 import { WizardSteps } from "./Wizard/WizardSteps";
 import { Warehouse } from "./Initialize/Warehouse"
@@ -18,7 +18,6 @@ const grid = document.getElementById("grid");
 const gridClass = new Grid(grid);
 const productdiv = document.getElementById('HiddenProducts');
 const productClass = new Product(productdiv);
-const weather = new Weather();
 
 export let currentRegio = null;
 
@@ -72,7 +71,7 @@ function decorationClick() {
 let weatherButton = document.querySelector('.weatherbutton');
 weatherButton.addEventListener('click', WeatherFunction);
 function WeatherFunction() {
-    weather.ShowWeather();
+    ShowWeather();
 }
 
 // =========== show products ============= //
