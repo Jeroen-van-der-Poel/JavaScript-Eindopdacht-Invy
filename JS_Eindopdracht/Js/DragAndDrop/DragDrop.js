@@ -35,12 +35,30 @@ export class DragDrop{
     }
 
     OnClickItem(e){
+        // Get the modal
+        let modal = document.getElementById("myModal");
+        // Get the <span> element that closes the modal
+        let span = document.getElementsByClassName("close")[0];
+        let header = document.getElementById('modalHeader');
+
         for (let index in e.target.classList)
         {
             if (/[a-z]\d/.test(e.target.classList[index]))
             {
-                //show info in alert
-                alert(e.target.classList[index]);
+                //alert(e.target.classList[index]);
+                modal.style.display = "block";
+                header.innerHTML = e.target.classList[index];
+
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function() {
+                    modal.style.display = "none";
+                };
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                };
                 return;
             }
         }
