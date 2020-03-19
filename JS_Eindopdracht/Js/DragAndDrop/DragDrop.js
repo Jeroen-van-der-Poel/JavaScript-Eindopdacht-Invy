@@ -37,9 +37,9 @@ export class DragDrop{
     OnClickItem(e){
         // Get the modal
         let modal = document.getElementById("myModal");
-        // Get the <span> element that closes the modal
         let span = document.getElementsByClassName("close")[0];
         let header = document.getElementById('modalHeader');
+        let body = document.getElementsByClassName('modal-body');
 
         for (let index in e.target.classList)
         {
