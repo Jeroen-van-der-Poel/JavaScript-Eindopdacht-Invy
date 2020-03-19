@@ -45,9 +45,15 @@ export class DragDrop{
         {
             if (/[a-z]\d/.test(e.target.classList[index]))
             {
-                //alert(e.target.classList[index]);
+                //onclick item
                 modal.style.display = "block";
-                header.innerHTML = e.target.classList[index];
+                let reggex = /\d+/g;
+                let itemNumber = parseInt(index.match(reggex)[0]);
+                let item = currentRegio.items[itemNumber-1];
+
+                //set html modal
+                header.innerHTML = item.name;
+                
 
                 // When the user clicks on <span> (x), close the modal
                 span.onclick = function() {
