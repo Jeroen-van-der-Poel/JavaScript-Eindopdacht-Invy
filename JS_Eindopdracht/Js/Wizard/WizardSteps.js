@@ -27,7 +27,9 @@ export class WizardSteps {
             amount_in_package: document.getElementById('amount_in_package').value,
             buy_price: document.getElementById('product_buy_price').value,
             sell_price_no_btw: document.getElementById('product_sell_price').value,
-            product_minimal_storage: document.getElementById('product_minimal_storage').value
+            product_minimal_storage: document.getElementById('product_minimal_storage').value,
+            image: "",
+            special_product_field: "",
         };
         document.getElementById('product_name').value = "";
         document.getElementById('product_description').value = "";
