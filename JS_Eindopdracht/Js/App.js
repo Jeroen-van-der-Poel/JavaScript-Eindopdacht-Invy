@@ -7,7 +7,6 @@ import { Regios } from "./Initialize/Regio"
 import {DragDrop} from "./DragAndDrop/DragDrop";
 import {ImageReader} from "./Products/ImageReader";
 
-
 const clothingbutton = document.getElementById("Clothing");
 const tierlantinbutton = document.getElementById("Tierlantin");
 const decorationbutton = document.getElementById("Decoration");
@@ -148,12 +147,6 @@ let currentClassList;
 let currentProduct;
 const dragDrop = new DragDrop(el, currentItem, currentClassList, currentProduct);
 
-let es = document.forms[0].elements;
-es[1].onclick = function(){
-    imageReader.clearInputFile(es[0]);
-};
-
-
 document.getElementById("save").addEventListener("click", e => {
     imageReader.ReadFile(e);
 });
@@ -185,3 +178,9 @@ dropzones.addEventListener('dragleave', (e) => {
 document.getElementById("grid").addEventListener("click", function(e) {
     dragDrop.OnClickItem(e);
 });
+
+// =========== Image Reader ============= //
+let es = document.forms[0].elements;
+es[1].onclick = function(){
+    imageReader.clearInputFile(es[0]);
+};
