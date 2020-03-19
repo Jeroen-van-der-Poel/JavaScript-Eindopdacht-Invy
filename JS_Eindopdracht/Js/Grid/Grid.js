@@ -93,6 +93,9 @@ export class Grid{
                     this.grid.appendChild(cell).classList.add("grid-item");
                     this.grid.appendChild(cell).classList.add(array[c][d]);
                 }
+                if(array[c][d].valueOf() === null){
+                    array[c][d].value = "-";
+                }
                 this.grid.appendChild(cell).id = (c + "-" + d);
                 this.grid.appendChild(cell).style.minWidth = '62px';
                 this.grid.appendChild(cell).style.minHeight = '56px';
