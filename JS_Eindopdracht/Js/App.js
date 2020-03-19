@@ -5,6 +5,8 @@ import { WizardSteps } from "./Wizard/WizardSteps";
 import { Warehouse } from "./Initialize/Warehouse"
 import { Regios } from "./Initialize/Regio"
 import {DragDrop} from "./DragAndDrop/DragDrop";
+import {ImageReader} from "./Products/ImageReader";
+
 
 const clothingbutton = document.getElementById("Clothing");
 const tierlantinbutton = document.getElementById("Tierlantin");
@@ -18,6 +20,7 @@ const grid = document.getElementById("grid");
 const gridClass = new Grid(grid);
 const productdiv = document.getElementById('HiddenProducts');
 const productClass = new Product(productdiv);
+const imageReader = new ImageReader();
 
 export let currentRegio = null;
 
@@ -144,6 +147,8 @@ let currentItem;
 let currentClassList;
 let currentProduct;
 const dragDrop = new DragDrop(el, currentItem, currentClassList, currentProduct);
+
+document.getElementById("image1").addEventListener("click", imageReader.ReadFile);
 
 document.querySelector('.draggable-items').addEventListener('dragstart', e => {
     dragDrop.DragStart(e);

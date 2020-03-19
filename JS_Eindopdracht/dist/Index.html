@@ -76,7 +76,6 @@
 
                     <!-- The Modal -->
                     <div id="myModal" class="modal">
-
                     <!-- Modal content -->
                     <div class="modal-content">
                             <div class="modal-header">
@@ -85,9 +84,14 @@
                             </div>
                             <div class="modal-body">
                                 <h4>Foto uploaden</h4>
-                                <input type="file" />
+                                <input type="file" id="image1"/>
                                 <hr>
                                 <h4>Schade tekenen</h4>
+                                <canvas id="ImageCanvas" width="340" height="400" style="border: 1px solid black"></canvas>
+                                <div class="d-flex justify-content-end pt-1">
+                                <button type="button" id="cancel" class="btn btn-danger">Annuleren</button>
+                                <button type="button" id="save" class="btn btn-primary">Opslaan</button>
+                                </div>
                             </div>
                             <div class="modal-footer">
                             </div>
