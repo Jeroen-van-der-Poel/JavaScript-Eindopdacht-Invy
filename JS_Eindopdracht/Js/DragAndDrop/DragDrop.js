@@ -40,6 +40,7 @@ export class DragDrop{
         let span = document.getElementsByClassName("close")[0];
         let header = document.getElementById('modalHeader');
         let body = document.getElementsByClassName('modal-body');
+        let cancel = document.getElementById("cancel");
 
         for (let index in e.target.classList)
         {
@@ -58,6 +59,10 @@ export class DragDrop{
                 span.onclick = function() {
                     modal.style.display = "none";
                 };
+                cancel.onclick = function(){
+                    modal.style.display = "none";
+                };
+
                 // When the user clicks anywhere outside of the modal, close it
                 window.onclick = function(event) {
                     if (event.target == modal) {
