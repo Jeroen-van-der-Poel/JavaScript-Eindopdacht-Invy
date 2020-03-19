@@ -176,9 +176,24 @@
                                                 <input type='text' name='clothing_colour' id='clothing_colour' placeholder='Wit'/>
                                             </label>
                                             <label for='size'>
-                                                Maat
-                                                <input type='text' name='size' id='size' placeholder='M'/>
-                                            </label>
+                                                maat
+                                                <select name="product_region" id="size">
+                                                    <option value="S">
+                                                        S
+                                                    </option>
+                                                    <option value="M">
+                                                        M
+                                                    </option>
+                                                    <option value="L">
+                                                        L
+                                                    </option>
+                                                    <option value="XL">
+                                                        XL
+                                                    </option>
+                                                    <option value="XXL">
+                                                        XXL
+                                                    </option>
+                                                </select>
                                         </div>
                                         <div class="form-group" id="fieldGroupDivTierlantijn">
                                             <label for='weight'>
@@ -232,9 +247,29 @@
                                     </div>
                                 </div>
                                 <div class='step-by-step-stepper'>
+                                    <button class='button button-small button-small-primary material-icons animated pulse infinite' data-type='next'>-></button>
+                                </div>
+                            </div>
+
+                            <!-- 4 -->
+                            <div class='step-by-step-step split-h'>
+                                <div class='default-content push-down centered-content maximize-height'>
+                                    <h3>Speciaal product</h3>
+                                    <p>
+                                        Wilt u een extra product eigenschap toevoegen aan dit product?<br>
+                                    </p>
+                                </div>
+                                <div class='default-content'>
+                                    <button type="button" class="btn btn-default btn-lg" id="AddField">Voeg extra eigenschap toe</button>
+                                    <div class='form' id="extrafield">
+
+                                    </div>
+                                </div>
+                                <div class='step-by-step-stepper'>
                                     <button id="btn" class='button button-small button-small-primary material-icons animated pulse infinite' data-type='next'>-></button>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <br>

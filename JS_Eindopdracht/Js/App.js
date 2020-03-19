@@ -89,6 +89,9 @@ function productClick() {
 formStart.addEventListener('click', WizardFunction);
 formRegion.addEventListener('change', changeDiv);
 document.addEventListener('DOMContentLoaded', ()=> {
+    document.getElementById('AddField').addEventListener('click', WizardSteps.addField)
+});
+document.addEventListener('DOMContentLoaded', ()=> {
     document.getElementById('btn').addEventListener('click', WizardSteps.addProduct)
 });
 

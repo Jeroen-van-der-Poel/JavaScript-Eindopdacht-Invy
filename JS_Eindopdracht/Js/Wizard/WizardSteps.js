@@ -6,6 +6,7 @@ const  __fade_in = ' animated fadeIn';
 const __fade_out = ' animated fadeOut';
 
 export let enableForm = false;
+let checkExtraField = false;
 
 export class WizardSteps {
     constructor(wizard) {
@@ -13,23 +14,35 @@ export class WizardSteps {
     }
 
     static addProduct(){
-        let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
+        let selectregionvalue = document.getElementById('product_region').options.selectedIndex;
+        let selectsizevalue = document.getElementById('product_region').options.selectedIndex;
+        let sellpricewithbtw = JSON.stringify(document.getElementById('product_sell_price').value * 1.21);
+        let test;
+        if(document.getElementById('extra_field')){
+            test = document.getElementById('extra_field').value
+            document.getElementById('extra_field').value = "";
+        }
+        else{
+            test = "";
+        }
+
         let product = {
             id: Date.now(),
             name: document.getElementById('product_name').value,
             description: document.getElementById('product_description').value,
-            region: document.getElementById("product_region").options.item(selectboxvalue).text,
+            region: document.getElementById("product_region").options.item(selectregionvalue).text,
             colour: document.getElementById('clothing_colour').value,
-            size: document.getElementById('size').value,
+            size: document.getElementById("product_region").options.item(selectsizevalue).text,
             weight: document.getElementById('weight').value,
             size_in_cm: document.getElementById('size_in_cm').value,
             decoration_colour: document.getElementById('decoration_colour').value,
             amount_in_package: document.getElementById('amount_in_package').value,
             buy_price: document.getElementById('product_buy_price').value,
             sell_price_no_btw: document.getElementById('product_sell_price').value,
+            sell_price_with_btw: sellpricewithbtw,
             product_minimal_storage: document.getElementById('product_minimal_storage').value,
             image: "",
-            special_product_field: "",
+            special_product_field: test
         };
         document.getElementById('product_name').value = "";
         document.getElementById('product_description').value = "";
@@ -103,6 +116,31 @@ export class WizardSteps {
             document.getElementById('size_in_cm').value = "";
             document.getElementById('decoration_colour').value = "";
             document.getElementById('amount_in_package').value = "";
+        }
+    }
+
+    static addField(){
+        if(checkExtraField == false)
+        {
+            let div = document.createElement("div");
+
+            let label = document.createElement("label");
+            label.innerHTML = "Eigenschap";
+
+            let text = document.createElement("input");
+            text.setAttribute("type", "text");
+            text.setAttribute("name", "text");
+            text.setAttribute("id", "extra_field");
+
+            div.appendChild(label);
+            div.appendChild(text);
+
+            document.getElementById("extrafield").appendChild(div);
+
+            checkExtraField = true;
+        }
+        else{
+            alert("Je hebt al een extra veld toegevoegd.");
         }
     }
 }
@@ -213,6 +251,14 @@ let Wizard_Steps = function(elem) {
         }
 
         let next_id = current_id + 1;
+
+        if(this.get_current_step_id() > 0){
+            if(document.getElementById('product_name').value == "")
+            {
+                alert("Naam moet ingevuld zijn");
+                next_id = current_id;
+            }
+        }
 
         if (next_id >= _this.steps.length) {
             /* Making the finish action none-proprietary by
