@@ -54,7 +54,6 @@ export class DragDrop{
                 //set html modal
                 header.innerHTML = item.name;
 
-
                 // When the user clicks on <span> (x), close the modal
                 span.onclick = function() {
                     modal.style.display = "none";
