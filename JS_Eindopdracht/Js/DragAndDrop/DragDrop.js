@@ -1,6 +1,8 @@
 import {Regios} from "../Initialize/Regio";
 import {currentRegio} from "../App";
 
+export let item;
+
 export class DragDrop{
     constructor(el, currentItem, currentClassList, currentProduct) {
         this.el = el;
@@ -50,7 +52,7 @@ export class DragDrop{
                 modal.style.display = "block";
                 let reggex = /\d+/g;
                 let itemNumber = parseInt(e.target.classList[index].match(reggex)[0]);
-                let item = currentRegio.items[itemNumber];
+                item = currentRegio.items[itemNumber];
 
                 //set html modal
                 header.innerHTML = item.name;

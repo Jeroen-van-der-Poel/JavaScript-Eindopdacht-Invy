@@ -150,10 +150,6 @@ let currentClassList;
 let currentProduct;
 const dragDrop = new DragDrop(el, currentItem, currentClassList, currentProduct);
 
-document.getElementById("save").addEventListener("click", e => {
-    imageReader.ReadFile(e);
-});
-
 document.querySelector('.draggable-items').addEventListener('dragstart', e => {
     dragDrop.DragStart(e);
 });
@@ -187,3 +183,7 @@ let es = document.forms[0].elements;
 es[1].onclick = function(){
     imageReader.clearInputFile(es[0]);
 };
+
+document.getElementById("save").addEventListener("change", e => {
+    imageReader.ReadFile(e);
+});
