@@ -48,12 +48,12 @@ export class DragDrop{
                 //onclick item
                 modal.style.display = "block";
                 let reggex = /\d+/g;
-                let itemNumber = parseInt(index.match(reggex)[0]);
-                let item = currentRegio.items[itemNumber-1];
+                let itemNumber = parseInt(e.target.classList[index].match(reggex)[0]);
+                let item = currentRegio.items[itemNumber];
 
                 //set html modal
                 header.innerHTML = item.name;
-                
+
 
                 // When the user clicks on <span> (x), close the modal
                 span.onclick = function() {
