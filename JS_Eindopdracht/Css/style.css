@@ -276,7 +276,7 @@
     display: block; }
 .paste-styled .form input {
     font-size: 100%; }
-.paste-styled .form input[type='text'], .paste-styled .form input[type='password'], .paste-styled .form input[type='email'] {
+.paste-styled .form input[type='text'], .paste-styled .form input[type='number'] {
     display: inline-block;
     width: 100%;
     height: 48px;

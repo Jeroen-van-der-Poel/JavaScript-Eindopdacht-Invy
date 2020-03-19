@@ -5,7 +5,7 @@ import { Start } from "../App";
 const  __fade_in = ' animated fadeIn';
 const __fade_out = ' animated fadeOut';
 
-export let count = 0;
+export let enableForm = false;
 
 export class WizardSteps {
     constructor(wizard) {
@@ -41,7 +41,7 @@ export class WizardSteps {
         document.getElementById('amount_in_package').value = "";
         document.getElementById('product_buy_price').value = "";
         document.getElementById('product_sell_price').value = "";
-        document.getElementById('product_minimal_storage').value = ""
+        document.getElementById('product_minimal_storage').value = "";
 
         function translate(word){
             switch (word.toLowerCase()) {
@@ -53,6 +53,7 @@ export class WizardSteps {
                     return "tierlantin";
             }
         }
+        
         let itemRegio = Regios.getRegio(translate(product.region));
         itemRegio.items.push(product);
         Regios.updateRegio(itemRegio);
@@ -61,24 +62,24 @@ export class WizardSteps {
     static startForm() {
         document.getElementById('fieldGroupDivDecoration').style.display = "none";
         document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
-        if(count == 0)
+        if(enableForm == false)
         {
             document.getElementById('thegrid').style.display = "none";
             document.getElementById('setup').style.display = "block";
             wizardsteps.start();
-            count += 1;
+            enableForm = true;
         }
         else{
             document.getElementById('thegrid').style.display = "block";
             document.getElementById('setup').style.display = "none";
-            count -= 1;
+            enableForm = false;
         }
     }
 
     static changeFormRegion() {
         document.getElementById('thegrid').style.display = "block";
         document.getElementById('setup').style.display = "none";
-        count = 0;
+        enableForm = false;
     }
 
     static showDiv(select){
@@ -117,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
     wizardsteps.handle_finish = function(step) {
         alert('Alle stappen voltooid.');
         Start();
-        count -= 1;
+        enableForm = false;
     };
 
 });
