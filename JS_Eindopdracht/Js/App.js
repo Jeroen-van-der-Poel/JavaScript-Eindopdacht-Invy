@@ -94,6 +94,29 @@ document.addEventListener('DOMContentLoaded', ()=> {
 document.addEventListener('DOMContentLoaded', ()=> {
     document.getElementById('btn').addEventListener('click', WizardSteps.addProduct)
 });
+let value = "+";
+document.addEventListener('DOMContentLoaded', ()=> {
+    document.getElementById('calculator_plus').addEventListener('click', WizardSteps.addCalculatorAddField)
+});
+document.addEventListener('DOMContentLoaded', ()=> {
+    document.getElementById('calculator_minus').addEventListener('click', WizardSteps.addCalculatorMinusField)
+});
+document.addEventListener('DOMContentLoaded', ()=> {
+    document.getElementById('calculator_times').addEventListener('click', WizardSteps.addCalculatorTimesField)
+});
+document.addEventListener('DOMContentLoaded', ()=> {
+    document.getElementById('calculator_divide').addEventListener('click', WizardSteps.addCalculatorDivideField)
+});
+/*if(document.getElementById('calculator_field')+ WizardSteps.getCalcCount) {
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('calculator_field1').addEventListener('change', WizardSteps.calculatorResultField)
+    });
+}*/
+document.addEventListener('change',function(e){
+    if(e.target && e.target.id=== 'calculator_field' + WizardSteps.getCalcCount()){
+        WizardSteps.calculatorResultField();
+    }
+});
 
 function changeDiv() {
     let selectboxvalue = document.getElementById('product_region').options.selectedIndex;

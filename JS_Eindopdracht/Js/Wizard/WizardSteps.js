@@ -7,23 +7,32 @@ const __fade_out = ' animated fadeOut';
 
 export let enableForm = false;
 let checkExtraField = false;
+export let calculatorCount = 1;
+export let resultCount = 1;
+let currentCalcValue;
+let ableToAddCalc = true;
+let ableToAddCalcField = false;
 
 export class WizardSteps {
     constructor(wizard) {
         this.wizard = wizard;
     }
 
+    static getCalcCount(){
+        return calculatorCount;
+    }
+
     static addProduct(){
         let selectregionvalue = document.getElementById('product_region').options.selectedIndex;
         let selectsizevalue = document.getElementById('product_region').options.selectedIndex;
         let sellpricewithbtw = JSON.stringify(document.getElementById('product_sell_price').value * 1.21);
-        let test;
+        let extrafield;
         if(document.getElementById('extra_field')){
-            test = document.getElementById('extra_field').value
+            extrafield = document.getElementById('extra_field').value
             document.getElementById('extra_field').value = "";
         }
         else{
-            test = "";
+            extrafield = "";
         }
 
         let product = {
@@ -42,7 +51,7 @@ export class WizardSteps {
             sell_price_with_btw: sellpricewithbtw,
             product_minimal_storage: document.getElementById('product_minimal_storage').value,
             image: "",
-            special_product_field: test
+            special_product_field: extrafield
         };
         document.getElementById('product_name').value = "";
         document.getElementById('product_description').value = "";
@@ -143,8 +152,154 @@ export class WizardSteps {
             alert("Je hebt al een extra veld toegevoegd.");
         }
     }
+
+    static addCalculatorAddField(){
+        if(ableToAddCalc == true)
+        {
+            currentCalcValue = "+";
+            let div = document.createElement("div");
+
+            let field = document.createElement("label");
+            field.innerHTML = "+";
+
+            let resultfield = document.createElement("label");
+            resultfield.setAttribute("name", "result_field" + resultCount);
+            resultfield.setAttribute("id", "result_field" + resultCount);
+            resultfield.innerHTML = "Result";
+
+            div.appendChild(field);
+            let inputfield = addCalculatorField();
+            div.appendChild(inputfield);
+            div.appendChild(resultfield);
+
+            document.getElementById("calculatorfields").appendChild(div);
+
+            ableToAddCalc = false;
+        }
+
+    }
+
+    static addCalculatorMinusField(){
+        if(ableToAddCalc == true) {
+            currentCalcValue = "-";
+            let div = document.createElement("div");
+
+            let field = document.createElement("label");
+            field.innerHTML = "-";
+
+            let resultfield = document.createElement("label");
+            resultfield.setAttribute("name", "result_field" + resultCount);
+            resultfield.setAttribute("id", "result_field" + resultCount);
+            resultfield.innerHTML = "Result";
+
+            div.appendChild(field);
+            let inputfield = addCalculatorField();
+            div.appendChild(inputfield);
+            div.appendChild(resultfield);
+
+
+            document.getElementById("calculatorfields").appendChild(div);
+            document.getElementById("calculatorfields").appendChild(inputfield);
+
+            ableToAddCalc = false;
+        }
+
+    }
+
+    static addCalculatorTimesField(){
+        if(ableToAddCalc == true) {
+            currentCalcValue = "*";
+            let div = document.createElement("div");
+
+            let field = document.createElement("label");
+            field.innerHTML = "*";
+
+            let resultfield = document.createElement("label");
+            resultfield.setAttribute("name", "result_field" + resultCount);
+            resultfield.setAttribute("id", "result_field" + resultCount);
+            resultfield.innerHTML = "Result";
+
+            div.appendChild(field);
+            let inputfield = addCalculatorField();
+            div.appendChild(inputfield);
+            div.appendChild(resultfield);
+
+
+            document.getElementById("calculatorfields").appendChild(div);
+            document.getElementById("calculatorfields").appendChild(inputfield);
+
+            ableToAddCalc = false;
+        }
+
+    }
+
+    static addCalculatorDivideField(){
+        if(ableToAddCalc == true) {
+            currentCalcValue = "/";
+            let div = document.createElement("div");
+
+            let field = document.createElement("label");
+            field.innerHTML = "/";
+
+            let resultfield = document.createElement("label");
+            resultfield.setAttribute("name", "result_field" + resultCount);
+            resultfield.setAttribute("id", "result_field" + resultCount);
+            resultfield.innerHTML = "Result";
+
+            div.appendChild(field);
+            let inputfield = addCalculatorField();
+            div.appendChild(inputfield);
+            div.appendChild(resultfield);
+
+
+            document.getElementById("calculatorfields").appendChild(div);
+            document.getElementById("calculatorfields").appendChild(inputfield);
+
+            ableToAddCalc = false;
+        }
+
+    }
+
+    static calculatorResultField(){
+        let calculate;
+        if(currentCalcValue == "+"){
+            let tempCount = calculatorCount - 1;
+            calculate = parseInt(document.getElementById('calculator_field' + tempCount).value) + parseInt(document.getElementById('calculator_field' + calculatorCount).value);
+        }
+        if(currentCalcValue == "-"){
+            let tempCount = calculatorCount - 1;
+            calculate = parseInt(document.getElementById('calculator_field' + tempCount).value) - parseInt(document.getElementById('calculator_field' + calculatorCount).value);
+        }
+        if(currentCalcValue == "*"){
+            let tempCount = calculatorCount - 1;
+            calculate = parseInt(document.getElementById('calculator_field' + tempCount).value) * parseInt(document.getElementById('calculator_field' + calculatorCount).value);
+        }
+        if(currentCalcValue == "/"){
+            let tempCount = calculatorCount - 1;
+            calculate = parseInt(document.getElementById('calculator_field' + tempCount).value) / parseInt(document.getElementById('calculator_field' + calculatorCount).value);
+        }
+        let result = document.getElementById('result_field' + resultCount);
+        result.innerHTML = calculate.toString();
+    }
+
 }
 
+function addCalculatorField(){
+    if(calculatorCount < 10){
+        calculatorCount += 1;
+        let div = document.createElement("div");
+        let calculator_input = document.createElement("input");
+        calculator_input.setAttribute("type", "number");
+        calculator_input.setAttribute("name", "calculator_field" + calculatorCount);
+        calculator_input.setAttribute("id", "calculator_field" + calculatorCount);
+
+        div.appendChild(calculator_input);
+        return div;
+    }
+    else {
+        return alert("Je hebt al genoeg calculator velden toegevoegd.");
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function(e) {
     window.wizardsteps = new Wizard_Steps(document.getElementById('setup'));
@@ -155,6 +310,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     wizardsteps.handle_finish = function(step) {
         alert('Alle stappen voltooid.');
+        document.getElementById('product_region').options.selectedIndex = 1;
+        document.getElementById('fieldGroupDivClothing').style.display = "block";
         Start();
         enableForm = false;
     };
