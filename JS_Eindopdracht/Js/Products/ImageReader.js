@@ -1,14 +1,11 @@
-import { item} from "../DragAndDrop/DragDrop";
+import { item ,itemNumber } from "../DragAndDrop/DragDrop";
 import { currentRegio } from "../App";
 import { Regios } from "../Initialize/Regio";
+import { Canvas} from "./Canvas";
 
 const canvas = document.getElementById("ImageCanvas");
-const ctx = canvas.getContext("2d");
-let prevX = 0;
-let currX = 0;
-let prevY = 0;
-let currY = 0;
-let drawActive = false;
+
+const canvasClass = new Canvas();
 
 export class ImageReader {
 
@@ -31,7 +28,7 @@ export class ImageReader {
                 canvas.width = 340;
                 canvas.height = 400;
                 canvas.getContext("2d").drawImage(img, 0, 0, img.width, img.height, 0, 0, img.width*sizer, img.height*sizer);
-                this.InitDrawing();
+                canvasClass.InitDrawing();
             };
             img.src = item.image;
         }else{
@@ -39,7 +36,13 @@ export class ImageReader {
         }
     }
 
-    ReadFile(e) {
+    SaveImage(){
+        item.image = canvas.toDataURL("image/png");
+        currentRegio.items[itemNumber] = item;
+        Regios.updateRegio(currentRegio);
+    }
+
+     ReadFile(e) {
         let newFile = e.target.files[0];
         if (!newFile.type.match('image.*')) {
             window.alert("gekozen bestand is niet van het juiste type!");
@@ -56,64 +59,14 @@ export class ImageReader {
                     canvas.width = 340;
                     canvas.height = 400;
 
-                    canvas.getContext("2d")
-                        .drawImage(buffer, 0, 0, buffer.width, buffer.height, 0, 0, buffer.width*sizer,  buffer.height*sizer);
-                    this.InitDrawing();
-                    this.SaveImage();
-                    this.LoadPicture();
+                    canvas.getContext("2d").drawImage(buffer, 0, 0, buffer.width, buffer.height, 0, 0, buffer.width*sizer,  buffer.height*sizer);
+                    item.image = canvas.toDataURL("image/png");
+                    currentRegio.items[itemNumber] = item;
+                    Regios.updateRegio(currentRegio);
                 }
             }
         })(newFile);
         fReader.readAsDataURL(newFile);
     }
 
-    // =========== Canvas drawing ============= //
-    InitDrawing(){
-        canvas.addEventListener("mousemove", function(e){this.MouseMove(e)}, false);
-        canvas.addEventListener("mousedown", function(e){this.MouseDown(e)}, false);
-        canvas.addEventListener("mouseup", this.MouseUp, false);
-        currX = 0;
-        currY = 0;
-        prevX = 0;
-        prevY = 0;
-    }
-
-    MouseMove(e){
-        if(drawActive){
-            prevX = currX;
-            prevY = currY;
-            currX = e.clientX - canvas.getBoundingClientRect().left;
-            currY = e.clientY - canvas.getBoundingClientRect().top;
-            this.Draw();
-        }
-    }
-
-    Draw(){
-        ctx.beginPath();
-        ctx.moveTo(prevX, prevY);
-        ctx.lineTo(currX, currY);
-        ctx.strokeStyle = "black";
-        ctx.lineWidth = 3;
-        ctx.stroke();
-        ctx.closePath();
-        this.SaveImage();
-    }
-
-    MouseDown(e){
-        prevX = currX;
-        prevY = currY;
-        currX = e.clientX - canvas.getBoundingClientRect().left;
-        currY = e.clientY - canvas.getBoundingClientRect().top;
-        drawActive = true;
-    }
-
-    MouseUp(){
-        drawActive = false;
-    }
-
-    SaveImage(){
-        item.image = canvas.toDataURL("image/png");
-        //currentRegio.items[productCode] = item;
-        Regios.updateRegio(currentRegio);
-    }
 }

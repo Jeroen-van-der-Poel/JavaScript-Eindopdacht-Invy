@@ -85,19 +85,16 @@
                             </div>
                             <div class="modal-body">
                                 <h4>Foto uploaden</h4>
-                                <div class="d-flex justify-content-between">
-                                    <input type="file" id="image1"/>
-                                    <button type="button" class="btn btn-danger">clear</button>
+                                <div>
+                                    <input type="file" id="image1" style="visibility: hidden"/>
+                                    <label for="image1" class="btn btn-primary" id="imagelabel">Foto uploaden</label>
                                 </div>
                                 <hr>
                                 <h4>Schade tekenen</h4>
                                 <canvas id="ImageCanvas" width="340" height="400" style="border: 1px solid black"></canvas>
-                                <div class="d-flex justify-content-end pt-1">
-                                    <button type="button" id="cancel" class="btn btn-danger">Annuleren</button>
-                                    <button type="button" id="save" class="btn btn-primary">Opslaan</button>
-                                </div>
                             </div>
                             <div class="modal-footer">
+                                <p>Afbeelding/canvas wordt automatsich opgeslagen</p>
                             </div>
                         </div>
                     </div>

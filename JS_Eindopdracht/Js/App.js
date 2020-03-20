@@ -176,14 +176,15 @@ dropzones.addEventListener('dragleave', (e) => {
 
 document.getElementById("grid").addEventListener("click", function(e) {
     dragDrop.OnClickItem(e);
+    imageReader.LoadPicture();
 });
 
 // =========== Image Reader ============= //
-let es = document.forms[0].elements;
+/*let es = document.forms[0].elements;
 es[1].onclick = function(){
     imageReader.clearInputFile(es[0]);
-};
+};*/
 
-document.getElementById("save").addEventListener("change", e => {
+document.getElementById("image1").addEventListener("change", e => {
     imageReader.ReadFile(e);
 });
