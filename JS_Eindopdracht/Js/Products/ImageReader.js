@@ -8,17 +8,6 @@ const canvas = document.getElementById("ImageCanvas");
 const canvasClass = new Canvas();
 
 export class ImageReader {
-
-    clearInputFile(f) {
-        if (f.value) {
-            try {
-                f.value = '';
-            } catch (err) {
-                alert("Sorry, er is iets mis gegaan!")
-            }
-        }
-    }
-
     LoadPicture(){
         if(item.image != ""){
             let img = new Image();
@@ -32,14 +21,8 @@ export class ImageReader {
             };
             img.src = item.image;
         }else{
-
+            canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
         }
-    }
-
-    SaveImage(){
-        item.image = canvas.toDataURL("image/png");
-        currentRegio.items[itemNumber] = item;
-        Regios.updateRegio(currentRegio);
     }
 
      ReadFile(e) {
