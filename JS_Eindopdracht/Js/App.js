@@ -174,12 +174,12 @@ dropzones.addEventListener('dragleave', (e) => {
     productClass.LoadProducts(currentRegio.items);
 });
 
+// =========== Image Reader ============= //
 document.getElementById("grid").addEventListener("click", function(e) {
     dragDrop.OnClickItem(e);
     imageReader.LoadPicture();
 });
 
-// =========== Image Reader ============= //
 document.getElementById("image1").addEventListener("change", e => {
     imageReader.ReadFile(e);
 });
