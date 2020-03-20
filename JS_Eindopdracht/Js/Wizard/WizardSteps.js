@@ -7,19 +7,12 @@ const __fade_out = ' animated fadeOut';
 
 export let enableForm = false;
 let checkExtraField = false;
-export let calculatorCount = 1;
-export let resultCount = 1;
 let currentCalcValue;
 let ableToAddCalc = true;
-let ableToAddCalcField = false;
 
 export class WizardSteps {
     constructor(wizard) {
         this.wizard = wizard;
-    }
-
-    static getCalcCount(){
-        return calculatorCount;
     }
 
     static addProduct(){
@@ -29,11 +22,11 @@ export class WizardSteps {
         if(document.getElementById('product_region').options.selectedIndex == 0) {
             selectsizevalue = document.getElementById('product_size').options.selectedIndex;
             sizevalue = document.getElementById("product_size").options.item(selectsizevalue).text;
+            sizevalue = "";
         }
         else {
             sizevalue = "";
         }
-        let sellpricewithbtw = JSON.stringify(document.getElementById('product_sell_price').value * 1.21);
         let extrafield;
         if(document.getElementById('extra_field')){
             extrafield = document.getElementById('extra_field').value;
@@ -56,12 +49,11 @@ export class WizardSteps {
             amount_in_package: document.getElementById('amount_in_package').value,
             buy_price: document.getElementById('product_buy_price').value,
             sell_price_no_btw: document.getElementById('product_sell_price').value,
-            sell_price_with_btw: sellpricewithbtw,
+            sell_price_with_btw: document.getElementById('product_sell_price_btw').value,
             product_minimal_storage: document.getElementById('product_minimal_storage').value,
             image: "",
             special_product_field: extrafield
         };
-        console.log(product);
         document.getElementById('product_name').value = "";
         document.getElementById('product_description').value = "";
         document.getElementById('clothing_colour').value = "";
@@ -71,6 +63,7 @@ export class WizardSteps {
         document.getElementById('amount_in_package').value = "";
         document.getElementById('product_buy_price').value = "";
         document.getElementById('product_sell_price').value = "";
+        document.getElementById('product_sell_price_btw').value = "";
         document.getElementById('product_minimal_storage').value = "";
 
         function translate(word){
@@ -90,6 +83,7 @@ export class WizardSteps {
     };
 
     static startForm() {
+        document.getElementById("calculator_equals").disabled = true;
         document.getElementById('fieldGroupDivDecoration').style.display = "none";
         document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
         if(enableForm == false)
@@ -162,171 +156,19 @@ export class WizardSteps {
         }
     }
 
-    static addCalculatorAddField(){
-        if(ableToAddCalc == true)
-        {
-            currentCalcValue = "+";
-            let div = document.createElement("div");
-
-            let field = document.createElement("label");
-            field.innerHTML = "+";
-
-            let resultfield = document.createElement("label");
-            resultfield.setAttribute("name", "result_field" + resultCount);
-            resultfield.setAttribute("id", "result_field" + resultCount);
-            resultfield.innerHTML = "Result";
-
-            div.appendChild(field);
-            let inputfield = addCalculatorField();
-            div.appendChild(inputfield);
-            div.appendChild(resultfield);
-
-            document.getElementById("calculatorfields").appendChild(div);
-
-            ableToAddCalc = false;
-        }
-
-    }
-
-    static addCalculatorMinusField(){
-        if(ableToAddCalc == true) {
-            currentCalcValue = "-";
-            let div = document.createElement("div");
-
-            let field = document.createElement("label");
-            field.innerHTML = "-";
-
-            let resultfield = document.createElement("label");
-            resultfield.setAttribute("name", "result_field" + resultCount);
-            resultfield.setAttribute("id", "result_field" + resultCount);
-            resultfield.innerHTML = "Result";
-
-            div.appendChild(field);
-            let inputfield = addCalculatorField();
-            div.appendChild(inputfield);
-            div.appendChild(resultfield);
-
-
-            document.getElementById("calculatorfields").appendChild(div);
-            document.getElementById("calculatorfields").appendChild(inputfield);
-
-            ableToAddCalc = false;
-        }
-
-    }
-
-    static addCalculatorTimesField(){
-        if(ableToAddCalc == true) {
-            currentCalcValue = "*";
-            let div = document.createElement("div");
-
-            let field = document.createElement("label");
-            field.innerHTML = "*";
-
-            let resultfield = document.createElement("label");
-            resultfield.setAttribute("name", "result_field" + resultCount);
-            resultfield.setAttribute("id", "result_field" + resultCount);
-            resultfield.innerHTML = "Result";
-
-            div.appendChild(field);
-            let inputfield = addCalculatorField();
-            div.appendChild(inputfield);
-            div.appendChild(resultfield);
-
-
-            document.getElementById("calculatorfields").appendChild(div);
-            document.getElementById("calculatorfields").appendChild(inputfield);
-
-            ableToAddCalc = false;
-        }
-
-    }
-
-    static addCalculatorDivideField(){
-        if(ableToAddCalc == true) {
-            currentCalcValue = "/";
-            let div = document.createElement("div");
-
-            let field = document.createElement("label");
-            field.innerHTML = "/";
-
-            let resultfield = document.createElement("label");
-            resultfield.setAttribute("name", "result_field" + resultCount);
-            resultfield.setAttribute("id", "result_field" + resultCount);
-            resultfield.innerHTML = "Result";
-
-            div.appendChild(field);
-            let inputfield = addCalculatorField();
-            div.appendChild(inputfield);
-            div.appendChild(resultfield);
-
-
-            document.getElementById("calculatorfields").appendChild(div);
-            document.getElementById("calculatorfields").appendChild(inputfield);
-
-            ableToAddCalc = false;
-        }
-
-    }
-
-    static calculatorResultField(){
-        let calculate;
-        if(checkEmpty()){
-        if(currentCalcValue == "+"){
-            let tempCount = calculatorCount - 1;
-            calculate = parseInt(document.getElementById('calculator_field' + tempCount).value) + parseInt(document.getElementById('calculator_field' + calculatorCount).value);
-        }
-        if(currentCalcValue == "-"){
-            let tempCount = calculatorCount - 1;
-            calculate = parseInt(document.getElementById('calculator_field' + tempCount).value) - parseInt(document.getElementById('calculator_field' + calculatorCount).value);
-        }
-        if(currentCalcValue == "*"){
-            let tempCount = calculatorCount - 1;
-            calculate = parseInt(document.getElementById('calculator_field' + tempCount).value) * parseInt(document.getElementById('calculator_field' + calculatorCount).value);
-        }
-        if(currentCalcValue == "/"){
-            let tempCount = calculatorCount - 1;
-            calculate = parseInt(document.getElementById('calculator_field' + tempCount).value) / parseInt(document.getElementById('calculator_field' + calculatorCount).value);
-        }
-            let result = document.getElementById('result_field' + resultCount);
-            result.innerHTML = calculate.toString();
-            ableToAddCalc = true;
-        }
-        else {
-            let result = document.getElementById('result_field' + resultCount);
-            result.innerHTML = "Ik mis een getal";
-        }
-
-    }
-
-}
-
-function addCalculatorField(){
-    if(calculatorCount < 10){
-        calculatorCount += 1;
-        let div = document.createElement("div");
-        let calculator_input = document.createElement("input");
-        calculator_input.setAttribute("type", "number");
-        calculator_input.setAttribute("name", "calculator_field" + calculatorCount);
-        calculator_input.setAttribute("id", "calculator_field" + calculatorCount);
-
-        div.appendChild(calculator_input);
-        return div;
-    }
-    else {
-        return alert("Je hebt al genoeg calculator velden toegevoegd.");
-    }
-}
-
-function checkEmpty(){
-    let tempCount = calculatorCount - 1;
-    let calculate;
-    calculate = document.getElementById('calculator_field' + tempCount).value;
-    if(calculate == ""){
-        return false
-    }
-    else{
-        return true;
+    static emptyFields()
+    {
+        document.getElementById('product_name').value = "";
+        document.getElementById('product_description').value = "";
+        document.getElementById('clothing_colour').value = "";
+        document.getElementById('weight').value = "";
+        document.getElementById('size_in_cm').value = "";
+        document.getElementById('decoration_colour').value = "";
+        document.getElementById('amount_in_package').value = "";
+        document.getElementById('product_buy_price').value = "";
+        document.getElementById('product_sell_price').value = "";
+        document.getElementById('product_sell_price_btw').value = "";
+        document.getElementById('product_minimal_storage').value = "";
     }
 }
 
@@ -339,6 +181,10 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     wizardsteps.handle_finish = function(step) {
         alert('Alle stappen voltooid.');
+        document.getElementById('calculator_field1').value = "";
+        document.getElementById('calculator_field2').value = "";
+        document.getElementById('result_field').innerHTML = "";
+        document.getElementById("calculator_equals").disabled = false;
         Start();
         enableForm = false;
     };
