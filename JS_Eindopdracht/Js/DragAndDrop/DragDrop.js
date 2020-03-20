@@ -141,8 +141,10 @@ export class DragDrop{
         } else
         {
             let productItem = document.getElementsByClassName(this.currentProduct)[0];
-            productItem.setAttribute('draggable',true);
-            productItem.style.backgroundColor = "green";
+            if(productItem != null){
+                productItem.setAttribute('draggable',true);
+                productItem.style.backgroundColor = "green";
+            }
         }
         this.currentItem = null;
     }
