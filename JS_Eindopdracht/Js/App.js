@@ -180,11 +180,6 @@ document.getElementById("grid").addEventListener("click", function(e) {
 });
 
 // =========== Image Reader ============= //
-/*let es = document.forms[0].elements;
-es[1].onclick = function(){
-    imageReader.clearInputFile(es[0]);
-};*/
-
 document.getElementById("image1").addEventListener("change", e => {
     imageReader.ReadFile(e);
 });
