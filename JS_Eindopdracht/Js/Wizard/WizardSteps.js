@@ -24,11 +24,19 @@ export class WizardSteps {
 
     static addProduct(){
         let selectregionvalue = document.getElementById('product_region').options.selectedIndex;
-        let selectsizevalue = document.getElementById('product_region').options.selectedIndex;
+        let selectsizevalue;
+        let sizevalue;
+        if(document.getElementById('product_region').options.selectedIndex == 0) {
+            selectsizevalue = document.getElementById('product_size').options.selectedIndex;
+            sizevalue = document.getElementById("product_size").options.item(selectsizevalue).text;
+        }
+        else {
+            sizevalue = "";
+        }
         let sellpricewithbtw = JSON.stringify(document.getElementById('product_sell_price').value * 1.21);
         let extrafield;
         if(document.getElementById('extra_field')){
-            extrafield = document.getElementById('extra_field').value
+            extrafield = document.getElementById('extra_field').value;
             document.getElementById('extra_field').value = "";
         }
         else{
@@ -41,7 +49,7 @@ export class WizardSteps {
             description: document.getElementById('product_description').value,
             region: document.getElementById("product_region").options.item(selectregionvalue).text,
             colour: document.getElementById('clothing_colour').value,
-            size: document.getElementById("product_region").options.item(selectsizevalue).text,
+            size: sizevalue,
             weight: document.getElementById('weight').value,
             size_in_cm: document.getElementById('size_in_cm').value,
             decoration_colour: document.getElementById('decoration_colour').value,
@@ -53,10 +61,10 @@ export class WizardSteps {
             image: "",
             special_product_field: extrafield
         };
+        console.log(product);
         document.getElementById('product_name').value = "";
         document.getElementById('product_description').value = "";
         document.getElementById('clothing_colour').value = "";
-        document.getElementById('size').value = "";
         document.getElementById('weight').value = "";
         document.getElementById('size_in_cm').value = "";
         document.getElementById('decoration_colour').value = "";
@@ -107,10 +115,11 @@ export class WizardSteps {
     static showDiv(select){
         if(select=== 0){
             document.getElementById('fieldGroupDivClothing').style.display = "block";
+            document.getElementById('product_size').value = "S";
         } else{
             document.getElementById('fieldGroupDivClothing').style.display = "none";
             document.getElementById('clothing_colour').value = "";
-            document.getElementById('size').value = "";
+            document.getElementById('product_size').value = "";
         }
         if(select=== 1){
             document.getElementById('fieldGroupDivTierlantijn').style.display = "block";
@@ -262,6 +271,7 @@ export class WizardSteps {
 
     static calculatorResultField(){
         let calculate;
+        if(checkEmpty()){
         if(currentCalcValue == "+"){
             let tempCount = calculatorCount - 1;
             calculate = parseInt(document.getElementById('calculator_field' + tempCount).value) + parseInt(document.getElementById('calculator_field' + calculatorCount).value);
@@ -278,8 +288,15 @@ export class WizardSteps {
             let tempCount = calculatorCount - 1;
             calculate = parseInt(document.getElementById('calculator_field' + tempCount).value) / parseInt(document.getElementById('calculator_field' + calculatorCount).value);
         }
-        let result = document.getElementById('result_field' + resultCount);
-        result.innerHTML = calculate.toString();
+            let result = document.getElementById('result_field' + resultCount);
+            result.innerHTML = calculate.toString();
+            ableToAddCalc = true;
+        }
+        else {
+            let result = document.getElementById('result_field' + resultCount);
+            result.innerHTML = "Ik mis een getal";
+        }
+
     }
 
 }
@@ -301,6 +318,18 @@ function addCalculatorField(){
     }
 }
 
+function checkEmpty(){
+    let tempCount = calculatorCount - 1;
+    let calculate;
+    calculate = document.getElementById('calculator_field' + tempCount).value;
+    if(calculate == ""){
+        return false
+    }
+    else{
+        return true;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function(e) {
     window.wizardsteps = new Wizard_Steps(document.getElementById('setup'));
 
@@ -310,8 +339,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     wizardsteps.handle_finish = function(step) {
         alert('Alle stappen voltooid.');
-        document.getElementById('product_region').options.selectedIndex = 1;
-        document.getElementById('fieldGroupDivClothing').style.display = "block";
         Start();
         enableForm = false;
     };
