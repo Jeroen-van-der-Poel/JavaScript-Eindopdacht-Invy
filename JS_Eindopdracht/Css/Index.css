@@ -111,3 +111,12 @@
     text-align: center;
 }
 
+#ImageCanvas{
+    width: 340px;
+    height: 400px;
+    border: 1px solid black;
+}
+
+#image1{
+    display: none;
+}
