@@ -22,7 +22,6 @@ export function ShowWeather() {
 
             getWeather(latValue, longValue);
         })
-
         .catch(err => alert("Wrong city name"))
 }
 

@@ -1,6 +1,5 @@
 import {Regios} from "../Initialize/Regio";
 import {currentRegio} from "../App";
-import { ImageReader } from "../Products/ImageReader";
 
 export let item;
 export let itemNumber;
@@ -44,7 +43,6 @@ export class DragDrop{
         let span = document.getElementsByClassName("close")[0];
         let header = document.getElementById('modalHeader');
         let body = document.getElementsByClassName('modal-body');
-        let cancel = document.getElementById("cancel");
 
         for (let index in e.target.classList)
         {
@@ -76,8 +74,7 @@ export class DragDrop{
     }
 
     DragOver(e){
-        if (e.target.classList.contains('empty'))
-        {
+        if (e.target.classList.contains('empty')) {
 
         }
         e.preventDefault();
@@ -124,7 +121,6 @@ export class DragDrop{
         if (e.target.classList.contains('empty')) {
             e.target.style.backgroundColor = "green";
         }
-        // currentItem = null;
     }
 
     Drop(e){
@@ -156,5 +152,4 @@ export class DragDrop{
             e.target.style.backgroundColor = "lightgrey";
         }
     }
-
 }
