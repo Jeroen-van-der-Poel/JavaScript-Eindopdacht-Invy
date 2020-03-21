@@ -1,4 +1,3 @@
-let checkExtraField = false;
 export let currentCalcValue;
 let ableToAddCalc = true;
 
