@@ -59,8 +59,12 @@ export class WizardCalculator {
     static redoCalc()
     {
         document.getElementById('calculator_field1').value = "";
-        document.getElementById('calculator_field2').value = "";
-        document.getElementById('result_field').innerHTML = "";
+        if(document.getElementById('calculator_field2')){
+            document.getElementById('calculator_field2').value = "";
+        }
+        if(document.getElementById('result_field')){
+            document.getElementById('result_field').innerHTML = "";
+        }
     }
 
 }
