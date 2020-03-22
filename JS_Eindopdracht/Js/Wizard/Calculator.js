@@ -1,7 +1,7 @@
 export let currentCalcValue;
 let ableToAddCalc = true;
 
-export class WizardCalculator {
+export class Calculator {
     constructor(calc) {
         this.calc = calc;
     }

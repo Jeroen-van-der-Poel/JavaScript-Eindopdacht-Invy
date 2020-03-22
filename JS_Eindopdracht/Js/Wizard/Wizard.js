@@ -8,7 +8,7 @@ const __fade_out = ' animated fadeOut';
 export let enableForm = false;
 let checkExtraField = false;
 
-export class WizardSteps {
+export class Wizard {
     constructor(wizard) {
         this.wizard = wizard;
     }
@@ -53,7 +53,7 @@ export class WizardSteps {
             special_product_field: extrafield
         };
 
-        WizardSteps.emptyFields();
+        Wizard.emptyFields();
 
         function translate(word){
             switch (word.toLowerCase()) {

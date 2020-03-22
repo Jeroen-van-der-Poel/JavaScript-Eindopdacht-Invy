@@ -1,8 +1,8 @@
 import { Grid, clothesgrid, tierlantingrid, decorationgrid } from "./Grid/Grid";
 import { ShowWeather } from "./Weather/Weather";
 import { Product } from "./Products/Product";
-import { WizardSteps } from "./Wizard/WizardSteps";
-import { WizardCalculator } from "./Wizard/WizardCalculator";
+import { Wizard } from "./Wizard/Wizard";
+import { Calculator } from "./Wizard/Calculator";
 import { Warehouse } from "./Initialize/Warehouse"
 import { Regios } from "./Initialize/Regio"
 import {DragDrop} from "./DragAndDrop/DragDrop";
@@ -29,7 +29,7 @@ clothingbutton.addEventListener('click', clothesClick);
 function clothesClick() {
     header.innerHTML = "Kleding";
     grid.innerHTML = '';
-    WizardSteps.changeFormRegion();
+    Wizard.changeFormRegion();
     gridClass.createGrid(Regios.getRegio("clothes").grid);
     currentRegio = null;
     currentRegio = Regios.getRegio("clothes");
@@ -44,7 +44,7 @@ tierlantinbutton.addEventListener('click', tierlantinClick);
 function tierlantinClick() {
     header.innerHTML = "Tierlantijn";
     grid.innerHTML = '';
-    WizardSteps.changeFormRegion();
+    Wizard.changeFormRegion();
     gridClass.createGrid(Regios.getRegio("tierlantin").grid);
     currentRegio = null;
     currentRegio = Regios.getRegio("tierlantin");
@@ -59,7 +59,7 @@ decorationbutton.addEventListener('click', decorationClick);
 function decorationClick() {
     header.innerHTML = "Decoratie";
     grid.innerHTML = '';
-    WizardSteps.changeFormRegion();
+    Wizard.changeFormRegion();
     gridClass.createGrid(Regios.getRegio("decoration").grid);
     currentRegio = null;
     currentRegio = Regios.getRegio("decoration");
@@ -90,31 +90,31 @@ function productClick() {
 formStart.addEventListener('click', WizardFunction);
 formRegion.addEventListener('change', changeDiv);
 document.addEventListener('DOMContentLoaded', ()=> {
-    document.getElementById('AddField').addEventListener('click', WizardSteps.addField)
+    document.getElementById('AddField').addEventListener('click', Wizard.addField)
 });
 document.addEventListener('DOMContentLoaded', ()=> {
-    document.getElementById('btn').addEventListener('click', WizardSteps.addProduct)
+    document.getElementById('btn').addEventListener('click', Wizard.addProduct)
 });
-document.getElementById('calculator_plus').addEventListener('click', WizardCalculator.addCalc)
-document.getElementById('calculator_minus').addEventListener('click', WizardCalculator.minusCalc)
-document.getElementById('calculator_times').addEventListener('click', WizardCalculator.timesCalc);
-document.getElementById('calculator_divide').addEventListener('click', WizardCalculator.divideCalc);
-document.getElementById('calculator_redo').addEventListener('click', WizardCalculator.redoCalc);
-document.getElementById('calculator_equals').addEventListener('click', WizardCalculator.calculatorResultField);
+document.getElementById('calculator_plus').addEventListener('click', Calculator.addCalc);
+document.getElementById('calculator_minus').addEventListener('click', Calculator.minusCalc);
+document.getElementById('calculator_times').addEventListener('click', Calculator.timesCalc);
+document.getElementById('calculator_divide').addEventListener('click', Calculator.divideCalc);
+document.getElementById('calculator_redo').addEventListener('click', Calculator.redoCalc);
+document.getElementById('calculator_equals').addEventListener('click', Calculator.calculatorResultField);
 document.addEventListener('change',function(e){
     if(e.target && e.target.id=== 'calculator_field2'){
-        WizardCalculator.calculatorResultField();
+        Calculator.calculatorResultField();
     }
 });
 
 function changeDiv() {
     let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
-    WizardSteps.showDiv(selectboxvalue);
+    Wizard.showDiv(selectboxvalue);
 }
 
 function WizardFunction() {
-    WizardSteps.startForm();
-    WizardSteps.emptyFields();
+    Wizard.startForm();
+    Wizard.emptyFields();
     header.innerHTML = "Product toevoegen";
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "black";
