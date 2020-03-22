@@ -55,7 +55,12 @@ export class DragDrop{
                 item = currentRegio.items[itemNumber];
 
                 //set html modal
-                header.innerHTML = item.name;
+                try{
+                    header.innerHTML = item.name;
+                }catch (e) {
+                    
+                }
+
 
                 // When the user clicks on <span> (x), close the modal
                 span.onclick = function() {
@@ -135,9 +140,14 @@ export class DragDrop{
             let row = position.split("-")[0];
             let col = position.split("-")[1];
 
-            currentRegio.grid[row][col] = this.currentProduct;
-            Regios.updateRegio(currentRegio);
-            document.getElementById(position).classList.add(this.currentProduct);
+            if(this.currentProduct != null){
+                currentRegio.grid[row][col] = this.currentProduct;
+                Regios.updateRegio(currentRegio);
+                document.getElementById(position).classList.add(this.currentProduct);
+            }else{
+                alert("Er is iets misgegaan met drag en drop");
+                e.target.style.backgroundColor = "lightgray";
+            }
         } else
         {
             let productItem = document.getElementsByClassName(this.currentProduct)[0];
