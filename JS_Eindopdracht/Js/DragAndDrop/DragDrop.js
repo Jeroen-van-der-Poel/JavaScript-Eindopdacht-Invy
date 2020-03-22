@@ -49,10 +49,12 @@ export class DragDrop{
             if (/[a-z]\d/.test(e.target.classList[index]))
             {
                 //onclick item
-                modal.style.display = "block";
                 let reggex = /\d+/g;
                 itemNumber = parseInt(e.target.classList[index].match(reggex)[0]);
                 item = currentRegio.items[itemNumber];
+                if(item != null){
+                    modal.style.display = "block";
+                }
 
                 //set html modal
                 try{

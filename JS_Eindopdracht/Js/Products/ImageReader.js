@@ -48,9 +48,13 @@ export class ImageReader {
                     canvas.height = 400;
 
                     canvas.getContext("2d").drawImage(buffer, 0, 0, buffer.width, buffer.height, 0, 0, buffer.width*sizer,  buffer.height*sizer);
-                    item.image = canvas.toDataURL("image/png");
-                    currentRegio.items[itemNumber] = item;
-                    Regios.updateRegio(currentRegio);
+                    try{
+                        item.image = canvas.toDataURL("image/png");
+                        currentRegio.items[itemNumber] = item;
+                        Regios.updateRegio(currentRegio);
+                    } catch (e) {
+
+                    }
                 }
             }
         })(newFile);
