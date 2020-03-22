@@ -12,7 +12,6 @@
         <!-- CSS -->
         <link rel="stylesheet" href="../Css/Index.css">
         <link rel="stylesheet" href="../Css/Weather.css">
-        <link rel='stylesheet' type='text/css' href='../Css/animate.css'>
         <link rel='stylesheet' type='text/css' href='../Css/style.css'>
 
         <title>D'n Oetel</title>
@@ -114,7 +113,7 @@
                                     <p>Welkom bij de producten wizard</p>
                                 </div>
                                 <div class='step-by-step-stepper'>
-                                    <button class='button button-small button-small-primary material-icons animated pulse infinite' data-type='next'>-></button>
+                                    <button class='button button-small button-small-primary material-icons' data-type='next'>-></button>
                                 </div>
                             </div>
 
@@ -139,7 +138,7 @@
                                     </div>
                                 </div>
                                 <div class='step-by-step-stepper'>
-                                    <button class='button button-small button-small-primary material-icons animated pulse infinite' data-type='next'>-></button>
+                                    <button class='button button-small button-small-primary material-icons' data-type='next'>-></button>
                                 </div>
                             </div>
 
@@ -172,9 +171,9 @@
                                                 Kleur
                                                 <input type='text' name='clothing_colour' id='clothing_colour' placeholder='Wit'/>
                                             </label>
-                                            <label for='size'>
-                                                maat
-                                                <select name="product_region" id="size">
+                                            <label for='product_size'>
+                                                Maat
+                                                <select name="product_size" id="product_size">
                                                     <option value="S">
                                                         S
                                                     </option>
@@ -216,7 +215,7 @@
                                     </div>
                                 </div>
                                 <div class='step-by-step-stepper'>
-                                    <button class='button button-small button-small-primary material-icons animated pulse infinite' data-type='next'>-></button>
+                                    <button class='button button-small button-small-primary material-icons' data-type='next'>-></button>
                                 </div>
                             </div>
 
@@ -238,14 +237,32 @@
                                             Product Verkoopprijs excl btw
                                             <input type='number' name='product_sell_price' id='product_sell_price' placeholder='25.00'/>
                                         </label>
+                                        <label for='product_sell_price_btw'>
+                                            Product Verkoopprijs incl btw
+                                            <input type='number' name='product_sell_price_btw' id='product_sell_price_btw' placeholder='30.00'/>
+                                        </label>
                                         <label for='product_minimal_storage'>
                                             Minimale voorraad
                                             <input type='number' name='product_minimal_storage' id='product_minimal_storage' placeholder='50'/>
                                         </label>
                                     </div>
+                                    <div>
+                                        <h5 align="center">Calculator</h5>
+                                        <div class="float-right">
+                                            <button class="button button-small" name="calculator_plus" id="calculator_redo" value="Redo"> Redo </button>
+                                            <button class="button button-small" name="calculator_plus" id="calculator_plus" value="+"> + </button>
+                                            <button class="button button-small" name="calculator_minus" id="calculator_minus" value="-"> - </button>
+                                            <button class="button button-small" name="calculator_times" id="calculator_times" value="*"> * </button>
+                                            <button class="button button-small" name="calculator_divide" id="calculator_divide" value="/"> / </button>
+                                            <button class="button button-small" name="calculator_equals" id="calculator_equals" value="/"> = </button>
+                                        </div>
+                                        <div class="form" id="calculatorfields">
+                                            <input type='number' name='calculator_field1' id='calculator_field1' placeholder='50'/>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class='step-by-step-stepper'>
-                                    <button class='button button-small button-small-primary material-icons animated pulse infinite' data-type='next'>-></button>
+                                    <button class='button button-small button-small-primary' data-type='next'>-></button>
                                 </div>
                             </div>
 
@@ -264,7 +281,7 @@
                                     </div>
                                 </div>
                                 <div class='step-by-step-stepper'>
-                                    <button id="btn" class='button button-small button-small-primary material-icons animated pulse infinite' data-type='next'>-></button>
+                                    <button id="btn" class='button button-small button-small-primary material-icons' data-type='next'>-></button>
                                 </div>
                             </div>
 

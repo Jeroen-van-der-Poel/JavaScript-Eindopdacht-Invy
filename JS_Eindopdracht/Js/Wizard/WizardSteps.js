@@ -15,46 +15,45 @@ export class WizardSteps {
 
     static addProduct(){
         let selectregionvalue = document.getElementById('product_region').options.selectedIndex;
-        let selectsizevalue = document.getElementById('product_region').options.selectedIndex;
-        let sellpricewithbtw = JSON.stringify(document.getElementById('product_sell_price').value * 1.21);
-        let test;
+        let selectsizevalue;
+        let sizevalue;
+        if(document.getElementById('product_region').options.selectedIndex == 0) {
+            selectsizevalue = document.getElementById('product_size').options.selectedIndex;
+            sizevalue = document.getElementById("product_size").options.item(selectsizevalue).text;
+            sizevalue = "";
+        }
+        else {
+            sizevalue = "";
+        }
+        let extrafield;
         if(document.getElementById('extra_field')){
-            test = document.getElementById('extra_field').value
+            extrafield = document.getElementById('extra_field').value;
             document.getElementById('extra_field').value = "";
         }
         else{
-            test = "";
+            extrafield = "";
         }
-
+        console.log(document.getElementById('product_name').value);
         let product = {
             id: Date.now(),
             name: document.getElementById('product_name').value,
             description: document.getElementById('product_description').value,
             region: document.getElementById("product_region").options.item(selectregionvalue).text,
             colour: document.getElementById('clothing_colour').value,
-            size: document.getElementById("product_region").options.item(selectsizevalue).text,
+            size: sizevalue,
             weight: document.getElementById('weight').value,
             size_in_cm: document.getElementById('size_in_cm').value,
             decoration_colour: document.getElementById('decoration_colour').value,
             amount_in_package: document.getElementById('amount_in_package').value,
             buy_price: document.getElementById('product_buy_price').value,
             sell_price_no_btw: document.getElementById('product_sell_price').value,
-            sell_price_with_btw: sellpricewithbtw,
+            sell_price_with_btw: document.getElementById('product_sell_price_btw').value,
             product_minimal_storage: document.getElementById('product_minimal_storage').value,
             image: "",
-            special_product_field: test
+            special_product_field: extrafield
         };
-        document.getElementById('product_name').value = "";
-        document.getElementById('product_description').value = "";
-        document.getElementById('clothing_colour').value = "";
-        document.getElementById('size').value = "";
-        document.getElementById('weight').value = "";
-        document.getElementById('size_in_cm').value = "";
-        document.getElementById('decoration_colour').value = "";
-        document.getElementById('amount_in_package').value = "";
-        document.getElementById('product_buy_price').value = "";
-        document.getElementById('product_sell_price').value = "";
-        document.getElementById('product_minimal_storage').value = "";
+
+        WizardSteps.emptyFields();
 
         function translate(word){
             switch (word.toLowerCase()) {
@@ -68,11 +67,13 @@ export class WizardSteps {
         }
         
         let itemRegio = Regios.getRegio(translate(product.region));
+        console.log(itemRegio);
         itemRegio.items.push(product);
         Regios.updateRegio(itemRegio);
     };
 
     static startForm() {
+        document.getElementById("calculator_equals").disabled = true;
         document.getElementById('fieldGroupDivDecoration').style.display = "none";
         document.getElementById('fieldGroupDivTierlantijn').style.display = "none";
         if(enableForm == false)
@@ -98,10 +99,11 @@ export class WizardSteps {
     static showDiv(select){
         if(select=== 0){
             document.getElementById('fieldGroupDivClothing').style.display = "block";
+            document.getElementById('product_size').value = "S";
         } else{
             document.getElementById('fieldGroupDivClothing').style.display = "none";
             document.getElementById('clothing_colour').value = "";
-            document.getElementById('size').value = "";
+            document.getElementById('product_size').value = "";
         }
         if(select=== 1){
             document.getElementById('fieldGroupDivTierlantijn').style.display = "block";
@@ -143,8 +145,19 @@ export class WizardSteps {
             alert("Je hebt al een extra veld toegevoegd.");
         }
     }
-}
 
+    static emptyFields()
+    {
+        let elements = document.querySelectorAll("#setup input[type=text], input[type=number]");
+        for (let i = 0; i<elements.length; i++ )
+        {
+            document.getElementById(elements[i].id).value = "";
+        }
+        if(document.getElementById('result_field')){
+            document.getElementById('result_field').innerHTML = "";
+        }
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function(e) {
     window.wizardsteps = new Wizard_Steps(document.getElementById('setup'));
@@ -155,6 +168,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     wizardsteps.handle_finish = function(step) {
         alert('Alle stappen voltooid.');
+        document.getElementById("calculator_equals").disabled = false;
         Start();
         enableForm = false;
     };
@@ -261,10 +275,6 @@ let Wizard_Steps = function(elem) {
         }
 
         if (next_id >= _this.steps.length) {
-            /* Making the finish action none-proprietary by
-             * making it possible for other developers to create custom
-             * finish actions.
-             */
             if (typeof _this.handle_finish != 'undefined') {
                 if (_this.handle_finish != null && _this.handle_finish) {
                     _this.handle_finish(_this.steps[current_id]);
@@ -275,19 +285,6 @@ let Wizard_Steps = function(elem) {
             _this.activate_step(_this.steps[next_id]);
         }
     };
-
-    /**
-     * Make the setup go to the previous step.
-     */
-/*    _this.previous_step = function () {
-        let current_id = _this.get_current_step_id();
-
-        if (current_id == null)
-            return;
-
-        let prev_id = current_id - 1;
-        _this.activate_step(_this.steps[prev_id]);
-    };*/
 
     /**
      * Activate a single step,

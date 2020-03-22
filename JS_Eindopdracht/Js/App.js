@@ -2,6 +2,7 @@ import { Grid, clothesgrid, tierlantingrid, decorationgrid } from "./Grid/Grid";
 import { ShowWeather } from "./Weather/Weather";
 import { Product } from "./Products/Product";
 import { WizardSteps } from "./Wizard/WizardSteps";
+import { WizardCalculator } from "./Wizard/WizardCalculator";
 import { Warehouse } from "./Initialize/Warehouse"
 import { Regios } from "./Initialize/Regio"
 import {DragDrop} from "./DragAndDrop/DragDrop";
@@ -94,6 +95,17 @@ document.addEventListener('DOMContentLoaded', ()=> {
 document.addEventListener('DOMContentLoaded', ()=> {
     document.getElementById('btn').addEventListener('click', WizardSteps.addProduct)
 });
+document.getElementById('calculator_plus').addEventListener('click', WizardCalculator.addCalc)
+document.getElementById('calculator_minus').addEventListener('click', WizardCalculator.minusCalc)
+document.getElementById('calculator_times').addEventListener('click', WizardCalculator.timesCalc);
+document.getElementById('calculator_divide').addEventListener('click', WizardCalculator.divideCalc);
+document.getElementById('calculator_redo').addEventListener('click', WizardCalculator.redoCalc);
+document.getElementById('calculator_equals').addEventListener('click', WizardCalculator.calculatorResultField);
+document.addEventListener('change',function(e){
+    if(e.target && e.target.id=== 'calculator_field2'){
+        WizardCalculator.calculatorResultField();
+    }
+});
 
 function changeDiv() {
     let selectboxvalue = document.getElementById('product_region').options.selectedIndex;
@@ -102,6 +114,7 @@ function changeDiv() {
 
 function WizardFunction() {
     WizardSteps.startForm();
+    WizardSteps.emptyFields();
     header.innerHTML = "Product toevoegen";
     clothingbutton.style.color = "black";
     tierlantinbutton.style.color = "black";
