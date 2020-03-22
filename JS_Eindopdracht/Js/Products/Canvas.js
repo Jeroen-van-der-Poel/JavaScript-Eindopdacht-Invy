@@ -12,7 +12,7 @@ let drawActive = false;
 
 export class Canvas{
 
-    InitDrawing(){
+    InitDrawing() {
         canvas.addEventListener("mousemove", e =>{
             if(drawActive){
                 prevX = currX;
@@ -36,11 +36,11 @@ export class Canvas{
         prevY = 0;
     }
 
-    MouseUp(){
+    MouseUp() {
         drawActive = false;
     }
 
-    Draw(){
+    Draw() {
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
         ctx.lineTo(currX, currY);

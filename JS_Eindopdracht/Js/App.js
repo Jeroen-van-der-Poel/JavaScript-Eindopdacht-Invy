@@ -15,7 +15,7 @@ let formStart = document.getElementById("StartForm");
 let formRegion = document.getElementById("product_region");
 const header = document.getElementById("Header");
 
-// =========== classes ============= //
+// =========== Classes ============= //
 const grid = document.getElementById("grid");
 const gridClass = new Grid(grid);
 const productdiv = document.getElementById('HiddenProducts');
@@ -70,14 +70,14 @@ function decorationClick() {
     formStart.style.color = "black";
 }
 
-// =========== weather ============= //
+// =========== Weather ============= //
 let weatherButton = document.querySelector('.weatherbutton');
 weatherButton.addEventListener('click', WeatherFunction);
 function WeatherFunction() {
     ShowWeather();
 }
 
-// =========== show products ============= //
+// =========== Show products ============= //
 let productButton = document.getElementById("sidebutton");
 productButton.addEventListener('click', productClick);
 function productClick() {
@@ -123,7 +123,7 @@ function WizardFunction() {
     productdiv.innerHTML = "";
 }
 
-// =========== initialize ============= //
+// =========== Initialize ============= //
 export function Start() {
     currentRegio = null;
     header.innerHTML = "Welkom";
@@ -155,7 +155,7 @@ export function Start() {
 
 Start();
 
-// =========== drag and drop ============= //
+// =========== Drag and drop ============= //
 const dropzones = document.getElementById('grid');
 let el = null;
 let currentItem;

@@ -22,14 +22,15 @@ export function ShowWeather() {
 
             getWeather(latValue, longValue);
         })
-        .catch(err => alert("Wrong city name"))
+        .catch(err => alert("Foute stad naam"))
 }
 
-if('geolocation' in navigator){
+if('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(setPosition, showError);
-}else{
+}
+else {
     NotificationElement.style.display = "block";
-    NotificationElement.innerHTML = "<p>Browser does not support geolocation</p>";
+    NotificationElement.innerHTML = "<p>Browser heeft geen ondersteuning voor uw geolocatie</p>";
 }
 
 function setPosition(position) {
@@ -41,7 +42,7 @@ function setPosition(position) {
 
 function showError(error) {
     NotificationElement.style.display = "block";
-    NotificationElement.innerHTML = "<p>Geo locatie geblokeerd</p>";
+    NotificationElement.innerHTML = "<p>Geolocatie geblokkeerd</p>";
 }
 
 function getWeather(latitude, longitude) {

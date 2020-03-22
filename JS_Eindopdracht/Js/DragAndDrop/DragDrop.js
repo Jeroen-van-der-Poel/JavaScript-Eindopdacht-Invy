@@ -63,7 +63,6 @@ export class DragDrop{
                     
                 }
 
-
                 // When the user clicks on <span> (x), close the modal
                 span.onclick = function() {
                     modal.style.display = "none";
@@ -146,11 +145,13 @@ export class DragDrop{
                 currentRegio.grid[row][col] = this.currentProduct;
                 Regios.updateRegio(currentRegio);
                 document.getElementById(position).classList.add(this.currentProduct);
-            }else{
+            }
+            else{
                 alert("Er is iets misgegaan met drag en drop");
                 e.target.style.backgroundColor = "lightgray";
             }
-        } else
+        }
+        else
         {
             let productItem = document.getElementsByClassName(this.currentProduct)[0];
             if(productItem != null){

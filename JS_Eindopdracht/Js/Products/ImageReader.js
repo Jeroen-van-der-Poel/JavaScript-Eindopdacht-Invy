@@ -4,12 +4,12 @@ import { Regios } from "../Initialize/Regio";
 import { Canvas} from "./Canvas";
 
 const canvas = document.getElementById("ImageCanvas");
-
 const canvasClass = new Canvas();
 
 export class ImageReader {
-    LoadPicture(){
-        try{
+
+    LoadPicture() {
+        try {
             if(item.image != ""){
                 let img = new Image();
                 img.onload = function(){
@@ -21,10 +21,12 @@ export class ImageReader {
                     canvasClass.InitDrawing();
                 };
                 img.src = item.image;
-            }else{
+            }
+            else{
                 canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
             }
-        }catch (e) {
+        }
+        catch (e) {
             
         }
 
@@ -48,11 +50,12 @@ export class ImageReader {
                     canvas.height = 400;
 
                     canvas.getContext("2d").drawImage(buffer, 0, 0, buffer.width, buffer.height, 0, 0, buffer.width*sizer,  buffer.height*sizer);
-                    try{
+                    try {
                         item.image = canvas.toDataURL("image/png");
                         currentRegio.items[itemNumber] = item;
                         Regios.updateRegio(currentRegio);
-                    } catch (e) {
+                    }
+                    catch (e) {
 
                     }
                 }

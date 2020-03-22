@@ -183,11 +183,7 @@ let Wizard_Steps = function(elem) {
     _this.elem = elem;
     _this.steps = elem.querySelectorAll('.step-by-step-step');
 
-    /**
-     * Initializer
-     *
-     * Runs at instantiation.
-     */
+    // Runs at instantiation.
     _this.init = function () {
         for (let i = 0; i < _this.steps.length; i++) {
             let step = _this.steps[i];
@@ -205,18 +201,12 @@ let Wizard_Steps = function(elem) {
         }
     };
 
-    /**
-     * Will start the setup.
-     */
+    // Start setup
     _this.start = function() {
         _this.activate_step(_this.steps[0]);
     };
 
-    /**
-     * Get the ID of the current step.
-     *
-     * @return Int | null
-     */
+    // Get current step ID
     _this.get_current_step_id = function () {
         for (let i = 0; i < _this.steps.length; i++) {
             let step = _this.steps[i];
@@ -228,9 +218,7 @@ let Wizard_Steps = function(elem) {
         return null;
     };
 
-    /**
-     * Make the setup go to the next step.
-     */
+    // Make the setup go to the next step.
     _this.next_step = function () {
         let current_id = _this.get_current_step_id();
 
@@ -286,10 +274,8 @@ let Wizard_Steps = function(elem) {
         }
     };
 
-    /**
-     * Activate a single step,
-     * will deactivate all other steps.
-     */
+    // Activate a single step,
+    // Will deactivate all other steps.
     _this.activate_step = function(step) {
         for (let i = 0; i < _this.steps.length; i++) {
             let _step = _this.steps[i];
@@ -305,9 +291,7 @@ let Wizard_Steps = function(elem) {
         step.setAttribute('data-active', '1');
     };
 
-    /**
-     * Deactivate a single step.
-     */
+    // Deactivate a single step.
     _this.deactivate_step = function(step) {
         if (step.className.indexOf(__fade_in) > -1) {
             step.className = step.className.replace(__fade_in, '');

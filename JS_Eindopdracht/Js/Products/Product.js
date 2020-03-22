@@ -10,16 +10,17 @@ export class Product{
 
     LoadProducts(products) {
         this.productdiv.innerHTML = "";
-        for(let item in products){
+
+        for(let item in products) {
             let divi = document.createElement('div');
             divi.innerHTML = products[item].name;
             divi.style.border= "1px solid black";
             divi.classList.add("draggable-product");
             divi.classList.add("p" + item);
-            if(gridClass.isStored(divi.classList[1])){
+            if(gridClass.isStored(divi.classList[1])) {
                 divi.style.backgroundColor = "orange";
             }
-            else{
+            else {
                 divi.setAttribute('draggable', 'true');
                 divi.style.backgroundColor = "green";
             }
@@ -28,10 +29,10 @@ export class Product{
     }
 
     ShowProducts(){
-        if(this.productdiv.style.visibility === "hidden"){
+        if(this.productdiv.style.visibility === "hidden") {
             this.productdiv.style.visibility = "visible";
         }
-        else{
+        else {
             this.productdiv.style.visibility = "hidden";
         }
     }

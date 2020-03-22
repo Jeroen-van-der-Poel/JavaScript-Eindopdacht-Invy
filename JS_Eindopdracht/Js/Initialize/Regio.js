@@ -1,6 +1,6 @@
 export class Regios {
-    static getRegios()
-    {
+
+    static getRegios() {
         let regios;
         if(localStorage.getItem("regios") === null){
             regios = [];
@@ -11,8 +11,7 @@ export class Regios {
         return regios;
     }
 
-    static addRegios(regio)
-    {
+    static addRegios(regio) {
         const stroredregios = this.getRegios();
 
         stroredregios.push(regio);
@@ -20,7 +19,7 @@ export class Regios {
         localStorage.setItem("regios", JSON.stringify(stroredregios));
     }
 
-    static getRegio(name){
+    static getRegio(name) {
         let regio;
         if(localStorage.getItem("regios") === null){
             regio = [];

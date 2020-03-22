@@ -49,7 +49,8 @@ export class Calculator {
             let result = document.getElementById('result_field');
             result.innerHTML = calculate.toString();
 
-        } else {
+        }
+        else {
             let result = document.getElementById('result_field');
             result.innerHTML = "Ik mis een getal";
         }
@@ -68,8 +69,7 @@ export class Calculator {
 
 }
 function addCalculatorFields(){
-    if(ableToAddCalc == true)
-    {
+    if(ableToAddCalc == true) {
         let div = document.createElement("div");
 
         let field = document.createElement("label");
@@ -96,8 +96,7 @@ function addCalculatorFields(){
     }
 }
 
-function addCalculatorField(){
-
+function addCalculatorField() {
     let div = document.createElement("div");
     let calculator_input = document.createElement("input");
     calculator_input.setAttribute("type", "number");
@@ -106,7 +105,6 @@ function addCalculatorField(){
 
     div.appendChild(calculator_input);
     return div;
-
 }
 
 function changeCalculator(option) {
