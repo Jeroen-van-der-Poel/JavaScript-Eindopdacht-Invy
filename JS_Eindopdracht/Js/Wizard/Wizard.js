@@ -20,7 +20,6 @@ export class Wizard {
         if(document.getElementById('product_region').options.selectedIndex == 0) {
             selectsizevalue = document.getElementById('product_size').options.selectedIndex;
             sizevalue = document.getElementById("product_size").options.item(selectsizevalue).text;
-            sizevalue = "";
         }
         else {
             sizevalue = "";
@@ -33,7 +32,6 @@ export class Wizard {
         else{
             extrafield = "";
         }
-        console.log(document.getElementById('product_name').value);
         let product = {
             id: Date.now(),
             name: document.getElementById('product_name').value,
@@ -67,7 +65,6 @@ export class Wizard {
         }
         
         let itemRegio = Regios.getRegio(translate(product.region));
-        console.log(itemRegio);
         itemRegio.items.push(product);
         Regios.updateRegio(itemRegio);
     };
